@@ -20,7 +20,7 @@ const { YANDEX_CLIENT_ID, YANDEX_CLIENT_SECRET, YANDEX_REDIRECT_URI } = process.
 app.get('/auth/yandex', (req, res) => {
   const state = crypto.randomBytes(16).toString('hex');        // защита от CSRF
   req.session.oauthState = state;
-  req.session.returnTo = req.query.returnTo || '/';             // куда вернуть после входа (например, к SOS)
+  req.session.returnTo = safeReturnTo(req.query.returnTo);      // куда вернуть после входа (например, к SOS)
   const url = new URL('https://oauth.yandex.ru/authorize');
   url.search = new URLSearchParams({
     response_type: 'code',
@@ -69,16 +69,26 @@ app.get('/auth/yandex/callback', async (req, res) => {
         : `https://avatars.yandex.net/get-yapic/${y.default_avatar_id}/islands-200`,
     });
 
+    const returnTo = safeReturnTo(req.session.returnTo);        // regenerate очищает сессию, сохраняем заранее
     req.session.regenerate(err => {                             // новая сессия после входа
       if (err) return res.redirect('/login?error=session');
       req.session.userId = user.id;
-      res.redirect(req.session.returnTo || '/');
+      res.redirect(returnTo);
     });
   } catch (e) {
     console.error('Yandex ID login failed', e);
     res.redirect('/login?error=yandex_unavailable');            // на экране входа: «Яндекс не ответил, попробуйте ещё раз»
   }
 });
+
+// Только относительный путь внутри сайта, иначе ссылка вида ?returnTo=https://чужой-сайт
+// уведёт пользователя после входа на чужой сайт (открытый редирект).
+function safeReturnTo(value) {
+  if (typeof value !== 'string' || !value.startsWith('/')) return '/';
+  // //evil.ru, /\evil.ru и /<таб>/evil.ru браузер считает ссылкой на другой хост
+  if (value.startsWith('//') || /[\\\x00-\x1f]/.test(value)) return '/';
+  return value;
+}
 
 // Заглушка: заменить на запрос к вашей базе (PostgreSQL и т. п.)
 async function upsertUser(profile) {
