@@ -9,6 +9,8 @@ import { meRoutes } from './routes/me';
 import { petRoutes } from './routes/pets';
 import { referenceRoutes } from './routes/reference';
 import { requestRoutes } from './routes/requests';
+import { clinicRoutes } from './routes/clinic';
+import { telegramRoutes } from './routes/telegram';
 import type { Mailer, Notifier } from './services/notify';
 
 type WithLog<T> = T | ((log: FastifyBaseLogger) => T);
@@ -36,6 +38,8 @@ export class HttpError extends Error {
     public statusCode: number,
     message: string,
     public fields?: Record<string, string>,
+    /** Машиночитаемые подробности для интерфейса: код ошибки, id существующего запроса и т. п. */
+    public data?: Record<string, unknown>,
   ) {
     super(message);
   }
@@ -75,12 +79,13 @@ export async function buildApp(deps: Deps): Promise<FastifyInstance> {
     }
   });
 
-  app.setErrorHandler((err: Error & { statusCode?: number; fields?: Record<string, string> }, req, reply) => {
+  app.setErrorHandler((err: Error & { statusCode?: number; fields?: Record<string, string>; data?: Record<string, unknown> }, req, reply) => {
     const status = err.statusCode ?? 500;
     if (status >= 500) req.log.error(err);
     reply.status(status).send({
       error: status >= 500 ? 'Что-то пошло не так. Попробуйте ещё раз' : err.message,
       ...(err.fields ? { fields: err.fields } : {}),
+      ...(err.data && status < 500 ? { data: err.data } : {}),
     });
   });
 
@@ -90,5 +95,7 @@ export async function buildApp(deps: Deps): Promise<FastifyInstance> {
   await app.register(referenceRoutes);
   await app.register(petRoutes, { prefix: '/pets' });
   await app.register(requestRoutes);
+  await app.register(clinicRoutes, { prefix: '/clinic' });
+  await app.register(telegramRoutes, { prefix: '/telegram' });
   return app;
 }

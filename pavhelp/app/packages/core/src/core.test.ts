@@ -170,3 +170,33 @@ describe('email', () => {
     expect(emailTypo('anna@gmail.com')).toBeNull();
   });
 });
+
+describe('банки крови, антифрод, города', () => {
+  it('совместимость позиции банка', async () => {
+    const { stockMatch } = await import('./index');
+    const s = (bloodGroup: 'DEA1.1-' | 'DEA1.1+' | 'A' | 'B', species: 'dog' | 'cat' = 'dog') => ({ species, bloodGroup, component: 'whole' as const, doses: 1 });
+    expect(stockMatch({ species: 'dog', bloodGroup: 'DEA1.1-', component: 'whole' }, s('DEA1.1+')).ok).toBe(false);
+    expect(stockMatch({ species: 'dog', bloodGroup: 'DEA1.1+', component: 'whole' }, s('DEA1.1-')).ok).toBe(true);
+    expect(stockMatch({ species: 'dog', bloodGroup: 'unknown', component: 'whole' }, s('DEA1.1-'))).toEqual({ ok: true, check: true });
+    expect(stockMatch({ species: 'dog', bloodGroup: 'unknown', component: 'whole' }, s('DEA1.1+')).ok).toBe(false);
+    expect(stockMatch({ species: 'cat', bloodGroup: 'A', component: 'whole' }, s('B', 'cat')).ok).toBe(false);
+    expect(stockMatch({ species: 'dog', bloodGroup: 'DEA1.1+', component: 'plasma' }, s('DEA1.1+')).ok).toBe(false);
+  });
+  it('номер карты по Луну, просьбы о деньгах, продажа крови', async () => {
+    const { containsCardNumber, isRisky, mentionsSale } = await import('./index');
+    expect(containsCardNumber('4111 1111 1111 1111')).toBe(true);
+    expect(containsCardNumber('4111-1111-1111-1112')).toBe(false);
+    expect(containsCardNumber('мой номер +7 921 000 00 00')).toBe(false);
+    expect(isRisky('переведите предоплату')).toBe(true);
+    expect(isRisky('буду через 15 минут')).toBe(false);
+    expect(mentionsSale('Продам кровь')).toBe(true);
+  });
+  it('94 города, районы и ближайший город', async () => {
+    const { CITIES, cityAreas, nearestCity, isArea } = await import('./index');
+    expect(CITIES).toHaveLength(94);
+    expect(Object.keys(cityAreas('Москва'))).toContain('ЦАО');
+    expect(Object.keys(cityAreas('Казань'))).toContain('Центр');
+    expect(isArea('Казань', 'Петроградский')).toBe(false);
+    expect(nearestCity([55.79, 49.12]).city.name).toBe('Казань');
+  });
+});

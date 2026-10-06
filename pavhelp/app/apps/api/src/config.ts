@@ -12,6 +12,10 @@ export const config = {
     redirectUri: env.YANDEX_REDIRECT_URI ?? 'http://localhost:3000/api/auth/yandex/callback',
   },
   telegramBotToken: env.TELEGRAM_BOT_TOKEN ?? '',
+  // Имя бота без @ для deep link https://t.me/<бот>?start=<token>
+  telegramBotUsername: env.TELEGRAM_BOT_USERNAME ?? 'pavhelp_bot',
+  // Секрет webhook: Telegram присылает его в заголовке X-Telegram-Bot-Api-Secret-Token (setWebhook secret_token)
+  telegramWebhookSecret: env.TELEGRAM_WEBHOOK_SECRET ?? '',
   mail: {
     // log — письмо с кодом пишется в лог сервера (только для разработки); smtp — отправка через SMTP_URL
     provider: env.MAIL_PROVIDER ?? 'log',

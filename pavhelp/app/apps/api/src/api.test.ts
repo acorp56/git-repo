@@ -9,7 +9,7 @@ import { verifyTelegramLogin } from './auth/routes';
 import { createPool } from './db';
 import { migrate } from './migrate';
 import { seedClinics } from './seed';
-import { expandStaleWaves } from './services/matching';
+import { autoCloseStale, expandStaleWaves } from './services/matching';
 import { LogMailer, MemoryNotifier } from './services/notify';
 
 const url = process.env.TEST_DATABASE_URL ?? 'postgres://pavhelp:pavhelp@localhost:5432/pavhelp_test';
@@ -47,7 +47,7 @@ async function login(name: string, opts: { phone?: string | null } = {}): Promis
   const n = ++seq;
   const email = `user${n}@mail.ru`;
   // Лимит писем считается по IP: у каждого тестового пользователя свой адрес.
-  const remoteAddress = `10.0.0.${n}`;
+  const remoteAddress = `10.0.${n >> 8}.${n & 255}`;
   const start = await app.inject({ method: 'POST', url: '/auth/email/start', payload: { email }, remoteAddress });
   expect(start.statusCode).toBe(200);
   const res = await app.inject({
@@ -59,7 +59,13 @@ async function login(name: string, opts: { phone?: string | null } = {}): Promis
   expect(res.statusCode).toBe(200);
   const cookie = `sid=${res.cookies.find((c) => c.name === 'sid')!.value}`;
   const call = async (method: string, u: string, body?: unknown) => {
-    const r = await app.inject({ method: method as 'GET', url: u, headers: { cookie }, ...(method === 'GET' ? {} : { payload: (body ?? {}) as object }) });
+    const r = await app.inject({
+      method: method as 'GET',
+      url: u,
+      headers: { cookie },
+      remoteAddress,
+      ...(method === 'GET' ? {} : { payload: (body ?? {}) as object }),
+    });
     return { status: r.statusCode, json: r.json() };
   };
   const phone = opts.phone === undefined ? `+7999000${String(n).padStart(4, '0')}` : opts.phone;
@@ -79,6 +85,7 @@ const dogDonor = (o: object = {}) => ({
   birthDate: '2022-03-01',
   weightKg: 38,
   bloodGroup: 'DEA1.1-',
+  city: 'Санкт-Петербург',
   district: 'Петроградский',
   med: vaccinated,
   ...o,
@@ -197,13 +204,23 @@ describe('SOS: от запроса до сдачи крови', () => {
     expect((await other.call('POST', `/requests/${id}/choose`, { responseId: mine.json.responses[0].id })).status).toBe(403);
     expect((await owner.call('POST', `/requests/${id}/choose`, { responseId: mine.json.responses[0].id })).status).toBe(200);
     mine = await owner.call('GET', `/requests/${id}`);
-    expect(mine.json.responses[0].phone).toMatch(/^\+7999/);
     expect(mine.json.status).toBe('donor_chosen');
-
-    const d = await donor.call('GET', `/requests/${id}`);
+    // Номера скрыты с обеих сторон, пока каждый сам не откроет свой.
+    expect(mine.json.responses[0].phone).toBeNull();
+    let d = await donor.call('GET', `/requests/${id}`);
     expect(d.json.role).toBe('donor');
+    expect(d.json.author.phone).toBeNull();
+    expect((await donor.call('POST', `/requests/${id}/phone`, { show: true })).status).toBe(200);
+    expect((await owner.call('GET', `/requests/${id}`)).json.responses[0].phone).toMatch(/^\+7999/);
+    expect((await donor.call('GET', `/requests/${id}`)).json.author.phone).toBeNull();
+    await owner.call('POST', `/requests/${id}/phone`, { show: true });
+    d = await donor.call('GET', `/requests/${id}`);
     expect(d.json.author.phone).toMatch(/^\+7999/);
     expect(d.json.clinic.phone).toBeTruthy();
+    // Можно скрыть обратно.
+    await donor.call('POST', `/requests/${id}/phone`, { show: false });
+    expect((await owner.call('GET', `/requests/${id}`)).json.responses[0].phone).toBeNull();
+    expect((await other.call('POST', `/requests/${id}/phone`, { show: true })).status).toBe(403);
 
     // Посторонний не видит чат и не пишет в него.
     expect((await other.call('POST', `/requests/${id}/messages`, { text: 'привет' })).status).toBe(403);
@@ -243,7 +260,7 @@ describe('SOS: от запроса до сдачи крови', () => {
     const near = await login('Павел');
     const far = await login('Роман');
     const p1 = await near.call('POST', '/pets', dogDonor({ name: 'Жуля', bloodGroup: 'DEA1.1+' }));
-    // Московский район — около 13 км от Петроградской клиники c1, попадает только во вторую волну.
+    // Московский район — около 13 км от Петроградской клиники c1, попадает только во вторую волну (20 км).
     await far.call('POST', '/pets', dogDonor({ name: 'Гром', bloodGroup: 'DEA1.1+', district: 'Московский' }));
 
     const { json } = await owner.call('POST', '/requests', sos({ bloodGroup: 'DEA1.1+', petName: 'Лорд' }));
@@ -278,14 +295,204 @@ describe('SOS: от запроса до сдачи крови', () => {
     clock = new Date('2026-10-01T12:00:00+03:00');
   });
 
-  it('валидация и лимиты SOS', async () => {
+  it('валидация SOS: вес по виду, группа по виду, запрет продажи крови', async () => {
     const owner = await login('Екатерина');
     const bad = await owner.call('POST', '/requests', sos({ species: 'cat', weightKg: 30, petName: '' }));
     expect(bad.status).toBe(400);
     expect(Object.keys(bad.json.fields).sort()).toEqual(['bloodGroup', 'petName', 'weightKg']);
-    for (let i = 0; i < 3; i++) expect((await owner.call('POST', '/requests', sos())).status).toBe(201);
-    expect((await owner.call('POST', '/requests', sos())).status).toBe(429);
+    const sell = await owner.call('POST', '/requests', sos({ reason: 'Куплю кровь, заплачу хорошо' }));
+    expect(sell.json.fields.reason).toMatch(/бесплатное/);
     expect((await app.inject({ method: 'POST', url: '/requests', payload: sos() })).statusCode).toBe(401);
+  });
+
+  it('лимиты SOS: один запрос на питомца, 2 активных, 3 за сутки', async () => {
+    const owner = await login('Екатерина');
+    expect((await owner.call('POST', '/requests', sos({ petName: 'Джесси' }))).status).toBe(201);
+    const dup = await owner.call('POST', '/requests', sos({ petName: 'джесси' }));
+    expect(dup.status).toBe(409);
+    expect(dup.json.data.code).toBe('duplicate');
+    const second = await owner.call('POST', '/requests', sos({ petName: 'Рекс' }));
+    expect(second.status).toBe(201);
+    const third = await owner.call('POST', '/requests', sos({ petName: 'Бим' }));
+    expect(third.json.data.code).toBe('active_limit');
+    await owner.call('POST', `/requests/${second.json.id}/close`);
+    expect((await owner.call('POST', '/requests', sos({ petName: 'Бим' }))).status).toBe(201);
+    const fourth = await owner.call('POST', `/requests`, sos({ petName: 'Тузик' }));
+    expect(fourth.json.data.code).toBe('active_limit');
+    const all = await owner.call('GET', '/requests?scope=mine');
+    for (const r of all.json) await owner.call('POST', `/requests/${r.id}/close`);
+    const day = await owner.call('POST', '/requests', sos({ petName: 'Тузик' }));
+    expect(day.json.data.code).toBe('day_limit');
+  });
+
+  it('приоритет: питомец, который сам сдавал кровь, — первая волна сразу 20 км', async () => {
+    const owner = await login('Мария');
+    const far = await login('Роман');
+    const hero = (await owner.call('POST', '/pets', dogDonor({ name: 'Джесси', bloodGroup: 'DEA1.1+' }))).json;
+    await pool.query(`INSERT INTO donations (pet_id, date, confirmed_by) VALUES ($1, '2026-01-10', 'owner')`, [hero.id]);
+    await far.call('POST', '/pets', dogDonor({ name: 'Гром', bloodGroup: 'DEA1.1+', district: 'Московский' }));
+    const res = await owner.call('POST', '/requests', sos({ petName: 'Джесси', bloodGroup: 'DEA1.1+', patientPetId: hero.id }));
+    expect(res.json.priority).toBe(true);
+    expect(notifier.sent.map((m) => m.userId)).toEqual([far.id]);
+    expect(notifier.sent[0]!.text).toMatch(/Донор Павхелпа/);
+  });
+
+  it('новый аккаунт до подтверждения клиникой уведомляет только 5 ближайших доноров', async () => {
+    const owner = await login('Новичок');
+    const donors = [];
+    for (let i = 0; i < 7; i++) {
+      const u = await login(`Донор ${i}`);
+      await u.call('POST', '/pets', dogDonor({ name: `Пёс ${i}`, bloodGroup: 'DEA1.1+' }));
+      donors.push(u);
+    }
+    const res = await owner.call('POST', '/requests', sos({ bloodGroup: 'DEA1.1+' }));
+    expect(res.json.notified).toBe(5);
+    const r = await owner.call('GET', `/requests/${res.json.id}`);
+    expect(r.json).toMatchObject({ authorNew: true, clinicStatus: 'pending' });
+  });
+
+  it('банки крови: подходящий компонент и группа в городе', async () => {
+    const spb = encodeURIComponent('Санкт-Петербург');
+    const plasma = await app.inject({ method: 'GET', url: `/banks?city=${spb}&species=dog&bloodGroup=DEA1.1%2B&component=plasma&clinicId=c1` });
+    expect(plasma.json().map((b: { clinicId: string }) => b.clinicId).sort()).toEqual(['c1', 'c3']);
+    // Собаке DEA 1.1− — только DEA 1.1−.
+    const neg = await app.inject({ method: 'GET', url: `/banks?city=${spb}&species=dog&bloodGroup=DEA1.1-&component=whole` });
+    expect(neg.json()).toHaveLength(1);
+    expect(neg.json()[0]).toMatchObject({ clinicId: 'c2', bloodGroup: 'DEA1.1-', check: false });
+    // Неизвестная группа кошки: подходит всё, клиника проверит совместимость.
+    const cat = await app.inject({ method: 'GET', url: `/banks?city=${spb}&species=cat&component=whole` });
+    expect(cat.json().every((b: { check: boolean }) => b.check)).toBe(true);
+    expect((await app.inject({ method: 'GET', url: `/banks?city=${encodeURIComponent('Казань')}&species=cat` })).json()).toEqual([]);
+  });
+});
+
+describe('защита от мошенников', () => {
+  async function chosenPair() {
+    const owner = await login('Анна');
+    const donor = await login('Игорь');
+    const pet = (await donor.call('POST', '/pets', dogDonor())).json;
+    const { json } = await owner.call('POST', '/requests', sos());
+    await donor.call('POST', `/requests/${json.id}/respond`, { petId: pet.id });
+    const rid = (await owner.call('GET', `/requests/${json.id}`)).json.responses[0].id;
+    await owner.call('POST', `/requests/${json.id}/choose`, { responseId: rid });
+    return { owner, donor, id: json.id as string };
+  }
+
+  it('номер карты в чат не уходит, просьбы о деньгах помечаются', async () => {
+    const { owner, donor, id } = await chosenPair();
+    expect((await owner.call('POST', `/requests/${id}/messages`, { text: 'карта 4111 1111 1111 1111' })).status).toBe(400);
+    await owner.call('POST', `/requests/${id}/messages`, { text: 'Нужна предоплата за такси, переведите 500 руб' });
+    const msgs = (await donor.call('GET', `/requests/${id}`)).json.messages;
+    expect(msgs.at(-1)).toMatchObject({ flagged: true, mine: false });
+  });
+
+  it('жалоба на деньги закрывает чат, 3 жалобы замораживают аккаунт', async () => {
+    const { owner, donor, id } = await chosenPair();
+    expect((await donor.call('POST', `/requests/${id}/report`, { reason: 'money' })).json.chatClosed).toBe(true);
+    expect((await owner.call('POST', `/requests/${id}/messages`, { text: 'ну что?' })).status).toBe(409);
+
+    const scammer = await login('Мошенник');
+    const fake = (await scammer.call('POST', '/requests', sos({ petName: 'Шарик' }))).json.id;
+    for (const name of ['А', 'Б', 'В']) {
+      const u = await login(name);
+      expect((await u.call('POST', `/requests/${fake}/report`, { reason: 'fake' })).status).toBe(200);
+      // Запрос сразу пропадает из ленты пожаловавшегося.
+      expect((await u.call('GET', '/requests')).json.map((r: { id: string }) => r.id)).not.toContain(fake);
+    }
+    expect((await scammer.call('GET', `/requests/${fake}`)).json.hidden).toBe(true);
+    expect((await scammer.call('POST', '/requests', sos({ petName: 'Барбос' }))).json.data.code).toBe('frozen');
+  });
+});
+
+describe('донор: пауза и память', () => {
+  it('на паузе SOS не приходят, отклик предлагает снять паузу', async () => {
+    const owner = await login('Анна');
+    const donor = await login('Игорь');
+    const pet = (await donor.call('POST', '/pets', dogDonor())).json;
+    expect((await donor.call('POST', `/pets/${pet.id}/pause`, { days: 7 })).json.pausedUntil).toBeTruthy();
+    const { json } = await owner.call('POST', '/requests', sos());
+    expect(json.notified).toBe(0);
+    const res = await donor.call('POST', `/requests/${json.id}/respond`, { petId: pet.id });
+    expect(res.json.data).toMatchObject({ code: 'paused', petId: pet.id });
+    await donor.call('POST', `/pets/${pet.id}/pause`, { days: 0 });
+    expect((await donor.call('POST', `/requests/${json.id}/respond`, { petId: pet.id })).status).toBe(200);
+  });
+
+  it('«Питомца не стало»: SOS и отклики выключаются, карточка остаётся', async () => {
+    const owner = await login('Анна');
+    const donor = await login('Игорь');
+    const pet = (await donor.call('POST', '/pets', dogDonor())).json;
+    const m = await donor.call('POST', `/pets/${pet.id}/memorial`);
+    expect(m.json).toMatchObject({ deceased: true, donorEnabled: false });
+    expect((await owner.call('POST', '/requests', sos())).json.notified).toBe(0);
+    expect((await donor.call('PATCH', `/pets/${pet.id}`, { name: 'X' })).status).toBe(409);
+    expect((await donor.call('GET', '/pets')).json).toHaveLength(1);
+  });
+
+  it('новые требования анкеты: лечение и переливание', async () => {
+    const donor = await login('Игорь');
+    const p = (await donor.call('POST', '/pets', dogDonor({ underTreatment: true, transfused: true, sex: 'm', chip: '643094100000001', housing: 'house' }))).json;
+    expect(p.eligibility.fit).toBe(false);
+    expect(p.eligibility.checks.filter((c: { ok: boolean }) => !c.ok).map((c: { key: string }) => c.key)).toEqual(['treatment', 'transfusion']);
+    expect((await donor.call('POST', '/pets', dogDonor({ chip: '123' }))).json.fields.chip).toBeTruthy();
+    expect((await donor.call('POST', '/pets', dogDonor({ city: 'Казань', district: 'Петроградский' }))).json.fields.district).toBeTruthy();
+    expect((await donor.call('POST', '/pets', dogDonor({ city: 'Казань', district: 'Север' }))).status).toBe(200);
+  });
+});
+
+describe('автозакрытие', () => {
+  it('через сутки спрашиваем, через 12 часов без ответа закрываем; «Да, ещё ищем» продлевает', async () => {
+    const owner = await login('Анна');
+    const a = (await owner.call('POST', '/requests', sos({ petName: 'Джесси' }))).json.id;
+    const b = (await owner.call('POST', '/requests', sos({ petName: 'Рекс' }))).json.id;
+    const t1 = new Date(clock.getTime() + 25 * 3_600_000);
+    expect(await autoCloseStale(pool, notifier, t1)).toEqual({ asked: 2, closed: 0 });
+    expect((await owner.call('GET', `/requests/${a}`)).json.staleAsk).toBe(true);
+    clock = t1;
+    expect((await owner.call('POST', `/requests/${a}/renew`)).status).toBe(200);
+    clock = new Date('2026-10-01T12:00:00+03:00');
+    const t2 = new Date(t1.getTime() + 13 * 3_600_000);
+    expect(await autoCloseStale(pool, notifier, t2)).toEqual({ asked: 0, closed: 1 });
+    expect((await owner.call('GET', `/requests/${a}`)).json.status).toBe('open');
+    expect((await owner.call('GET', `/requests/${b}`)).json.status).toBe('closed');
+  });
+});
+
+describe('кабинет клиники', () => {
+  it('подтверждает запрос и сдачу вне Павхелпа, меняет банк крови', async () => {
+    const vet = await login('Врач');
+    await pool.query(`INSERT INTO clinic_staff (clinic_id, user_id, role) VALUES ('c1', $1, 'vet')`, [vet.id]);
+    const owner = await login('Анна');
+    const donor = await login('Игорь');
+    const { json } = await owner.call('POST', '/requests', sos());
+    expect((await donor.call('POST', '/clinic/c1/requests/' + json.id, { ok: true })).status).toBe(403);
+    expect((await vet.call('POST', '/clinic/c1/requests/' + json.id, { ok: true })).status).toBe(200);
+    expect((await owner.call('GET', `/requests/${json.id}`)).json.clinicStatus).toBe('confirmed');
+
+    const pet = (await donor.call('POST', '/pets', dogDonor())).json;
+    expect((await donor.call('POST', `/pets/${pet.id}/donations`, { date: '2026-09-20' })).status).toBe(400);
+    await donor.call('POST', `/pets/${pet.id}/donations`, { date: '2026-09-20', clinicId: 'c1' });
+    const cab = (await vet.call('GET', '/clinic/c1')).json;
+    expect(cab.donations).toHaveLength(1);
+    const before = (await donor.call('GET', '/me')).json.progress.xp;
+    await vet.call('POST', `/clinic/c1/donations/${cab.donations[0].id}`, { ok: true });
+    expect((await donor.call('GET', '/me')).json.progress.xp).toBeGreaterThanOrEqual(before + 150);
+
+    const item = cab.stock.find((s: { component: string; bloodGroup: string }) => s.component === 'plasma');
+    await vet.call('PATCH', `/clinic/c1/stock/${item.id}`, { doses: 0 });
+    const plasma = await app.inject({
+      method: 'GET',
+      url: `/banks?city=${encodeURIComponent('Санкт-Петербург')}&species=dog&bloodGroup=DEA1.1%2B&component=plasma`,
+    });
+    expect(plasma.json().map((b: { clinicId: string }) => b.clinicId)).toEqual(['c3']);
+    await vet.call('PATCH', `/clinic/c1/stock/${item.id}`, { doses: 4 });
+  });
+});
+
+describe('Telegram-бот', () => {
+  it('без секрета webhook не принимает обновления', async () => {
+    const r = await app.inject({ method: 'POST', url: '/telegram/webhook', payload: {} });
+    expect(r.statusCode).toBe(401);
   });
 });
 

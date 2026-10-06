@@ -17,13 +17,17 @@ export interface EligibilityInput {
   chronic: boolean;
   /** Только для кошек: гуляет ли на улице. */
   outdoor: boolean;
+  /** Сейчас на лечении, принимает лекарства. */
+  underTreatment?: boolean;
+  /** Когда-либо получал(а) переливание крови: донором быть нельзя. */
+  transfused?: boolean;
   lastDonation: Date | null;
   /** Отметки о прививках: комплексная (vac) и бешенство (rab). */
   vaccinations: { kind: VaccineKind; date: Date }[];
 }
 
 export interface EligibilityCheck {
-  key: 'age' | 'weight' | 'vaccines' | 'health' | 'indoor' | 'gap';
+  key: 'age' | 'weight' | 'vaccines' | 'health' | 'treatment' | 'transfusion' | 'indoor' | 'gap';
   ok: boolean;
   title: string;
   detail: string;
@@ -89,6 +93,18 @@ export function eligibility(p: EligibilityInput, now: Date = new Date()): Eligib
       detail: vacOk ? 'комплекс и бешенство в порядке' : 'нужны комплексная прививка и от бешенства не старше года',
     },
     { key: 'health', ok: !p.chronic, title: 'Нет хронических болезней', detail: 'по словам владельца' },
+    {
+      key: 'treatment',
+      ok: !p.underTreatment,
+      title: 'Сейчас не лечится',
+      detail: p.underTreatment ? 'после лечения нужно выждать, уточните у врача' : 'лекарства не принимает',
+    },
+    {
+      key: 'transfusion',
+      ok: !p.transfused,
+      title: 'Никогда не получал(а) переливание',
+      detail: p.transfused ? 'после переливания донором быть нельзя' : 'по словам владельца',
+    },
   ];
   if (p.species === 'cat') {
     checks.push({

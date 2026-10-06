@@ -1,4 +1,4 @@
-import { isDistrict, normalizeNotify } from '@pavhelp/core';
+import { isArea, isCity, normalizeNotify } from '@pavhelp/core';
 import type { FastifyInstance } from 'fastify';
 import { HttpError, requireUser } from '../app';
 import { endSession, normalizePhone } from '../auth/session';
@@ -15,15 +15,22 @@ export async function meRoutes(app: FastifyInstance) {
       name: string;
       email: string | null;
       phone: string | null;
+      city: string | null;
       district: string | null;
       notify: unknown;
       telegram_chat_id: number | null;
       pd_consent_at: Date | null;
-    }>(pool, 'SELECT id, name, email, phone, district, notify, telegram_chat_id, pd_consent_at FROM users WHERE id = $1', [req.user.id]);
+    }>(pool, 'SELECT id, name, email, phone, city, district, notify, telegram_chat_id, pd_consent_at, created_at FROM users WHERE id = $1', [req.user.id]);
     const providers = await many<{ provider: string }>(pool, 'SELECT provider FROM auth_identities WHERE user_id = $1 ORDER BY created_at', [
       req.user.id,
     ]);
     const notify = normalizeNotify(u!.notify);
+    // Клиники, где пользователь — сотрудник: ссылка на кабинет клиники.
+    const clinics = await many<{ id: string; name: string; role: string }>(
+      pool,
+      'SELECT c.id, c.name, s.role FROM clinic_staff s JOIN clinics c ON c.id = s.clinic_id WHERE s.user_id = $1',
+      [req.user.id],
+    );
     return {
       user: {
         id: u!.id,
@@ -31,6 +38,7 @@ export async function meRoutes(app: FastifyInstance) {
         email: u!.email,
         // Телефон для связи необязателен: его увидит только выбранный донор или хозяин.
         phone: u!.phone,
+        city: u!.city,
         district: u!.district,
         notify,
         telegramConnected: u!.telegram_chat_id !== null,
@@ -38,15 +46,20 @@ export async function meRoutes(app: FastifyInstance) {
         providers: providers.map((p) => p.provider),
         // Предупреждение из настроек: если выключены оба канала, SOS не дойдёт.
         noChannels: !notify.telegram && !notify.push,
+        clinics,
       },
       progress: await progress(pool, req.user.id),
     };
   });
 
-  app.patch<{ Body: { name?: string; district?: string; notify?: unknown; phone?: string | null } }>('/me', async (req) => {
+  app.patch<{ Body: { name?: string; city?: string; district?: string | null; notify?: unknown; phone?: string | null } }>('/me', async (req) => {
     const user = requireUser(req);
     const b = req.body ?? {};
-    if (b.district !== undefined && !isDistrict(b.district)) throw new HttpError(400, 'Неизвестный район');
+    if (b.city !== undefined && !isCity(b.city)) throw new HttpError(400, 'Неизвестный город');
+    const city = b.city ?? (await one<{ city: string | null }>(pool, 'SELECT city FROM users WHERE id = $1', [user.id]))!.city;
+    if (b.district && (!city || !isArea(city, b.district))) throw new HttpError(400, 'Неизвестный район');
+    // Смена города без района сбрасывает район: районы у городов разные.
+    if (b.city !== undefined && b.district === undefined) b.district = null;
     if (b.phone !== undefined) {
       const phone = b.phone === null || b.phone === '' ? null : normalizePhone(b.phone);
       if (b.phone && !phone) throw new HttpError(400, 'Проверьте номер', { phone: 'Нужен российский мобильный: +7 9XX XXX-XX-XX' });
@@ -58,7 +71,8 @@ export async function meRoutes(app: FastifyInstance) {
     await pool.query(
       `UPDATE users SET
          name = coalesce($2, name),
-         district = coalesce($3, district),
+         city = coalesce($5, city),
+         district = CASE WHEN $6 THEN $3 ELSE district END,
          notify = coalesce($4, notify)
        WHERE id = $1`,
       [
@@ -66,6 +80,8 @@ export async function meRoutes(app: FastifyInstance) {
         typeof b.name === 'string' ? b.name.trim().slice(0, 60) : null,
         b.district ?? null,
         b.notify !== undefined ? JSON.stringify(normalizeNotify(b.notify)) : null,
+        b.city ?? null,
+        b.district !== undefined,
       ],
     );
     return { ok: true };
@@ -95,7 +111,7 @@ export async function meRoutes(app: FastifyInstance) {
     const user = requireUser(req);
     const q = (sql: string) => many(pool, sql, [user.id]);
     return {
-      user: await q('SELECT id, name, email, phone, district, notify, pd_consent_at, created_at FROM users WHERE id = $1'),
+      user: await q('SELECT id, name, email, phone, city, district, notify, pd_consent_at, created_at FROM users WHERE id = $1'),
       providers: await q('SELECT provider, created_at FROM auth_identities WHERE user_id = $1'),
       pets: await q('SELECT * FROM pets WHERE owner_id = $1'),
       medRecords: await q('SELECT m.* FROM med_records m JOIN pets p ON p.id = m.pet_id WHERE p.owner_id = $1'),
@@ -117,7 +133,7 @@ export async function meRoutes(app: FastifyInstance) {
       await c.query('DELETE FROM auth_identities WHERE user_id = $1', [user.id]);
       await c.query('DELETE FROM sessions WHERE user_id = $1', [user.id]);
       await c.query(
-        `UPDATE users SET name = 'Удалённый пользователь', email = NULL, phone = NULL, telegram_chat_id = NULL, district = NULL,
+        `UPDATE users SET name = 'Удалённый пользователь', email = NULL, phone = NULL, telegram_chat_id = NULL, city = NULL, district = NULL,
            notify = '{}', deleted_at = now() WHERE id = $1`,
         [user.id],
       );

@@ -119,6 +119,90 @@ h2{font-size:22px;line-height:1.15;letter-spacing:-.035em}
 .chip{font-size:12.5px;font-weight:500;padding:6px 12px;border-radius:999px;background:var(--chip);color:var(--ink);white-space:nowrap}
 .chip.red{background:var(--accent);color:#fff}
 .chip.ok{background:var(--ok-soft);color:var(--ok)}
+.bank{background:var(--mint);color:#0F2A1E;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.bank.none{background:var(--chip);color:var(--ink)}
+.bank .meta{color:inherit;opacity:.72}
+.bank-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(255,255,255,.55);border-radius:16px;padding:10px 12px}
+.bank-row .t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.bank-row .btn{flex:none;background:#0F2A1E;color:#fff;border-color:transparent}
+.bank .chip.ok{background:#0F2A1E;color:var(--mint)}
+.match.prio{background:var(--lilac);color:var(--on-lilac)}
+.chip.prio{background:var(--lilac);color:var(--on-lilac)}
+.photo-pick.err{outline:2px solid var(--accent);outline-offset:2px}
+.perk{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.perk:first-child{border-top:0}
+.perk .ic{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-weight:700;flex:none;background:var(--chip)}
+.perk.on .ic{background:var(--mint);color:#0F2A1E}
+.perk .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.phbox{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:14px}
+.phbox .lock{opacity:.5;font-size:15px}
+.swipe-under{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--bg);pointer-events:none}
+.swipe-under>.app{will-change:transform}
+.swipe-under .swipe-dim{position:absolute;inset:0;background:#000;opacity:.28}
+.app.swiping{position:relative;z-index:1;background:var(--bg);min-height:100vh;box-shadow:-10px 0 30px rgba(0,0,0,.18);will-change:transform}
+.swipe-anim,.swipe-anim>.app,.swipe-anim .swipe-dim{transition:transform .26s cubic-bezier(.2,.8,.2,1),opacity .26s ease}
+@media (prefers-reduced-motion:reduce){.swipe-anim,.swipe-anim>.app{transition:none}}
+.seed{background:var(--surface);border-radius:28px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.seed-n{font-size:56px;font-weight:300;letter-spacing:-.06em;line-height:1}
+.planb{background:var(--warn-soft);color:var(--ink);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.planb .btns{flex-wrap:wrap}
+.planb+.match.none{display:none}
+.planb ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.safe{background:var(--warn-soft);color:var(--ink);border-radius:18px;padding:12px 14px;font-size:13px;line-height:1.4;margin-top:10px}
+.risk{align-self:flex-start;max-width:86%;background:var(--accent-soft);border:1px solid var(--accent);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:6px;font-size:13px}
+.risk b{color:var(--accent)}
+.risk .btn{align-self:flex-start}
+.crow{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.crow:first-child{border-top:0;padding-top:0}
+.crow .t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.stepn{display:flex;align-items:center;gap:10px}.stepn b{min-width:20px;text-align:center;font-size:18px}
+.pubnote{background:var(--lilac);color:var(--on-lilac);border-radius:18px;padding:12px 14px;font-size:13px;margin:6px 0 14px}
+.pub{display:flex;flex-direction:column;gap:14px}
+.pub-brand{display:flex;justify-content:space-between;align-items:center}
+.pub-h{font-size:30px;line-height:1.08;letter-spacing:-.04em;margin:0}
+.pub p{margin:0}
+.pub .req-cover{margin-bottom:0}
+.pub-foot{font-size:12px;color:var(--muted);text-align:center;padding:10px 0 20px}
+.pub-foot .link{font-size:12px}
+.tgw{background:linear-gradient(160deg,#9EC1DE,#7FA6CF);border-radius:26px;overflow:hidden;margin-top:6px}
+.tg-head{display:flex;gap:10px;align-items:center;background:#fff;color:#000;padding:12px 16px}
+.tg-ava{width:38px;height:38px;border-radius:50%;background:#2AABEE;display:grid;place-items:center}
+.tg-sub{font-size:12px;color:#7d8b99}
+.tg-log{display:flex;flex-direction:column;gap:8px;padding:14px 12px;max-height:62vh;overflow-y:auto}
+.tgm{align-self:flex-start;max-width:88%;background:#fff;color:#000;border-radius:16px 16px 16px 4px;padding:9px 12px;font-size:14px;line-height:1.4}
+.tgm img{display:block;width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-bottom:8px}
+.tgm.me{align-self:flex-end;background:#E3FECB;border-radius:16px 16px 4px 16px}
+.tg-from{display:block;font-size:12px;font-weight:600;color:#2A8BD0;margin-bottom:3px}
+.tg-kb{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.tg-kb button{border:0;background:#EEF4FA;color:#2A7CC0;font:inherit;font-size:13px;font-weight:600;border-radius:10px;padding:9px 6px;cursor:pointer}
+.tg-kb button.w{grid-column:1/-1}
+.tgw .msg-form{background:#fff;padding:8px;margin:0;position:static}
+body.nonav .nav{display:none}
+.tgw .msg-form input{color:#000;background:#F1F3F5}
+.stale{background:var(--warn-soft);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.active-sos.stale-b{background:var(--warn-soft);color:var(--ink)}
+.memo-media img,.memo-media .pc-art{filter:grayscale(1)}
+.memo{border:1px solid var(--line)}
+.ios{position:relative;background:var(--surface);border-radius:26px;padding:18px 48px 18px 18px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.ios .wx{position:absolute;right:12px;top:12px}
+.onb .mark{width:30px;height:30px;font-size:14px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--chip)}
+.onb .mark.y{background:var(--ok-soft);color:var(--ok)}
+.onb.done{opacity:.65}
+.onb .btns{flex-wrap:wrap}
+.onb details.acc{width:100%;background:var(--chip)}
+.legal h3{font-size:17px;margin:18px 0 6px}
+.legal p{margin:0;font-size:15px;line-height:1.5}
+.inlink{border:0;background:none;padding:0;font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.sheet p{white-space:pre-line}
+html.big body{zoom:1.15}
+html.calm *,html.calm *::before,html.calm *::after{animation:none!important;transition:none!important}
+.city-list{padding:8px 18px}
+.city-list [hidden]{display:none}
+.city-row{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:12px 0;color:inherit;font:inherit;cursor:pointer}
+.city-row>span:first-child{display:flex;flex-direction:column;gap:2px}
+.city-row.on b{color:var(--accent)}
+.cl-head+.city-row{border-top:0}
+.city-row.cl-more b{color:var(--accent)}
 .chip.warn{background:var(--warn-soft);color:var(--warn)}
 .chip.gold{background:var(--sun);color:#111}
 .blood{font-family:var(--mono);font-weight:500}
@@ -523,6 +607,54 @@ button.pc-fact:active{transform:scale(.96)}
 .qh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0;border-top:1px solid var(--line);flex-wrap:wrap}
 .qh select{width:auto;padding:10px 34px 10px 12px;background-color:var(--chip)}
 .card .switch .btn{padding:9px 14px}
+
+.tube.ph{padding:0;overflow:hidden;position:relative;align-self:flex-start;width:96px;height:96px;border-radius:24px}
+.req.has-media{padding:8px 8px 14px}
+.gal{position:absolute;inset:0}
+.gal-track{display:flex;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.gal-track::-webkit-scrollbar{display:none}
+.gal-track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;object-position:center 60%;scroll-snap-align:start;scroll-snap-stop:always;user-select:none;-webkit-user-drag:none}
+.gal-dots{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:5px;z-index:2;pointer-events:none}
+.gal-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);transition:width .2s,background .2s}
+.gal-dots i.on{width:16px;border-radius:3px;background:#fff}
+.gal-n{position:absolute;right:12px;bottom:12px;z-index:2;color:#fff;font-size:12px;font-weight:600;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:999px;pointer-events:none}
+.req-media .gal-n{display:none}
+.req-media::after,.pc-media::after{pointer-events:none}
+.req-cover .gal-track img{object-position:center 62%}
+.cover-btns{position:absolute;right:12px;top:12px;display:flex;gap:8px;z-index:3}
+.req-cover .cover-btns .glass-btn{position:static}
+.pc-media .gal-track img{animation:none}
+.pc-media .gal-dots{left:auto;right:18px;bottom:22px;transform:none}
+.pc-media .gal-n{display:none}
+.ph-strip{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+.ph-strip::-webkit-scrollbar{display:none}
+.ph-tile{position:relative;flex:0 0 92px;height:92px;border-radius:18px;overflow:hidden;background:var(--chip)}
+.ph-tile img{width:100%;height:100%;object-fit:cover}
+.ph-tile em{position:absolute;left:6px;bottom:6px;font-style:normal;font-size:11px;font-weight:600;color:#fff;background:rgba(0,0,0,.45);padding:2px 7px;border-radius:999px}
+.ph-tile .ph-x,.ph-tile .ph-main{position:absolute;top:6px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.5);color:#fff;font-size:15px;line-height:1;display:grid;place-items:center;cursor:pointer}
+.ph-tile .ph-x{right:6px}.ph-tile .ph-main{left:6px;font-size:12px}
+.ph-tile.add{display:grid;place-items:center;font-size:32px;font-weight:300;color:var(--muted);border:1.5px dashed var(--line);background:var(--surface);cursor:pointer}
+.req.has-media .req-head,.req.has-media>.small,.req.has-media .btns{padding-inline:6px}
+.req-media{position:relative;display:block;width:100%;aspect-ratio:4/3;max-height:340px;border:0;padding:0;border-radius:20px;overflow:hidden;background:var(--chip);cursor:pointer}
+.req-media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.req-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),transparent 30%,transparent 62%,rgba(0,0,0,.42))}
+.rm-top{position:absolute;left:12px;right:12px;top:12px;display:flex;justify-content:space-between;z-index:1}
+.glass-chip.hot{background:var(--accent)}
+.glass-chip.hot i{background:#fff;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.rm-g{position:absolute;left:12px;bottom:12px;z-index:1;background:var(--accent);color:#fff;border-radius:18px;padding:6px 12px 7px;font-weight:700;font-size:24px;letter-spacing:-.04em;line-height:1;display:flex;flex-direction:column}
+.rm-g small{font-size:11px;font-weight:500;letter-spacing:0;opacity:.85;margin-bottom:2px}
+@media (prefers-reduced-motion:reduce){.glass-chip.hot i{animation:none}}
+.tube.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tube.ph .pg{position:absolute;left:5px;bottom:5px;background:var(--accent);color:#fff;font-weight:700;font-size:12px;border-radius:999px;padding:2px 7px;letter-spacing:-.02em}
+.req-cover{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/3;max-height:360px;width:100%;margin-bottom:14px;background:var(--chip)}
+.req-cover img{width:100%;height:100%;object-fit:cover;object-position:center 62%;display:block}
+.req-cover .glass-btn{position:absolute;right:12px;top:12px}
+.photo-pick.sosph .ph{width:56px;height:56px;border-radius:16px;color:var(--muted)}
+.photo-pick.sosph .ph img{border-radius:16px}
+.photo-pick .wx{flex:none}
+.petpick{display:inline-flex;align-items:center}
+@media (max-width:540px){.req-cover{margin-inline:-10px;width:calc(100% + 20px);border-radius:26px}}
 </style>
 
 <div class="app" id="app"></div>
@@ -546,13 +678,37 @@ function delWeight(p,at){p.weightLog=p.weightLog.filter(x=>x.at!==at);p.weightLo
 const iso=d=>d.toISOString().slice(0,10);
 
 const DISTRICTS=['Адмиралтейский','Василеостровский','Выборгский','Калининский','Кировский','Красногвардейский','Московский','Невский','Петроградский','Приморский','Фрунзенский','Центральный'];
+// Клиники-демо. bank — свой банк крови; stock — что есть в наличии (вид, группа, компонент, доз, объём дозы в мл)
 const CLINICS=[
-  {id:'c1',name:'Ветклиника «Северный ветер»',addr:'Петроградский р-н',night:true,km:1.8,phone:'+7 812 000-11-01',bank:true},
-  {id:'c2',name:'Ветцентр на Охте',addr:'Красногвардейский р-н',night:true,km:5.2,phone:'+7 812 000-11-02',bank:true},
-  {id:'c4',name:'Ветгоспиталь «Приморский»',addr:'Приморский р-н',night:true,km:3.9,phone:'+7 812 000-11-04',bank:false},
-  {id:'c3',name:'Клиника «Лапа и хвост»',addr:'Московский р-н',night:false,km:7.4,phone:'+7 812 000-11-03',bank:false},
-  {id:'c5',name:'Ветклиника на Васильевском',addr:'Василеостровский р-н',night:false,km:4.6,phone:'+7 812 000-11-05',bank:false},
+  {id:'c1',name:'Ветклиника «Северный ветер»',area:'Петроградский',night:true,km:1.8,n:'01',bank:true,upd:12,
+    stock:[['dog','DEA 1.1+','whole',3,450],['dog','DEA 1.1+','plasma',4,200],['dog','DEA 1.1−','rbc',1,250],['cat','A','whole',2,50]]},
+  {id:'c2',name:'Ветцентр «Айболит 24»',area:'Красногвардейский',night:true,km:5.2,n:'02',bank:true,upd:40,
+    stock:[['dog','DEA 1.1−','whole',1,450],['dog','DEA 1.1+','rbc',2,250],['cat','A','plasma',2,30],['cat','B','whole',1,50]]},
+  {id:'c4',name:'Ветгоспиталь «Доктор Вет»',area:'Приморский',night:true,km:3.9,n:'04',bank:false,stock:[]},
+  {id:'c3',name:'Клиника «Лапа и хвост»',area:'Московский',night:false,km:7.4,n:'03',bank:true,upd:180,
+    stock:[['dog','DEA 1.1+','plasma',3,200]]},
+  {id:'c5',name:'Ветклиника «Зоовет»',area:'Василеостровский',night:false,km:4.6,n:'05',bank:false,stock:[]},
 ];
+CLINICS.forEach(c=>Object.defineProperties(c,{
+  addr:{get(){return areaLabel(areaFor(c.area))}},
+  phone:{get(){return `+7 ${curCity().code} 000-11-${c.n}`}},
+}));
+const COMP={whole:['Цельная кровь','цельная'],plasma:['Плазма','плазма'],rbc:['Эритроцитная масса','эр. масса']};
+// Что из запасов клиник подходит под запрос
+function bankMatch(f){
+  const out=[];
+  CLINICS.filter(c=>c.bank).forEach(c=>c.stock.forEach(([sp,g,comp,n,ml])=>{
+    if(sp!==f.species||!n)return;
+    if((f.comp||'whole')!==comp)return;
+    if(f.species==='cat'&&f.group==='не знаю')return out.push({c,g,comp,n,ml,check:true});
+    if(f.species==='cat'&&g!==f.group)return;
+    if(f.species==='dog'&&f.group==='DEA 1.1−'&&g!=='DEA 1.1−')return;
+    if(f.species==='dog'&&f.group==='не знаю'&&g!=='DEA 1.1−')return out.push({c,g,comp,n,ml,check:true});
+    out.push({c,g,comp,n,ml});
+  }));
+  return out.sort((a,b)=>a.c.km-b.c.km);
+}
+const updAgo=m=>m<60?`${m} мин назад`:`${Math.round(m/60)} ч назад`;
 const DONORS=[
  ['Арчи','dog','Немецкая овчарка',38,'DEA 1.1−','Приморский',2.1],['Бетти','dog','Лабрадор',30,'DEA 1.1+','Петроградский',3.4],
  ['Гром','dog','Алабай',55,'DEA 1.1−','Выборгский',6.2],['Дина','dog','Ротвейлер',42,'DEA 1.1+','Московский',4.0],
@@ -569,7 +725,7 @@ const DONORS=[
 const OWNERS=['Анна','Дмитрий','Ксения','Игорь','Мария','Олег','Светлана','Роман','Екатерина','Павел'];
 
 // Геймификация
-const LEVELS=[[0,'Новичок'],[100,'Помощник'],[300,'Донор'],[700,'Постоянный донор'],[1500,'Почётный донор'],[3000,'Легенда Петербурга']];
+const LEVELS=[[0,'Новичок'],[100,'Помощник'],[300,'Донор'],[700,'Постоянный донор'],[1500,'Почётный донор'],[3000,'Легенда Павхелпа']];
 const EARN=[['Сдача крови',150],['Отклик на SOS',20],['Приглашённый донор',50],['Новый питомец-донор',50],['Выполненное задание недели',20],['Новая награда',30],['Поделиться запросом',10],['Отметка в медкарте',5],['Прочитанная инструкция',5]];
 const BADGES=[
   {id:'first',s:'1',t:'Первая капля',d:'Сдать кровь первый раз',goal:1,v:s=>s.donations},
@@ -602,19 +758,18 @@ const GUIDES=[
   {id:'bleed',t:'Сильное кровотечение',alarm:'Кровь не останавливается за 10 минут или бьёт струёй: везите в клинику немедленно.',steps:['Прижмите рану чистой тканью или бинтом и держите 5–10 минут.','Если ткань промокла, не снимайте её, положите сверху ещё слой.','Зафиксируйте повязку и выезжайте в клинику.']},
 ];
 
+// Бонусы партнёров открываются сдачами крови, а не каплями: так их не накрутить
+const PERKS=[
+  {id:'cbc',ic:'+',t:'Бесплатный общий анализ крови',who:'клиники-партнёры',need:1,code:'PAV-CBC'},
+  {id:'food',ic:'%',t:'Скидка 15% на корма и лакомства',who:'зоомагазины-партнёры',need:1,code:'PAV-15'},
+  {id:'vet',ic:'✚',t:'Бесплатный приём терапевта раз в год',who:'клиники-партнёры',need:3,code:'PAV-VET'},
+  {id:'ins',ic:'☂',t:'Скидка 20% на страховку питомца',who:'страховые-партнёры',need:5,code:'PAV-INS'},
+];
 const freshStats=()=>({shares:0,responds:0,medMarks:0,invites:0,fast:0,night:0,wkShares:0,wkMed:0,wkGuide:0});
 
 const state={
   tab:'home',view:null,
   city:'Санкт-Петербург',
-  cities:[
-    {name:'Санкт-Петербург',region:'Ленинградская обл.',live:true},
-    {name:'Москва',region:'Московская обл.',live:false,waiting:412},
-    {name:'Казань',region:'Республика Татарстан',live:false,waiting:96},
-    {name:'Екатеринбург',region:'Свердловская обл.',live:false,waiting:131},
-    {name:'Новосибирск',region:'Новосибирская обл.',live:false,waiting:88},
-    {name:'Нижний Новгород',region:'Нижегородская обл.',live:false,waiting:57},
-  ],
   user:null,pending:null,
   login:{step:'choose',phone:'',code:'',name:'',consent:false},
   tgConnected:false,
@@ -624,19 +779,19 @@ const state={
   xp:0,stats:freshStats(),guidesRead:new Set(),badgesSeen:new Set(),chalDone:new Set(),
   ptab:'pets',lbtab:'donors',
   requests:[
-    {id:'r1',pet:'Бакс',species:'dog',breed:'Метис',weight:30,group:'не знаю',reason:'Сбила машина, внутреннее кровотечение',clinic:'c4',urgency:'now',ago:'25 мин назад',km:2.4,owner:'Олег',responders:3,helped:false,mine:false,shared:false},
-    {id:'r2',pet:'Муся',species:'cat',breed:'Британская',weight:4.2,group:'B',reason:'Тяжёлая анемия, нужна кошка с группой B',clinic:'c2',urgency:'today',ago:'2 ч назад',km:5.8,owner:'Светлана',responders:0,helped:false,mine:false,shared:false},
-    {id:'r3',pet:'Граф',species:'dog',breed:'Лабрадор',weight:34,group:'DEA 1.1−',reason:'Плановая операция на селезёнке',clinic:'c3',urgency:'plan',ago:'вчера',km:4.1,owner:'Екатерина',responders:2,helped:false,mine:false,shared:false},
+    {id:'r1',pet:'Бакс',species:'dog',breed:'Метис',weight:30,group:'не знаю',reason:'Сбила машина, внутреннее кровотечение',comp:'whole',vol:450,prio:true,verified:true,since:'март 2025',clinic:'c4',urgency:'now',ago:'25 мин назад',km:2.4,owner:'Олег',responders:3,helped:false,mine:false,shared:false},
+    {id:'r2',pet:'Муся',species:'cat',breed:'Британская',weight:4.2,group:'B',reason:'Тяжёлая анемия, нужна кошка с группой B',comp:'whole',vol:50,verified:false,since:'сегодня',fresh:true,clinic:'c2',urgency:'today',ago:'2 ч назад',km:5.8,owner:'Светлана',responders:0,helped:false,mine:false,shared:false},
+    {id:'r3',pet:'Граф',species:'dog',breed:'Лабрадор',weight:34,group:'DEA 1.1−',reason:'Плановая операция на селезёнке',comp:'plasma',vol:200,verified:true,since:'август 2024',clinic:'c3',urgency:'plan',ago:'вчера',km:4.1,owner:'Екатерина',responders:2,helped:false,mine:false,shared:false},
   ],
   stories:[
     {pet:'Лея',donor:'Арчи',text:'Лею привезли ночью после отравления. Через 40 минут после запроса Арчи с хозяином уже были в клинике. Сейчас Лея снова таскает палки на заливе.',when:'12 сентября',thanks:48,on:false},
     {pet:'Пушок',donor:'Тимофей',text:'У Пушка группа B, а такие кошки редкость. Нашли Тимофея через два часа, в соседнем районе. Спасибо, что вы есть.',when:'3 сентября',thanks:71,on:false},
     {pet:'Рокки',donor:'Жуля',text:'Операция прошла хорошо, переливание понадобилось прямо на столе. Жуля сдавала кровь уже третий раз.',when:'28 августа',thanks:36,on:false},
   ],
-  form:{species:'dog',weight:'',group:'не знаю',clinic:'c1',urgency:'now',pet:'',reason:''},
+  form:{species:'dog',weight:'',group:'не знаю',comp:'whole',vol:'',clinic:'c1',urgency:'now',pet:'',reason:''},
   lastNew:[],heroUrl:null,
 };
-const emptyDForm=()=>({wantDonor:true,photo:null,species:'dog',name:'',breed:'',age:'',weight:'',group:'не знаю',district:'Петроградский',vacDate:'',healthy:true,indoor:true,never:true,lastDon:''});
+const emptyDForm=()=>({wantDonor:true,photo:null,species:'dog',name:'',breed:'',age:'',weight:'',group:'не знаю',district:state.loc?state.loc.area:'Петроградский',vacDate:'',healthy:true,indoor:true,never:true,lastDon:'',sex:'',chip:'',keep:'flat',noTx:true,noTreat:true});
 state.dform=emptyDForm();
 
 const MK={
@@ -657,7 +812,7 @@ function recalcMed(p){
 }
 function addJournal(p,e){p.journal=[...(p.journal||[]),e];recalcMed(p);if(p.wantDonor!==false)p.donorOn=eligibility(p).fit;syncDonorList(p)}
 function demoPet(){
-  const p={id:'p0',name:'Джесси',species:'dog',breed:'Лабрадор',age:4,weight:31,group:'DEA 1.1−',district:'Петроградский',
+  const p={id:'p0',name:'Джесси',species:'dog',breed:'Лабрадор',age:4,weight:31,group:'DEA 1.1−',district:'Петроградский',sex:'f',chip:'643094100123456',keep:'flat',noTx:true,noTreat:true,
     donorOn:true,wantDonor:true,healthy:true,indoor:false,lastDonation:daysAgo(63),donations:2,saved:2,
     med:[
       {k:'vac',title:'Комплексная прививка',date:daysAgo(198),every:365},
@@ -721,7 +876,53 @@ function groupOk(reqGroup,donorGroup,species){
   if(reqGroup==='DEA 1.1−')return donorGroup==='DEA 1.1−';
   return true;
 }
-function matchDonors(f){return DONORS.filter(d=>d.species===f.species&&groupOk(f.group,d.group,f.species)&&d.km<=10)}
+function matchDonors(f){return DONORS.filter(d=>d.species===f.species&&groupOk(f.group,d.group,f.species)&&d.km<=(f.radius||10)&&d.id!=='d'+f.petId)}
+// Приоритет: если помощь нужна питомцу, который сам сдавал кровь через Павхелп
+function prioPet(f){const p=f.petId&&state.pets.find(x=>x.id===f.petId);return p&&p.donations>0&&p.species===f.species?p:null}
+function planB(f){
+  return `<div class="planb"><b>Рядом пока нет подходящих доноров</b>
+    <span class="small">Запрос всё равно отправьте. Дальше работаем так:</span>
+    <ol><li>Кровь из банка клиники, если она есть выше.</li><li>Звонок в клинику: у многих есть свои доноры и сотрудники с собаками.</li><li>Текст для районных чатов и соцсетей, он будет готов сразу.</li><li>Через 30 минут без откликов расширим поиск до 50 км.</li></ol></div>`;
+}
+// ---------- лимиты SOS ----------
+const SOS_LIMIT={active:2,day:3};
+state.sosLog=[];
+function sosQuota(){
+  const now=Date.now(),day=state.sosLog.filter(t=>now-t<DAY).length;
+  const active=state.requests.filter(r=>r.mine).length;
+  return {day,active,left:Math.max(0,SOS_LIMIT.day-day)};
+}
+function sosLimitNote(){
+  if(!state.user)return '';
+  const q=sosQuota();
+  if(q.left===0)return `<div class="warnbox" role="status">Сегодня отправлено ${SOS_LIMIT.day} запроса, это дневной лимит. Если нужен ещё один, напишите в поддержку, снимем ограничение вручную.</div>`;
+  if(q.left===1)return `<p class="note" style="margin:0">Сегодня можно отправить ещё 1 запрос. Лимит защищает доноров от лишних уведомлений.</p>`;
+  return '';
+}
+function sosBlocked(f){
+  const q=sosQuota();
+  const same=state.requests.find(r=>r.mine&&((f.petId&&r.petId===f.petId)||(f.pet.trim()&&r.pet.toLowerCase()===f.pet.trim().toLowerCase())));
+  if(same)return {title:'Такой запрос уже открыт',text:`${same.pet}: запрос уже отправлен, доноры его получили.`+' Второй такой же запрос только собьёт их с толку. Изменить фото, описание или клинику можно в текущем запросе.',
+    actions:[{label:'Открыть запрос',act:'open',id:same.id,primary:true},{label:'Отмена',act:'sheetClose'}]};
+  if(q.active>=SOS_LIMIT.active)return {title:'Уже два активных запроса',text:'Одновременно можно держать не больше двух SOS. Закройте запрос, который уже не нужен, и создайте новый.',
+    actions:[{label:'Мои запросы',act:'tab',primary:true,sp:'requests'},{label:'Отмена',act:'sheetClose'}]};
+  if(q.left===0)return {title:'Дневной лимит запросов',text:`За сутки можно отправить ${SOS_LIMIT.day} SOS. Так мы бережём доноров от лишних уведомлений и не даём рассылать фейковые запросы. Если ситуация срочная, позвоните в клинику: там могут знать доноров. Поддержка снимет ограничение вручную.`,
+    actions:[{label:'Написать в поддержку',act:'support',primary:true},{label:'Банки крови рядом',act:'tab',sp:'aid'},{label:'Отмена',act:'sheetClose'}]};
+  return null;
+}
+// ---------- мошенничество ----------
+const RISK=/(\d[ -]?){16}|переве(ди|дите|сти)|перевод|предоплат|оплат|сбп|на карт|деньг|\d+\s*(₽|руб)|код из (смс|sms)|продам кровь|купл[юи] кровь|за кровь (заплач|плат)/i;
+const SELL=/продам|продаю|куплю|покупк|за деньги|оплачу|заплачу|вознагражд/i;
+const isRisky=t=>RISK.test(t);
+function bankBlock(f){
+  const b=bankMatch(f);
+  if(!b.length)return `<div class="bank none"><div class="row between"><b>Кровь в наличии</b><span class="meta">банки клиник</span></div><div class="small">В банках крови клиник рядом нет подходящего: ${esc(COMP[f.comp||'whole'][0].toLowerCase())}, ${f.species==='dog'?'собака':'кошка'}${f.group!=='не знаю'?', '+esc(f.group):''}. Ищем донора.</div></div>`;
+  return `<div class="bank"><div class="row between"><b>Кровь в наличии</b><span class="chip ok">${b.length} ${plural(b.length,'вариант','варианта','вариантов')}</span></div>
+    <div class="small">Готовая кровь быстрее донора. Позвоните и попросите отложить дозу, а запрос донорам всё равно отправьте: банк могут исчерпать.</div>
+    ${b.slice(0,3).map(x=>`<div class="bank-row"><div class="t"><b>${esc(x.c.name)}</b><span class="meta">${esc(COMP[x.comp][0])}, ${esc(x.g)} · ${x.n} ${plural(x.n,'доза','дозы','доз')} по ${x.ml} мл · ${x.c.km} км</span>${x.check?'<span class="meta">Группу вашего питомца клиника проверит перед переливанием</span>':''}<span class="meta">обновлено ${updAgo(x.c.upd)}</span></div>
+      <button type="button" class="btn" data-act="copyphone" data-phone="${x.c.phone}">Позвонить</button></div>`).join('')}
+  </div>`;
+}
 
 function eligibility(p){
   const since=p.lastDonation?Math.round((today-p.lastDonation)/DAY):Infinity;
@@ -733,6 +934,8 @@ function eligibility(p){
     {ok:p.weight>=minW,t:`Вес от ${minW} кг`,d:p.weight?`${p.weight} кг`:'не указан'},
     {ok:vacOk,t:'Прививки действуют',d:vacOk?'комплекс и бешенство в порядке':'нужна прививка не старше года'},
     {ok:p.healthy,t:'Нет хронических болезней',d:'по словам владельца'},
+    {ok:p.noTreat!==false,t:'Сейчас не лечится',d:p.noTreat!==false?'лекарства не принимает':'после лечения нужно выждать, уточните у врача'},
+    {ok:p.noTx!==false,t:'Никогда не получал(а) переливание',d:p.noTx!==false?'по словам владельца':'после переливания донором быть нельзя'},
   ];
   if(p.species==='cat')checks.push({ok:p.indoor,t:'Живёт дома, не гуляет на улице',d:p.indoor?'домашняя':'уличные кошки чаще переносят инфекции'});
   checks.push({ok:since>=gap,t:`Прошло ${gap} дней с прошлой сдачи`,d:!p.lastDonation?'ещё не сдавал(а) кровь':since>=gap?'можно сдавать':`ещё ${gap-since} ${plural(gap-since,'день','дня','дней')}`});
@@ -741,13 +944,35 @@ function eligibility(p){
 
 function reminders(){
   const out=[];
-  state.pets.forEach(p=>{
+  state.pets.filter(p=>!p.memorial).forEach(p=>{
     p.med.forEach((m,i)=>{if(m.date){const d=Math.round(m.every-(today-m.date)/DAY);out.push({pet:p,title:m.title,days:d,kind:'med',i})}});
-    const e=eligibility(p);if(p.donorOn&&e.fit&&!e.ready)out.push({pet:p,title:'Можно снова сдавать кровь',days:e.left,kind:'ready'});
+    const e=eligibility(p);if(p.donorOn&&!isPaused(p)&&e.fit&&!e.ready)out.push({pet:p,title:'Можно снова сдавать кровь',days:e.left,kind:'ready'});
   });
   return out.sort((a,b)=>a.days-b.days);
 }
 
+// ---------- галерея фото ----------
+const MAXPH=6;
+const photosOf=o=>o.photos&&o.photos.length?o.photos:o.photo?[o.photo]:[];
+function setPhotos(o,arr){o.photos=arr.slice(0,MAXPH);o.photo=o.photos[0]||null}
+// Листается пальцем (scroll-snap), точки и счётчик обновляются по прокрутке
+function gallery(list,alt,cls){
+  const n=list.length;if(!n)return '';
+  return `<div class="gal ${cls||''}" data-gal><div class="gal-track">${list.map((src,i)=>`<img src="${src}" alt="${esc(alt)}${n>1?`, фото ${i+1} из ${n}`:''}" ${i?'loading="lazy"':''} draggable="false">`).join('')}</div>
+    ${n>1?`<span class="gal-n num" aria-hidden="true">1/${n}</span><span class="gal-dots" aria-hidden="true">${list.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</span>`:''}</div>`;
+}
+const galIndex=el=>{const t=el&&el.querySelector('.gal-track');return t?Math.round(t.scrollLeft/Math.max(1,t.clientWidth)):0};
+document.addEventListener('scroll',e=>{const t=e.target;if(!t.classList||!t.classList.contains('gal-track'))return;
+  const g=t.parentElement,i=Math.round(t.scrollLeft/Math.max(1,t.clientWidth)),n=t.children.length;
+  const c=g.querySelector('.gal-n');if(c)c.textContent=`${i+1}/${n}`;g.querySelectorAll('.gal-dots i').forEach((d,k)=>d.classList.toggle('on',k===i))},true);
+async function addPhotos(files,max,target,size){
+  const room=MAXPH-photosOf(target).length;if(room<=0){toast(`Не больше ${MAXPH} фото`);return 0}
+  const list=[...files].slice(0,room);let ok=0;
+  for(const f of list){try{const u=await loadPhoto(f,size);setPhotos(target,[...photosOf(target),u]);ok++}catch(m){if(m!=='none')toast(m)}}
+  if(files.length>room)toast(`Добавили ${ok}. Больше ${MAXPH} фото нельзя`);
+  return ok;
+}
+const visibleReqs=()=>state.requests.filter(r=>r.mine||r.picked||!r.reported);
 const URG={now:['Критично','red'],today:['Сегодня','warn'],plan:['Плановая','']};
 const sp=s=>s==='dog'?'собака':'кошка';
 const clinic=id=>CLINICS.find(c=>c.id===id);
@@ -779,7 +1004,7 @@ function header(){
   return `<header class="top">
     <div class="brand" aria-label="Павхелп"><span class="wm" aria-hidden="true"><span class="wl">пав</span><svg class="wd" viewBox="0 0 20 28"><path d="M10 0 C 13 6, 20 12, 20 18 A 10 10 0 0 1 0 18 C 0 12, 7 6, 10 0 Z" fill="currentColor"/></svg><span class="wb">хелп</span></span></div>
     <div class="row" style="gap:8px">
-      <button class="city" data-act="city" aria-label="Местоположение: ${esc(state.loc.label)}">${I.pin} ${esc(state.loc.label)} ▾</button>
+      <button class="city" data-act="city" aria-label="Местоположение: ${esc(curCity().name)}, ${esc(areaLabel(state.loc.area))}">${I.pin} ${esc(({'Санкт-Петербург':'Петербург','Ростов-на-Дону':'Ростов','Петропавловск-Камчатский':'Петропавловск','Набережные Челны':'Наб. Челны','Великий Новгород':'В. Новгород','Нижний Новгород':'Н. Новгород','Южно-Сахалинск':'Ю.-Сахалинск','Ханты-Мансийск':'Ханты-Мансийск'})[curCity().name]||curCity().name)} ▾</button>
       <button class="icon-btn" data-act="notif" aria-label="Напоминания${soon?', новых: '+soon:''}">${I.bell}${soon?`<span class="dot">${soon}</span>`:''}</button>
       <button class="icon-btn" data-act="theme" aria-label="Сменить тему">${I.sun}</button>
     </div>
@@ -791,13 +1016,18 @@ const backBar=(label='← Назад',act='back')=>`<div class="top"><button cla
 function reqCard(r,compact){
   const [ul,uc]=URG[r.urgency];const c=clinic(r.clinic);
   const g=r.group==='не знаю'?'?':r.group.replace('DEA ','');
-  return `<article class="req ${r.urgency==='now'?'urgent':''}">
+  const big=r.photo&&!compact;
+  return `<article class="req ${r.urgency==='now'?'urgent':''} ${big?'has-media':''}">
+    ${big?`<div class="req-media" data-act="open" data-id="${r.id}" role="link" tabindex="0" aria-label="Открыть запрос: ${esc(r.pet)}">${gallery(photosOf(r),r.pet)}
+      <span class="rm-top"><span class="glass-chip ${r.urgency==='now'?'hot':''}"><i aria-hidden="true"></i>${ul}</span><span class="glass-chip">${r.km} км</span></span>
+      <span class="rm-g" aria-label="Группа крови: ${esc(r.group)}"><small>группа</small>${esc(g)}</span></div>`:''}
     <div class="req-head">
-      <div class="tube" aria-label="Группа крови: ${esc(r.group)}"><span class="g">${esc(g)}</span><span class="u">${r.group==='не знаю'?'группа ?':'группа'}</span><span class="vial" aria-hidden="true"></span></div>
+      ${big?'':r.photo?`<div class="tube ph"><img src="${r.photo}" alt="${esc(r.pet)}"><span class="pg" aria-label="Группа крови: ${esc(r.group)}">${esc(g)}</span></div>`
+        :`<div class="tube" aria-label="Группа крови: ${esc(r.group)}"><span class="g">${esc(g)}</span><span class="u">${r.group==='не знаю'?'группа ?':'группа'}</span><span class="vial" aria-hidden="true"></span></div>`}
       <div class="grow">
         <div class="row between" style="align-items:flex-start"><h3>${esc(r.pet)}</h3><span class="meta" style="white-space:nowrap">${esc(r.ago)}</span></div>
-        <div class="meta">${sp(r.species)}${r.breed&&r.breed!==sp(r.species)?', '+esc(r.breed):''}, ${r.weight} кг · ${r.km} км</div>
-        <div class="chips" style="margin-top:10px"><span class="chip ${uc}">${ul}</span>${r.mine?'<span class="chip ok">Ваш запрос</span>':''}${compact?'':`<span class="chip">${esc(c.name.replace(/^Вет(клиника|центр|госпиталь) /,''))}</span>`}</div>
+        <div class="meta">${sp(r.species)}${r.breed&&r.breed!==sp(r.species)?', '+esc(r.breed):''}, ${r.weight} кг${big?'':' · '+r.km+' км'}</div>
+        <div class="chips" style="margin-top:10px">${big?'':`<span class="chip ${uc}">${ul}</span>`}${r.verified?'<span class="chip ok">✓ клиника</span>':''}${r.prio?'<span class="chip prio">Донор Павхелпа</span>':''}${r.comp&&r.comp!=='whole'?`<span class="chip">${COMP[r.comp][1]}</span>`:''}${r.mine?'<span class="chip ok">Ваш запрос</span>':''}${compact?'':`<span class="chip">${esc(c.name.replace(/^Вет(клиника|центр|госпиталь) /,''))}</span>`}</div>
       </div>
     </div>
     ${compact?'':`<div class="small" style="padding-inline:4px">${esc(r.reason)}</div>`}
@@ -829,8 +1059,22 @@ function levelCard(clickable){
   </${clickable?'button':'div'}>`;
 }
 function emptyReqs(short){
+  if(!cityLive()&&!short)return stateCard({title:`${curCity().in[0].toUpperCase()+curCity().in.slice(1)} пока нет запросов`,text:`Павхелп здесь новый, и это хорошее время подготовиться. Каждый донор, который зарегистрируется сейчас, потом сократит чьё-то ожидание на часы.`,
+    actions:'<div class="btns"><button class="btn primary" data-act="addDonor">Стать донором</button><button class="btn" data-act="invite">Позвать друзей</button></div>'});
   return stateCard({title:'Рядом никто не просит о помощи',text:short?'Хорошая новость. Мы сообщим, если кому-то понадобится кровь.':'Хорошая новость: сейчас в вашем районе нет открытых запросов. Подключите Telegram, чтобы не пропустить SOS, или зарегистрируйте питомца-донора.',
     actions:short?'':'<div class="btns"><button class="btn primary" data-act="addDonor">Стать донором</button><button class="btn" data-act="tg">Подключить Telegram</button></div>'});
+}
+function seedCard(){
+  if(cityLive())return '';
+  const C=curCity(),n=cityDonorCount(),goal=50;
+  return `<section class="section" style="margin-top:12px"><div class="seed">
+    <span class="eyebrow">Павхелп ${esc(C.in)} только начинается</span>
+    <div class="row" style="gap:10px;align-items:baseline"><span class="seed-n num">${n}</span><span>${plural(n,'донор','донора','доноров')} рядом</span></div>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${goal}" aria-valuenow="${n}"><i style="width:${Math.max(3,n/goal*100)}%"></i></div>
+    <p class="small">Чтобы SOS закрывались за час, рядом нужно около ${goal} доноров. Пока вас мало, выручат банки крови клиник и районные чаты: запрос с текстом для чатов готов сразу после отправки.</p>
+    <div class="btns"><button class="btn primary grow" data-act="addDonor">Стать донором</button><button class="btn grow" data-act="invite">Позвать друзей</button></div>
+    <button class="link" data-act="tab" data-tab="aid" style="align-self:flex-start">Банки крови и клиники рядом →</button>
+  </div></section>`;
 }
 function donorCta(){
   const hasDonor=state.pets.some(p=>p.donorOn&&eligibility(p).fit);
@@ -857,10 +1101,10 @@ function tgCard(){
 function viewHome(){
   const dogs=DONORS.filter(d=>d.species==='dog'&&d.km<=10).length;
   const cats=DONORS.filter(d=>d.species==='cat'&&d.km<=10).length;
-  const open=state.requests.filter(r=>!r.mine);
+  const open=visibleReqs().filter(r=>!r.mine);
   const u=state.user;
   let petBlock='';
-  if(u&&state.pet){
+  if(u&&state.pet&&!state.pet.memorial){
     const p=state.pet,e=eligibility(p);
     const next=reminders()[0];
     petBlock=`<section class="section">
@@ -876,6 +1120,7 @@ function viewHome(){
   const chal=u?CHALLENGES.filter(c=>!state.chalDone.has(c.id))[0]:null;
   return `${header()}
   ${activeBanner()}
+  ${visibleReqs().filter(staleReq).map(r=>`<button class="active-sos stale-b" data-act="open" data-id="${r.id}"><span class="grow"><b>Запрос для ${esc(r.pet)} ещё актуален?</b><span class="meta" style="display:block">Открыт больше суток. Ответьте, чтобы мы не закрыли его</span></span><span aria-hidden="true">→</span></button>`).join('')}
   <section class="hero">
   <div class="hero-fx" aria-hidden="true">
       <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="blob b4"></i>
@@ -886,6 +1131,9 @@ function viewHome(){
     <div class="tags" aria-hidden="true"><span style="--r:-6deg">собаки от 25 кг</span><span style="--r:4deg">кошки от 4 кг</span><span style="--r:-2deg">${dogs+cats} доноров рядом</span></div>
     <button class="sos-btn" data-act="sos"><span class="ic"><i></i></span>Найти донора<span class="arrow" aria-hidden="true">↗</span></button>
   </section>
+  ${seedCard()}
+  ${iosCard()}
+  ${onbCard()}
   ${donorCta()}
   ${u?`<section class="section">${levelCard(true)}
     ${chal?`<div class="card row between"><div class="grow"><div class="eyebrow" style="margin-bottom:6px">Задание недели · +${drops(chal.pts)}</div><b style="font-weight:500">${chal.t}</b></div><span class="chip num">${Math.min(state.stats[chal.id],chal.goal)}/${chal.goal}</span></div>`:''}</section>`:''}
@@ -997,9 +1245,9 @@ function viewRequests(){
   return `${header()}
   <h1 class="page-title"><span class="lt">Нужна</span> помощь</h1>
   <section class="section" style="margin-top:18px">
-    <div class="section-head"><h2>Запросы в Петербурге</h2><span class="meta num">${state.requests.length} активных</span></div>
+    <div class="section-head"><h2>Запросы ${curCity().in}</h2><span class="meta num">${visibleReqs().length} активных</span></div>
     <p class="note">Откликнуться может владелец подходящего донора. Каждый репост даёт +${drops(10)} и помогает найти донора быстрее.</p>
-    ${state.sim.empty?emptyReqs():[...state.requests].sort((a,b)=>(b.mine?1:0)-(a.mine?1:0)||({now:0,today:1,plan:2}[a.urgency]-{now:0,today:1,plan:2}[b.urgency])||a.km-b.km).map(r=>reqCard(r,false)).join('')}
+    ${state.sim.empty||!visibleReqs().length?emptyReqs():[...visibleReqs()].sort((a,b)=>(b.mine?1:0)-(a.mine?1:0)||({now:0,today:1,plan:2}[a.urgency]-{now:0,today:1,plan:2}[b.urgency])||a.km-b.km).map(r=>reqCard(r,false)).join('')}
   </section>`;
 }
 
@@ -1007,34 +1255,49 @@ function viewRequest(id){
   const r=state.requests.find(x=>x.id===id);if(!r)return `${backBar()}<div style="margin-top:18px">${stateCard({title:'Запрос уже закрыт',text:'Скорее всего, донор найден. Спасибо, что хотели помочь. Посмотрите, кому ещё нужна кровь рядом.',actions:'<button class="btn primary" data-act="tab" data-tab="requests">Все запросы</button>'})}</div>`;
   const c=clinic(r.clinic);const [ul,uc]=URG[r.urgency];const list=(r.respList||[]);
   return `${backBar()}
+  ${r.photo?`<div class="req-cover">${gallery(photosOf(r),r.pet)}${r.mine?`<span class="cover-btns">${photosOf(r).length<MAXPH?`<label class="glass-btn" for="r-photo" aria-label="Добавить фото">${I.cam}</label>`:''}<button class="glass-btn" data-act="rPhotoDel" data-id="${r.id}" aria-label="Удалить это фото">×</button></span>`:`<span class="cover-btns"><button class="glass-btn" data-act="report" data-id="${r.id}" data-sp="photo" aria-label="Пожаловаться на фото">⚑</button></span>`}</div>`:''}
+  ${r.mine?`<input id="r-photo" type="file" accept="image/*" multiple hidden data-id="${r.id}">`:''}
   <section class="stack">
-    <div class="row"><div class="ava">${esc(r.pet[0])}</div><div><h2>${esc(r.pet)}</h2><div class="meta">${sp(r.species)}${r.breed&&r.breed!==sp(r.species)?', '+esc(r.breed):''}, ${r.weight} кг</div></div></div>
-    <div class="chips"><span class="chip ${uc}">${ul}</span><span class="chip">${esc(r.group==='не знаю'?'группа неизвестна':'группа '+r.group)}</span></div>
+    <div class="row"><div class="ava">${r.photo?`<img src="${r.photo}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:esc(r.pet[0])}</div><div><h2>${esc(r.pet)}</h2><div class="meta">${sp(r.species)}${r.breed&&r.breed!==sp(r.species)?', '+esc(r.breed):''}, ${r.weight} кг</div></div></div>
+    <div class="chips"><span class="chip ${uc}">${ul}</span><span class="chip">${esc(r.group==='не знаю'?'группа неизвестна':'группа '+r.group)}</span><span class="chip">${esc(COMP[r.comp||'whole'][0])}${r.vol?' · '+r.vol+' мл':''}</span>${r.verified?'<span class="chip ok">✓ Клиника подтвердила</span>':'<span class="chip warn">Клиника проверяет</span>'}${r.prio?'<span class="chip prio">Донор Павхелпа</span>':''}</div>
+    ${r.mine?bankBlock({species:r.species,group:r.group,comp:r.comp||'whole'}):''}
+    ${r.mine&&!r.photo?`<label class="btn" for="r-photo" style="align-self:flex-start;display:inline-flex;gap:8px;align-items:center;cursor:pointer">${I.cam} Добавить фото питомца</label>`:''}
+    ${r.mine&&r.photo?`<span class="meta">${photosOf(r).length} из ${MAXPH} фото · листайте, чтобы посмотреть все</span>`:''}
     <div class="card stack"><div><div class="small muted">Клиника</div><b>${esc(c.name)}</b><div class="meta">${esc(c.addr)}${c.night?' · круглосуточно':''}</div></div>
     ${r.reason?`<div><div class="small muted">Что случилось</div>${esc(r.reason)}</div>`:''}</div>
   </section>
+  ${staleBox(r)}
   ${r.mine&&r.trip?tripCard(r):''}
   ${r.mine?`
   <section class="section">
     <div class="section-head"><h2>Отклики доноров</h2>${r.waiting?'<span class="meta"><span class="pulse"></span> ждём ответы</span>':''}</div>
     ${r.queued?`<div class="warnbox" role="status">Нет связи. Запрос сохранён и уйдёт донорам автоматически, как только появится интернет. Пока звоните в клинику напрямую: <span class="phone">${clinic(r.clinic).phone}</span></div>`
-      :`<div class="match">Уведомили ${r.notified} ${plural(r.notified,'донора','доноров','доноров')} в радиусе 10 км</div>`}
+      :r.notified===0?`<div class="planb"><b>Рядом пока нет подходящих доноров</b><span class="small">Вот что можно сделать прямо сейчас:</span>
+        <div class="btns"><button class="btn" data-act="copyphone" data-phone="${clinic(r.clinic).phone}">Позвонить в клинику</button><button class="btn" data-act="copypost" data-id="${r.id}">Текст для чатов</button><button class="btn" data-act="widen" data-id="${r.id}">${r.radius>=50?'Поиск 50 км включён':'Искать в 50 км'}</button></div></div>`
+      :`<div class="match">Уведомили ${r.notified} ${plural(r.notified,'донора','доноров','доноров')} в радиусе ${r.radius||10} км${r.prio?' · приоритетный поиск':''}</div>`}
     <div class="card">${list.length?list.map(d=>`
       <div class="resp"><div class="ava" style="width:40px;height:40px;font-size:15px">${esc(d.name[0])}</div>
         <div class="t"><b>${esc(d.name)}</b> <span class="blood small">${esc(d.group)}</span><div class="meta">${esc(d.breed)}, ${d.weight} кг · ${d.km} км · хозяин ${esc(d.owner)}</div>
-        ${d.chosen?`<div class="row wrap" style="margin-top:6px"><span class="phone">${d.phone}</span><button class="btn ghost" data-act="copyphone" data-phone="${d.phone}">Копировать</button></div>`:''}</div>
+        </div>
         ${d.chosen?'<span class="chip ok">Выбран</span>':d.declined?'<span class="chip">Не смог</span>':r.trip?'':`<button class="btn primary" data-act="choose" data-rid="${r.id}" data-did="${d.id}">Выбрать</button>`}
       </div>`).join(''):'<div class="muted small">Пока нет откликов. Обычно первые приходят в течение 10–15 минут.</div>'}
     </div>
-    <p class="note">После выбора донор получит адрес клиники, а вы увидите его телефон. Кровь берёт врач клиники, он же проверяет донора на месте.</p>
+    <p class="note">После выбора донор получит адрес клиники, и у вас откроется чат. Номера телефонов скрыты, пока каждый сам не решит показать свой. Кровь берёт врач клиники, он же проверяет донора на месте.</p>
   </section>
   <section class="section"><div class="card stack"><div class="row between"><b>Текст для районных чатов</b>${r.post&&r.post!==postTemplate(r)?'<span class="ai-tag">ИИ</span>':''}</div>
     <div class="post">${esc(r.post||postTemplate(r))}</div>
     <div class="small muted">Любой владелец подходящего питомца сможет откликнуться по ссылке.</div>
-    <button class="btn primary" data-act="copypost" data-id="${r.id}">Скопировать текст со ссылкой</button></div></section>
+    <button class="btn primary" data-act="copypost" data-id="${r.id}">Скопировать текст со ссылкой</button>
+    <button class="btn" data-act="pub" data-id="${r.id}">Как видят ссылку</button></div></section>
   <section class="section"><button class="btn" data-act="closeAsk" data-id="${r.id}">Закрыть запрос</button></section>
   `:`
   ${r.picked?pickedCard(r):''}
+  <section class="section"><div class="card stack trust">
+    <div class="row between"><b>${esc(r.owner)}</b>${r.fresh?'<span class="chip warn">новый аккаунт</span>':''}</div>
+    <div class="meta">На Павхелпе: ${esc(r.since||'недавно')} · ${r.verified?'клиника подтвердила, что питомец у них':'клиника ещё не подтвердила запрос'}</div>
+    <div class="small">Кровь берут только в клинике. Хозяин не может просить деньги, документы или коды из СМС.</div>
+    <button class="link" data-act="report" data-id="${r.id}" style="align-self:flex-start;color:var(--accent)">Пожаловаться на запрос</button>
+  </div></section>
   <section class="section"><div class="btns">
     ${r.picked?'':r.helped?'<button class="btn done grow" disabled>Вы откликнулись, ждём решения хозяина</button>':`<button class="btn primary grow" data-act="help" data-id="${r.id}">Могу помочь</button>`}
     ${r.helped&&!r.picked?`<button class="btn" data-act="unhelp" data-id="${r.id}">Отменить</button>`:''}
@@ -1044,7 +1307,7 @@ function viewRequest(id){
 }
 
 function viewSos(){
-  const f=state.form;const m=matchDonors(f);
+  const f=state.form;const prio=prioPet(f);const m=matchDonors({...f,radius:prio?20:10});
   const groups=f.species==='dog'?['не знаю','DEA 1.1+','DEA 1.1−']:['не знаю','A','B','AB'];
   const seg=(key,opts)=>`<div class="seg" role="group">${opts.map(([v,l])=>`<button type="button" aria-pressed="${f[key]===v}" data-act="set" data-k="${key}" data-v="${v}">${l}</button>`).join('')}</div>`;
   return `${backBar('← Отмена','home')}
@@ -1058,16 +1321,30 @@ function viewSos(){
   </div>
   <div class="or">или заполните сами</div>
   <form class="stack" id="sosform" style="margin-top:8px;gap:16px" novalidate>
+    ${state.user&&state.pets.length?`<div class="field"><span class="flabel">Это мой питомец</span><div class="seg">${state.pets.map((x,i)=>`<button type="button" class="petpick" aria-pressed="${f.petId===x.id}" data-act="sosPet" data-i="${i}">${x.photo?`<img class="mini-ava" src="${x.photo}" alt="">`:''}${esc(x.name)}</button>`).join('')}</div></div>`:''}
     <div class="field"><span class="flabel">Кому нужна кровь</span>${seg('species',[['dog','Собака'],['cat','Кошка']])}</div>
+    ${photosOf(f).length?`<div class="field"><span class="flabel">Фото питомца · ${photosOf(f).length} из ${MAXPH}</span><div class="ph-strip">${photosOf(f).map((u,i)=>`<span class="ph-tile"><img src="${u}" alt="Фото ${i+1}">${i===0?'<em>обложка</em>':`<button type="button" class="ph-main" data-act="sosPhotoMain" data-i="${i}" aria-label="Сделать обложкой">★</button>`}<button type="button" class="ph-x" data-act="sosPhotoDel" data-i="${i}" aria-label="Убрать фото ${i+1}">×</button></span>`).join('')}${photosOf(f).length<MAXPH?`<label class="ph-tile add" for="f-photo" aria-label="Добавить ещё фото">+</label>`:''}</div>
+      <span class="note">Первое фото станет обложкой. Покажите питомца целиком и мордочку: так донор быстрее узнает вас в клинике.</span></div>`
+    :`<label class="photo-pick sosph" for="f-photo"><span class="ph">${I.cam}</span><span class="grow"><b>Фото питомца</b><span class="meta" style="display:block">Необязательно, до ${MAXPH} фото. С фото доноры откликаются охотнее</span></span></label>`}
+    <input id="f-photo" type="file" accept="image/*" multiple hidden>
     <div class="row frow" style="gap:10px;align-items:flex-start">
       <div class="field grow"><label for="f-pet">Кличка</label><input id="f-pet" type="text" value="${esc(f.pet)}" placeholder="Например, Рекс"></div>
       <div class="field" style="width:38%"><label for="f-w">Вес, кг</label><input id="f-w" type="number" inputmode="decimal" value="${esc(f.weight)}" placeholder="${f.species==='dog'?'30':'4.5'}"></div>
     </div>
     <div class="field"><span class="flabel">Группа крови</span>${seg('group',groups.map(g=>[g,g==='не знаю'?'Не знаю':g]))}
       ${f.species==='cat'?'<span class="note">Кошкам переливают только кровь той же группы. Если группа неизвестна, клиника определит её экспресс-тестом.</span>':''}</div>
+    <div class="row frow" style="gap:10px;align-items:flex-end">
+      <div class="field grow"><span class="flabel">Что назначил врач</span>${seg('comp',Object.entries(COMP).map(([k,v])=>[k,v[1][0].toUpperCase()+v[1].slice(1)]))}</div>
+    </div>
+    <div class="field" style="width:50%"><label for="f-vol">Объём, мл</label><input id="f-vol" type="text" inputmode="numeric" value="${esc(f.vol||'')}" placeholder="${f.species==='dog'?'450':'50'}"></div>
+    <span class="note" style="margin-top:-8px">Если врач не сказал, оставьте пустым. Донор всегда сдаёт цельную кровь, плазму и эритроцитную массу клиника готовит из неё.</span>
+    ${bankBlock(f)}
     <div class="field"><label for="f-clinic">Клиника</label><select id="f-clinic">${[...CLINICS].sort((a,b)=>a.km-b.km).map(c=>`<option value="${c.id}" ${c.id===f.clinic?'selected':''}>${esc(c.name)} · ${c.km} км${c.night?' · 24/7':''}</option>`).join('')}</select></div>
     <div class="field"><span class="flabel">Когда нужна кровь</span>${seg('urgency',[['now','Прямо сейчас'],['today','Сегодня'],['plan','Операция в ближайшие дни']])}</div>
     <div class="field"><label for="f-reason">Что случилось (коротко)</label><textarea id="f-reason" placeholder="Например, отравление, нужна операция">${esc(f.reason)}</textarea></div>
+    ${prio?`<div class="match prio">Приоритетный поиск: ${esc(prio.name)} сам(а) донор, поэтому запрос уйдёт донорам в радиусе 20 км и будет первым в ленте.</div>`:''}
+    ${sosLimitNote()}
+    ${m.length?'':planB(f)}
     <div class="match ${m.length?'':'none'}">${m.length?`Подходящих доноров рядом: ${m.length}. Они получат уведомление сразу после отправки.`:'Рядом нет подходящих доноров. Отправьте запрос и поделитесь ссылкой в районных чатах.'}</div>
     ${state.user?'':'<p class="note">Чтобы донор мог с вами связаться, нужно войти. Через Telegram это одно нажатие.</p>'}
     <button class="btn primary wide" type="submit">Отправить запрос</button>
@@ -1085,6 +1362,14 @@ function viewAid(){
         <div class="meta">${esc(c.addr)} · ${c.km} км</div><div class="phone small" style="margin-top:4px">${c.phone}</div></div>
         <div class="stack" style="gap:6px"><button class="btn ghost" data-act="copyphone" data-phone="${c.phone}">Телефон</button><button class="btn ghost" data-act="route">Маршрут</button></div></div>`).join('')}
     </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><h2>Банки крови</h2><span class="meta">запасы клиник</span></div>
+    <p class="note">Клиники сами обновляют наличие. Перед поездкой позвоните: дозу могли уже забрать.</p>
+    <div class="card">${CLINICS.filter(c=>c.bank).sort((a,b)=>a.km-b.km).map(c=>`<div class="clinic"><div class="t"><b>${esc(c.name)}</b>
+      <div class="meta">${esc(c.addr)} · ${c.km} км · обновлено ${updAgo(c.upd)}</div>
+      <div class="chips" style="margin-top:8px">${c.stock.map(([sp,g,comp,n])=>`<span class="chip">${sp==='dog'?'Собаки':'Кошки'} ${esc(g.replace('DEA ',''))} · ${COMP[comp][1]} · ${n}</span>`).join('')}</div></div>
+      <button class="btn ghost" data-act="copyphone" data-phone="${c.phone}">Телефон</button></div>`).join('')}</div>
   </section>
   <section class="section">
     <div class="section-head"><h2>Первая помощь</h2><span class="meta num">прочитано ${state.guidesRead.size}/${GUIDES.length}</span></div>
@@ -1112,7 +1397,7 @@ function viewNotif(){
     <div class="chat">
       <div class="who"><span class="ic">${I.tg}</span>Павхелп · бот</div>
       ${soon.map(r=>`<div class="bubble">${r.kind==='ready'?`${esc(r.pet.name)} снова может сдавать кровь ${r.days<=0?'уже сегодня':'через '+r.days+' '+plural(r.days,'день','дня','дней')}. Включим SOS-уведомления?`:`${esc(r.pet.name)}: ${esc(r.title.toLowerCase())} ${r.days<=0?'пора сделать':'через '+r.days+' '+plural(r.days,'день','дня','дней')}. Отметить можно прямо здесь.`}<div class="tm">10:00</div></div>`).join('')}
-      <div class="bubble">Итоги недели в Петербурге: доноры откликнулись на 11 SOS, спасено 9 питомцев. Приморский район снова первый.<div class="tm">вс, 19:00</div></div>
+      <div class="bubble">Итоги недели ${curCity().in}: доноры откликнулись на 11 SOS, спасено 9 питомцев. ${areaLabel(areaFor('Приморский'))} снова на первом месте.<div class="tm">вс, 19:00</div></div>
     </div>
   </section>
   <section class="section">
@@ -1140,7 +1425,7 @@ function viewLogin(){
       <div class="provs">${Object.entries(PROV).map(([k,v])=>`<button class="prov" data-act="loginProv" data-p="${k}"><span class="pm" style="background:${v.c}" aria-hidden="true">${v.m}</span>${v.n}</button>`).join('')}</div>
       <button class="btn wide" data-act="loginEmail">Войти по email</button>
       <p class="note">В демо вход через Telegram, Яндекс, VK, Сбер или МТС открывает аккаунт с питомцем Джесси, а по email создаёт новый пустой аккаунт.</p>
-      <label class="consent" for="l-consent"><input id="l-consent" type="checkbox" ${L.consent?'checked':''} data-act="consent"><span>Согласен(на) на обработку персональных данных и принимаю условия сервиса. Данные хранятся на серверах в России.</span></label>`;
+      <label class="consent" for="l-consent"><input id="l-consent" type="checkbox" ${L.consent?'checked':''} data-act="consent"><span>Согласен(на) на <button type="button" class="inlink" data-act="legal" data-k="privacy">обработку персональных данных</button> и принимаю <button type="button" class="inlink" data-act="legal" data-k="terms">условия сервиса</button>. Данные хранятся на серверах в России.</span></label>`;
   }else if(L.step==='email'){
     body=`<form class="stack" id="loginform" data-step="email" novalidate><div class="field"><label for="l-email">Email</label><input id="l-email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" value="${esc(L.email||'')}" placeholder="name@mail.ru"></div>
       <p class="note">Пароль не нужен: пришлём одноразовый код из 6 цифр.</p>
@@ -1182,37 +1467,54 @@ function viewProfile(){
       <label class="switch" for="sim-off"><span class="grow"><b>Нет интернета</b><span class="meta" style="display:block">Баннер, SOS в очереди до появления связи</span></span><input id="sim-off" type="checkbox" data-act="simOffline" ${state.sim.offline?'checked':''}></label>
       <label class="switch" for="sim-empty"><span class="grow"><b>Пустая лента запросов</b><span class="meta" style="display:block">Как выглядит, когда никому не нужна помощь</span></span><input id="sim-empty" type="checkbox" data-act="simEmpty" ${state.sim.empty?'checked':''}></label>
       <label class="switch" for="sim-fail"><span class="grow"><b>Сбой сервера при следующем SOS</b><span class="meta" style="display:block">Один раз, повторная попытка пройдёт</span></span><input id="sim-fail" type="checkbox" data-act="simFail" ${state.sim.serverFail?'checked':''}></label>
-      <div class="btns" style="padding-top:14px"><button class="btn" data-act="open" data-id="r-closed">Открыть закрытый запрос</button></div>
+      <label class="switch" for="sim-scam"><span class="grow"><b>Мошенник в чате</b><span class="meta" style="display:block">Следующий ответ в чате попросит деньги</span></span><input id="sim-scam" type="checkbox" data-act="simScam" ${state.sim.scam?'checked':''}></label>
+      <label class="switch" for="sim-limit"><span class="grow"><b>Лимит SOS исчерпан</b><span class="meta" style="display:block">Как будто сегодня уже отправили 3 запроса</span></span><input id="sim-limit" type="checkbox" data-act="simLimit" ${sosQuota().left===0?'checked':''}></label>
+      <label class="switch" for="sim-ios"><span class="grow"><b>Как на iPhone</b><span class="meta" style="display:block">Подсказка «Добавьте на экран „Домой“»</span></span><input id="sim-ios" type="checkbox" data-act="simIos" ${state.sim.ios?'checked':''}></label>
+      <div class="btns" style="padding-top:14px;flex-wrap:wrap"><button class="btn" data-act="openClinic">Кабинет клиники</button><button class="btn" data-act="openTg">Telegram-бот</button><button class="btn" data-act="openPub">Публичная ссылка</button><button class="btn" data-act="timeSkip">Прошли сутки</button><button class="btn" data-act="support">Поддержка</button><button class="btn" data-act="open" data-id="r-closed">Закрытый запрос</button></div>
     </div></section>`;
 }
 
 const PET_ART={dog:'<svg viewBox="16 6 52 54" aria-hidden="true">'+'<g><ellipse cx="25" cy="24" rx="8" ry="15" fill="#6B4226" transform="rotate(22 25 24)"/><ellipse cx="59" cy="24" rx="8" ry="15" fill="#6B4226" transform="rotate(-22 59 24)"/><circle cx="42" cy="33" r="19" fill="#D9A066"/><ellipse cx="42" cy="43" rx="11" ry="8.5" fill="#F4DDBF"/><ellipse cx="42" cy="39.5" rx="4.2" ry="3.2" fill="#1E1A1D"/><circle cx="35" cy="30" r="2.4" fill="#1E1A1D"/><circle cx="49" cy="30" r="2.4" fill="#1E1A1D"/><circle cx="35.8" cy="29.2" r=".8" fill="#fff"/><circle cx="49.8" cy="29.2" r=".8" fill="#fff"/><path d="M42 43v3" stroke="#1E1A1D" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="42" cy="50" rx="3.2" ry="3.6" fill="#F0788A"/></g>'+'</svg>',cat:'<svg viewBox="66 4 46 52" aria-hidden="true">'+'<g><polygon points="72,30 75,9 86,22" fill="#8E8E96"/><polygon points="106,30 103,9 92,22" fill="#8E8E96"/><polygon points="75,26 76.5,14 83,22" fill="#F2B8C4"/><polygon points="103,26 101.5,14 95,22" fill="#F2B8C4"/><circle cx="89" cy="36" r="17" fill="#A7A7AF"/><path d="M83 22 q6 -4 12 0" stroke="#8E8E96" stroke-width="3" fill="none"/><ellipse cx="82.5" cy="34" rx="2.3" ry="3.2" fill="#1E1A1D"/><ellipse cx="95.5" cy="34" rx="2.3" ry="3.2" fill="#1E1A1D"/><circle cx="83.2" cy="33" r=".8" fill="#fff"/><circle cx="96.2" cy="33" r=".8" fill="#fff"/><polygon points="86.8,40 91.2,40 89,42.6" fill="#E8899A"/><path d="M89 42.6v2.2M89 44.8q-2.5 2 -4.5 .6M89 44.8q2.5 2 4.5 .6" stroke="#1E1A1D" stroke-width="1.1" fill="none" stroke-linecap="round"/><path d="M78 41h-8M78 44l-7 2.5M100 41h8M100 44l7 2.5" stroke="#1E1A1D" stroke-opacity=".45" stroke-width=".9" stroke-linecap="round"/></g>'+'</svg>'};
+// Демо-портреты для примеров запросов (в рабочей версии — настоящие фото хозяев)
+function demoPortrait(species,c){
+  const dog=`<ellipse cx="25" cy="24" rx="8" ry="15" fill="${c.ear}" transform="rotate(22 25 24)"/><ellipse cx="59" cy="24" rx="8" ry="15" fill="${c.ear}" transform="rotate(-22 59 24)"/><circle cx="42" cy="33" r="19" fill="${c.face}"/><ellipse cx="42" cy="43" rx="11" ry="8.5" fill="${c.muzzle}"/><ellipse cx="42" cy="39.5" rx="4.2" ry="3.2" fill="#1E1A1D"/><circle cx="35" cy="30" r="2.4" fill="#1E1A1D"/><circle cx="49" cy="30" r="2.4" fill="#1E1A1D"/><circle cx="35.8" cy="29.2" r=".8" fill="#fff"/><circle cx="49.8" cy="29.2" r=".8" fill="#fff"/><path d="M42 43v3" stroke="#1E1A1D" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="42" cy="50" rx="3.2" ry="3.6" fill="#F0788A"/>`;
+  const cat=`<polygon points="72,30 75,9 86,22" fill="${c.ear}"/><polygon points="106,30 103,9 92,22" fill="${c.ear}"/><polygon points="75,26 76.5,14 83,22" fill="${c.inner}"/><polygon points="103,26 101.5,14 95,22" fill="${c.inner}"/><circle cx="89" cy="36" r="17" fill="${c.face}"/><ellipse cx="82.5" cy="34" rx="2.3" ry="3.2" fill="#1E1A1D"/><ellipse cx="95.5" cy="34" rx="2.3" ry="3.2" fill="#1E1A1D"/><circle cx="83.2" cy="33" r=".8" fill="#fff"/><circle cx="96.2" cy="33" r=".8" fill="#fff"/><polygon points="86.8,40 91.2,40 89,42.6" fill="#E8899A"/><path d="M89 42.6v2.2M89 44.8q-2.5 2 -4.5 .6M89 44.8q2.5 2 4.5 .6" stroke="#1E1A1D" stroke-width="1.1" fill="none" stroke-linecap="round"/><path d="M78 41h-8M78 44l-7 2.5M100 41h8M100 44l7 2.5" stroke="#1E1A1D" stroke-opacity=".45" stroke-width=".9" stroke-linecap="round"/>`;
+  const vb=species==='dog'?'12 2 60 60':'59 0 60 60';
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" width="600" height="600"><defs><radialGradient id="bg" cx="35%" cy="25%" r="90%"><stop offset="0" stop-color="${c.bg1}"/><stop offset="1" stop-color="${c.bg2}"/></radialGradient></defs><rect x="-50" y="-50" width="300" height="300" fill="url(#bg)"/><g transform="translate(${species==='dog'?0:0} 6)">${species==='dog'?dog:cat}</g><text x="${species==='dog'?66:113}" y="${58}" text-anchor="end" font-family="sans-serif" font-size="3.2" fill="#000" fill-opacity=".35">демо</text></svg>`;
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+[['r1','dog',{ear:'#4A2E1A',face:'#B9824E',muzzle:'#EBD3B0',bg1:'#F1E6DA',bg2:'#CDB79E'}],
+ ['r2','cat',{ear:'#7A8492',inner:'#E7B3BF',face:'#8B95A3',bg1:'#F4EAEE',bg2:'#D6C1CA'}],
+ ['r3','dog',{ear:'#C08E4A',face:'#E2B46E',muzzle:'#F6E2BC',bg1:'#E6EEF1',bg2:'#B6CAD3'}]]
+ .forEach(([id,sp,c],k)=>{const r=state.requests.find(x=>x.id===id);if(!r||r.photo)return;
+   const alt=[c,{...c,bg1:'#E9F0E4',bg2:'#B8C9A9'},{...c,bg1:'#F3E3E0',bg2:'#D6AFA8'}];
+   setPhotos(r,alt.slice(0,[3,2,1][k]).map(x=>demoPortrait(sp,x)))});
 function petCard(p,e){
-  const status=!(p.donorOn&&e.fit)?['Не донор','']:e.ready?['Донор · готов к сдаче','ok']:['Донор · через '+e.left+' '+plural(e.left,'день','дня','дней'),'wait'];
+  const status=p.memorial?['Светлая память','']:isPaused(p)?['На паузе до '+fmt(new Date(p.pauseUntil)),'wait']:!(p.donorOn&&e.fit)?['Не донор','']:e.ready?['Донор · готов к сдаче','ok']:['Донор · через '+e.left+' '+plural(e.left,'день','дня','дней'),'wait'];
   const g=p.group==='не знаю'?'—':p.group.replace('DEA ','');
   const fact=(l,v,cls)=>`<div class="pc-fact"><span>${l}</span><b class="${cls||''}">${v}</b></div>`;
   return `<article class="pet-card">
-    <div class="pc-media ${p.photo?'has-photo':'sp-'+p.species}">
-      ${p.photo?`<img src="${p.photo}" alt="${esc(p.name)}">`:`<span class="pc-art">${PET_ART[p.species]||PET_ART.dog}</span>`}
+    <div class="pc-media ${p.photo?'has-photo':'sp-'+p.species} ${p.memorial?'memo-media':''}">
+      ${p.photo?gallery(photosOf(p),p.name):`<span class="pc-art">${PET_ART[p.species]||PET_ART.dog}</span>`}
       <div class="pc-top"><span class="glass-chip ${status[1]}"><i aria-hidden="true"></i>${status[0]}</span>
-        <span class="row" style="gap:8px"><button class="glass-btn" data-act="editPet" aria-label="Изменить данные: ${esc(p.name)}">${I.edit}</button><label class="glass-btn" for="p-photo" aria-label="${p.photo?'Сменить фото':'Добавить фото'} ${esc(p.name)}">${I.cam}</label></span></div>
-      <div class="pc-name"><h2>${esc(p.name)}</h2><span>${esc(p.breed)} · ${p.species==='dog'?'собака':'кошка'}</span></div>
+        <span class="row" style="gap:8px"><button class="glass-btn" data-act="editPet" aria-label="Изменить данные: ${esc(p.name)}">${I.edit}</button>${photosOf(p).length<MAXPH?`<label class="glass-btn" for="p-photo" aria-label="Добавить фото ${esc(p.name)}">${I.cam}</label>`:''}${photosOf(p).length>1?`<button class="glass-btn" data-act="petPhotoDel" aria-label="Удалить это фото">×</button>`:''}</span></div>
+      <div class="pc-name"><h2>${esc(p.name)}</h2><span>${esc(p.breed)} · ${p.species==='dog'?(p.sex==='m'?'пёс':'собака'):(p.sex==='m'?'кот':'кошка')}${p.chip?' · чип ✓':''}</span></div>
     </div>
-    <input id="p-photo" type="file" accept="image/*" hidden>
+    <input id="p-photo" type="file" accept="image/*" multiple hidden>
     <div class="pc-body">
       <div class="pc-facts">
         ${fact('Возраст',`${p.age} ${plural(p.age,'год','года','лет')}`)}
         <button class="pc-fact pc-link" data-act="goWeight" aria-label="Вес ${kg(p.weight)} кг, изменить"><span>Вес ✎</span><b>${kg(p.weight)} кг</b></button>
         ${fact('Группа крови',esc(g),'red')}
-        ${fact('Район',esc(p.district))}
+        ${fact('Район',esc(areaLabel(areaFor(p.district))))}
       </div>
       <div class="pc-stats">
         <div><b class="num">${p.donations}</b><span>${plural(p.donations,'сдача','сдачи','сдач')}</span></div>
         <div><b class="num">${p.saved}</b><span>спасено</span></div>
         <div><b class="num">${p.donorOn&&e.fit?(e.ready?'0':e.left):'—'}</b><span>${p.donorOn&&e.fit?'дней до сдачи':'не донор'}</span></div>
       </div>
-      <div class="btns">${p.donations?'<button class="btn primary grow" data-act="hero">Карточка героя для сторис</button>':'<button class="btn primary grow" data-act="goReady">Проверить готовность</button>'}
-        <button class="rbtn" data-act="editPet" aria-label="Изменить данные питомца">${I.edit}</button></div>
+      ${p.memorial?'':`<div class="btns">${p.donations?'<button class="btn primary grow" data-act="hero">Карточка героя для сторис</button>':'<button class="btn primary grow" data-act="goReady">Проверить готовность</button>'}
+        <button class="rbtn" data-act="editPet" aria-label="Изменить данные питомца">${I.edit}</button></div>`}
     </div>
   </article>`;
 }
@@ -1277,6 +1579,7 @@ function saveJournal(){
 function profilePets(){
   if(!state.pet)return `<section class="section"><div class="card stack"><b>Добавьте питомца</b><div class="small muted">Медкарта, напоминания и проверка, может ли он стать донором.</div><button class="btn primary" data-act="addDonor">Добавить питомца</button></div></section>`;
   const p=state.pet,e=eligibility(p);
+  if(p.memorial)return `<section class="section"><div class="seg" role="group" aria-label="Мои питомцы">${state.pets.map((x,i)=>`<button type="button" aria-pressed="${x===p}" data-act="petSel" data-i="${i}">${esc(x.name)}</button>`).join('')}<button type="button" data-act="addDonor" style="border-style:dashed">+ Добавить</button></div>${petCard(p,e)}</section>${memorialSection(p)}`;
   const wlog=wSorted(p),wl=wlog.map(x=>x.v),min=Math.min(...wl)-.5,max=Math.max(...wl)+.5,W=280,H=56;
   const t0=wlog.length?+wlog[0].d:0,t1=wlog.length?+wlog[wlog.length-1].d:1,span=Math.max(1,t1-t0);
   const pts=wl.length>1?wlog.map(x=>[(x.d-t0)/span*W,H-((x.v-min)/(max-min))*H]):[];
@@ -1297,6 +1600,7 @@ function profilePets(){
       <ul class="checks">${e.checks.map(c=>`<li><span class="mark ${c.ok?'y':'n'}">${c.ok?'✓':'!'}</span><div><b style="font-weight:600">${c.t}</b><div class="meta">${c.d}</div></div></li>`).join('')}</ul>
       <label class="switch" for="donorOn"><span class="grow"><b style="font-weight:600">Получать SOS-запросы</b><span class="meta" style="display:block">Только подходящие по виду, весу и группе</span></span>
         <input id="donorOn" type="checkbox" ${p.donorOn?'checked':''} data-act="donorToggle"></label>
+      ${p.donorOn?pauseRow(p):''}
       ${p.pending?`<div class="warnbox">Сдача ${fmt(p.pending.date)} ждёт подтверждения клиникой. Капли начислим после подтверждения</div>`:e.ready&&p.donorOn?`<button class="link" data-act="donate" style="align-self:flex-start">Сдали кровь без Павхелпа?</button>`:''}
       <p class="note" style="padding:0">Сдача засчитывается, когда её подтверждает хозяин, которому вы помогли, или клиника.</p>
     </div>
@@ -1346,6 +1650,13 @@ function profileRewards(){
       return `<div class="badge ${on?'on':''}"><div class="b">${b.s}</div><b>${b.t}</b><div class="d">${b.d}</div>
       ${on?'':`${b.goal>1?`<div class="bar"><i style="width:${v/b.goal*100}%"></i></div><div class="p">${v}/${b.goal}</div>`:''}`}</div>`}).join('')}</div>
   </section>
+  <section class="section">
+    <div class="section-head"><h2>Бонусы партнёров</h2><span class="meta">${st.donations} ${plural(st.donations,'сдача','сдачи','сдач')}</span></div>
+    <div class="card">${PERKS.map(k=>{const on=st.donations>=k.need;
+      return `<div class="perk ${on?'on':''}"><span class="ic" aria-hidden="true">${k.ic}</span><div class="t"><b style="font-weight:600">${k.t}</b><span class="meta">${k.who} · ${on?'доступно':'после '+k.need+' '+plural(k.need,'сдачи','сдач','сдач')}</span></div>
+      ${on?`<button class="btn" data-act="perk" data-code="${k.code}">Код</button>`:`<span class="chip num">${st.donations}/${k.need}</span>`}</div>`}).join('')}</div>
+    <p class="note">Бонусы открываются подтверждёнными сдачами крови. Партнёры демонстрационные, условия в рабочей версии согласуем с каждым.</p>
+  </section>
   <section class="section"><div class="card stack">
     <b>Пригласите друга с собакой или кошкой</b>
     <div class="small muted">+${drops(50)} за каждого, кто зарегистрирует питомца-донора. Три приглашения дают награду «Наставник».</div>
@@ -1353,28 +1664,28 @@ function profileRewards(){
   <section class="section">
     <details class="acc"><summary>Как получать капли</summary><div class="body">
       ${EARN.map(([t,n])=>`<div class="row between"><span>${t}</span><span class="blood num">+${n}</span></div>`).join('')}
-      <p class="note">В рабочей версии капли можно будет обменять на скидки у партнёров: корма, анализы, страховка.</p></div></details>
+      <p class="note">Капли показывают ваш вклад и уровень. Бонусы партнёров открываются сдачами крови.</p></div></details>
   </section>`;
 }
 
 function profileRating(){
   const me=state.pets.find(p=>p.donations>0)||state.pet;
-  let rows=TOP_DONORS.map(([n,d,v])=>({n,d,v,me:false}));
-  if(me)rows.push({n:me.name,d:me.district,v:state.xp,me:true});
+  let rows=TOP_DONORS.map(([n,d,v])=>({n,d:areaLabel(areaFor(d)),v,me:false}));
+  if(me)rows.push({n:me.name,d:areaLabel(areaFor(me.district)),v:state.xp,me:true});
   rows.sort((a,b)=>b.v-a.v);
   const myRank=rows.findIndex(r=>r.me)+1;
   const maxD=TOP_DISTRICTS[0][2];
   const tabs=`<div class="seg" role="group">${[['donors','Доноры'],['districts','Районы']].map(([k,l])=>`<button type="button" aria-pressed="${state.lbtab===k}" data-act="lbtab" data-k="${k}">${l}</button>`).join('')}</div>`;
   return `<section class="section">${tabs}
   ${state.lbtab==='donors'?`
-    <div class="section-head"><h2>Доноры Петербурга</h2>${myRank?`<span class="meta">вы на ${myRank} месте</span>`:''}</div>
+    <div class="section-head"><h2>Доноры ${curCity().gen}</h2>${myRank?`<span class="meta">вы на ${myRank} месте</span>`:''}</div>
     <div class="card lb">${rows.map((r,i)=>`<div class="lb-row ${i<3?'top':''} ${r.me?'me':''}"><span class="r">${i+1}</span><div><b>${esc(r.n)}</b>${r.me?' <span class="chip red" style="font-size:11px">вы</span>':''}<div class="meta">${esc(r.d)}</div></div><span class="v">${r.v}</span></div>`).join('')}</div>
     <p class="note">Рейтинг по каплям за всё время. Сдача крови даёт больше всего капель.</p>`
   :`
     <div class="section-head"><h2>Районы</h2><span class="meta">спасено за год</span></div>
-    <div class="card lb">${TOP_DISTRICTS.map(([n,d,s],i)=>`<div class="lb-row ${i<3?'top':''} ${state.pet&&state.pet.district===n?'me':''}"><span class="r">${i+1}</span>
-      <div class="stack" style="gap:5px"><div><b>${n}</b> <span class="meta">${d} ${plural(d,'донор','донора','доноров')}</span></div><div class="bar" style="height:6px"><i style="width:${s/maxD*100}%"></i></div></div><span class="v">${s}</span></div>`).join('')}</div>
-    <p class="note">Приводите соседей: район с самым большим числом спасений получает звание «Сердце Петербурга» на месяц.</p>`}
+    <div class="card lb">${TOP_DISTRICTS.map(([n0,d,s],i)=>{const A=areaKeys(),n=A[i%A.length];return [n,d,s]}).filter((x,i)=>i<areaKeys().length).map(([n,d,s],i)=>`<div class="lb-row ${i<3?'top':''} ${state.pet&&state.pet.district===n?'me':''}"><span class="r">${i+1}</span>
+      <div class="stack" style="gap:5px"><div><b>${esc(areaLabel(n))}</b> <span class="meta">${d} ${plural(d,'донор','донора','доноров')}</span></div><div class="bar" style="height:6px"><i style="width:${s/maxD*100}%"></i></div></div><span class="v">${s}</span></div>`).join('')}</div>
+    <p class="note">Приводите соседей: район с самым большим числом спасений получает звание «Сердце ${curCity().gen}» на месяц.</p>`}
   </section>`;
 }
 
@@ -1427,7 +1738,7 @@ async function makeHero(p){
   x.save();x.translate(900,230);x.rotate(-Math.PI/4);x.fillStyle='rgba(255,255,255,.12)';rr(-230,-230,460,460,[230,230,230,0]);x.fill();x.restore();
   x.save();x.translate(170,1130);x.rotate(-Math.PI/4);x.fillStyle='rgba(0,0,0,.08)';rr(-120,-120,240,240,[120,120,120,0]);x.fill();x.restore();
   x.fillStyle='#fff';x.textBaseline='alphabetic';
-  x.font='500 32px "IBM Plex Mono", monospace';x.fillText('ПАВХЕЛП · САНКТ-ПЕТЕРБУРГ',90,140);
+  x.font='500 32px "IBM Plex Mono", monospace';x.fillText('ПАВХЕЛП · '+curCity().name.toUpperCase(),90,140);
   x.font='600 44px Onest, sans-serif';x.globalAlpha=.85;x.fillText('Донор крови',90,300);x.globalAlpha=1;
   let fs=150;x.font=`700 ${fs}px Onest, sans-serif`;while(x.measureText(p.name).width>900&&fs>60){fs-=6;x.font=`700 ${fs}px Onest, sans-serif`}
   x.fillText(p.name,90,300+fs+10);
@@ -1449,7 +1760,7 @@ function buildPet(f){
   const vac=f.vacDate?new Date(f.vacDate):null;
   return {id:'p'+Date.now(),name:f.name.trim()||'Питомец',species:f.species,breed:f.breed.trim()||'Метис',
     age:num(f.age),weight:num(f.weight),group:f.group,district:f.district,
-    healthy:f.healthy,indoor:f.species==='cat'?f.indoor:false,
+    healthy:f.healthy,indoor:f.species==='cat'?f.indoor:false,sex:f.sex,chip:(f.chip||'').replace(/\D/g,''),keep:f.species==='dog'?f.keep:(f.indoor?'flat':'yard'),noTx:f.noTx!==false,noTreat:f.noTreat!==false,
     lastDonation:f.never||!f.lastDon?null:new Date(f.lastDon),donations:f.never?0:1,saved:f.never?0:1,
     med:[{k:'vac',title:'Комплексная прививка',date:vac,every:365},{k:'rab',title:'Бешенство',date:vac,every:365},
       {k:'tick',title:'Обработка от клещей',date:okDate(f.tickDate)?new Date(f.tickDate):null,every:30},{k:'worm',title:'Обработка от глистов',date:okDate(f.wormDate)?new Date(f.wormDate):null,every:90}],
@@ -1478,12 +1789,13 @@ function viewAddDonor(){
     <label class="btn primary scan" for="d-scan">Заполнить по фото</label><input id="d-scan" type="file" accept="image/*" hidden>
   </div>
   <form class="stack" id="donorform" style="margin-top:14px;gap:16px" novalidate>
-    <label class="photo-pick big" for="d-photo"><span class="ph">${f.photo?`<img src="${f.photo}" alt="">`:'+'}</span><span class="grow"><b>${f.photo?'Фото питомца добавлено':'Фото питомца'}</b><span class="meta" style="display:block">${f.photo?'Нажмите, чтобы заменить':'Его увидят хозяева, которым вы откликнетесь. С фото доверяют больше'}</span></span></label>
+    <label class="photo-pick big" for="d-photo" id="d-photo-pick" tabindex="-1"><span class="ph">${f.photo?`<img src="${f.photo}" alt="">`:'+'}</span><span class="grow"><b>${f.photo?'Фото питомца добавлено':'Фото питомца'}</b><span class="meta" style="display:block">${f.photo?'Нажмите, чтобы заменить':f.wantDonor?'Обязательно для донора: по фото врач и хозяин узнают питомца в клинике':'Его увидят только вы'}</span></span></label>
     <input id="d-photo" type="file" accept="image/*" hidden>
     <label class="want" for="d-want"><span class="grow"><b>Хочу, чтобы ${f.species==='cat'?'кошка':'собака'} была донором</b>
       <span class="meta" style="display:block">${f.wantDonor?'Будем присылать SOS-запросы, когда питомец подходит по требованиям':'Питомец будет только в медкарте. Включить донорство можно в любой момент'}</span></span>
       <span class="tgl"><input id="d-want" type="checkbox" role="switch" ${f.wantDonor?'checked':''}><i aria-hidden="true"></i></span></label>
     <div class="field"><span class="flabel">Вид</span>${seg('species',[['dog','Собака'],['cat','Кошка']])}</div>
+    <div class="field"><span class="flabel">Пол</span>${seg('sex',[['m',f.species==='cat'?'Кот':'Мальчик'],['f',f.species==='cat'?'Кошка':'Девочка']])}</div>
     <div class="row frow" style="gap:10px;align-items:flex-start">
       <div class="field grow"><label for="d-name">Кличка</label><input id="d-name" type="text" value="${esc(f.name)}" placeholder="${f.species==='dog'?'Например, Рекс':'Например, Мурка'}"></div>
       <div class="field grow"><label for="d-breed">Порода</label><input id="d-breed" type="text" value="${esc(f.breed)}" placeholder="Метис"></div>
@@ -1494,10 +1806,15 @@ function viewAddDonor(){
     </div>
     <div class="field"><span class="flabel">Группа крови</span>${seg('group',groups.map(g=>[g,g==='не знаю'?'Не знаю':g]))}
       <span class="note">Если не знаете, клиника определит при первой сдаче. Доноры с известной группой получают больше запросов.</span></div>
-    <div class="field"><label for="d-district">Район</label><select id="d-district">${DISTRICTS.map(d=>`<option ${d===f.district?'selected':''}>${d}</option>`).join('')}</select></div>
+    <div class="field"><label for="d-chip">Номер чипа</label><input id="d-chip" type="text" inputmode="numeric" autocomplete="off" maxlength="19" value="${esc(f.chip||'')}" placeholder="15 цифр, есть в ветпаспорте">
+      <span class="note">Необязательно. По чипу клиника быстро найдёт донора в своей базе и сверит, что пришёл именно он.</span></div>
+    ${f.species==='dog'?`<div class="field"><span class="flabel">Где живёт</span>${seg('keep',[['flat','Квартира'],['house','Частный дом'],['yard','Вольер, улица']])}</div>`:''}
+    <div class="field"><label for="d-district">Район</label><select id="d-district">${areaKeys().map(d=>`<option value="${d}" ${d===areaFor(f.district)?'selected':''}>${esc(areaLabel(d))}</option>`).join('')}</select></div>
     <div class="field"><label for="d-vac">Дата последней прививки</label><input id="d-vac" type="date" value="${esc(f.vacDate)}" max="${iso(today)}"></div>
     ${cb('d-healthy',f.healthy,'Нет хронических болезней, не беременна и не кормит')}
     ${f.species==='cat'?cb('d-indoor',f.indoor,'Живёт дома, не гуляет на улице'):''}
+    ${cb('d-notreat',f.noTreat!==false,'Сейчас не лечится и не принимает лекарства')}
+    ${cb('d-notx',f.noTx!==false,'Никогда не получал(а) переливание крови')}
     ${ed&&ed.donations?'':cb('d-never',f.never,'Ещё ни разу не сдавал(а) кровь')}
     ${f.never?'':`<div class="field"><label for="d-last">Дата последней сдачи</label><input id="d-last" type="date" value="${esc(f.lastDon)}" max="${iso(today)}"></div>`}
     <div class="card" id="elig">${eligHtml(f)}</div>
@@ -1509,22 +1826,22 @@ function readDForm(){
   const f=state.dform,g=id=>document.getElementById(id);if(!g('d-name'))return;
   f.name=g('d-name').value;f.breed=g('d-breed').value;f.age=g('d-age').value;f.weight=g('d-w').value;
   f.district=g('d-district').value;f.vacDate=g('d-vac').value;f.healthy=g('d-healthy').checked;
-  if(g('d-indoor'))f.indoor=g('d-indoor').checked;if(g('d-never'))f.never=g('d-never').checked;if(g('d-want'))f.wantDonor=g('d-want').checked;if(g('d-last'))f.lastDon=g('d-last').value;
+  if(g('d-indoor'))f.indoor=g('d-indoor').checked;if(g('d-chip'))f.chip=g('d-chip').value;if(g('d-notx'))f.noTx=g('d-notx').checked;if(g('d-notreat'))f.noTreat=g('d-notreat').checked;if(g('d-never'))f.never=g('d-never').checked;if(g('d-want'))f.wantDonor=g('d-want').checked;if(g('d-last'))f.lastDon=g('d-last').value;
 }
 function petToForm(p){
   const vac=p.med.filter(m=>m.k==='vac'||m.k==='rab').map(m=>m.date).filter(Boolean).sort((a,b)=>b-a)[0];
   return {...emptyDForm(),editId:p.id,wantDonor:p.wantDonor!==false,photo:p.photo||null,species:p.species,name:p.name,breed:p.breed,age:String(p.age),weight:String(p.weight),
-    group:p.group,district:p.district,vacDate:vac?iso(vac):'',healthy:p.healthy,indoor:p.indoor!==false,never:!p.lastDonation,lastDon:p.lastDonation?iso(p.lastDonation):''};
+    group:p.group,district:p.district,sex:p.sex||'',chip:p.chip||'',keep:p.keep||'flat',noTx:p.noTx!==false,noTreat:p.noTreat!==false,vacDate:vac?iso(vac):'',healthy:p.healthy,indoor:p.indoor!==false,never:!p.lastDonation,lastDon:p.lastDonation?iso(p.lastDonation):''};
 }
 function syncDonorList(p){
   const i=DONORS.findIndex(d=>d.id==='d'+p.id);if(i>=0)DONORS.splice(i,1);
-  if(p.donorOn&&eligibility(p).fit)DONORS.push({id:'d'+p.id,name:p.name,species:p.species,breed:p.breed,weight:p.weight,group:p.group==='не знаю'?'?':p.group,district:p.district,km:1.2});
+  if(p.donorOn&&!p.memorial&&!isPaused(p)&&eligibility(p).fit)DONORS.push({id:'d'+p.id,name:p.name,species:p.species,breed:p.breed,weight:p.weight,group:p.group==='не знаю'?'?':p.group,district:p.district,km:1.2});
 }
 function updatePet(f){
   const p=state.pets.find(x=>x.id===f.editId);if(!p)return;
   const n=buildPet(f);const wasFit=eligibility(p).fit;
   const wasOn=p.donorOn;
-  Object.assign(p,{wantDonor:n.wantDonor,name:n.name,species:n.species,breed:n.breed,age:n.age,group:n.group,district:n.district,healthy:n.healthy,indoor:n.indoor,photo:f.photo||null});
+  Object.assign(p,{wantDonor:n.wantDonor,name:n.name,species:n.species,breed:n.breed,age:n.age,group:n.group,district:n.district,healthy:n.healthy,indoor:n.indoor,sex:n.sex,chip:n.chip,keep:n.keep,noTx:n.noTx,noTreat:n.noTreat,photo:f.photo||null});
   if(n.weight!==p.weight){addWeight(p,n.weight,new Date(today))}
   if(f.vacDate){const d=new Date(f.vacDate);['vac','rab'].forEach(k=>{const m=p.med.find(x=>x.k===k);if(m&&(!m.date||iso(m.date)!==f.vacDate))p.journal=[...(p.journal||[]),jEntry(k,m.product||'',d)]});recalcMed(p)}
   if(!p.donations){p.lastDonation=f.never||!f.lastDon?null:new Date(f.lastDon)}
@@ -1545,11 +1862,13 @@ function saveDonor(){
   if(p.weight>100||(p.species==='cat'&&p.weight>15))return fErr('d-w',p.species==='cat'?'Проверьте вес: для кошки обычно до 15 кг':'Проверьте вес: для собаки обычно до 100 кг');
   if(f.vacDate&&new Date(f.vacDate)>today)return fErr('d-vac','Дата прививки не может быть в будущем');
   if(!f.never&&f.lastDon&&new Date(f.lastDon)>today)return fErr('d-last','Дата сдачи не может быть в будущем');
+  if(p.chip&&p.chip.length!==15)return fErr('d-chip','В номере чипа 15 цифр. Проверьте по ветпаспорту или оставьте поле пустым');
+  if(p.wantDonor&&!f.photo&&!f.editId)return fErr('d-photo-pick','Добавьте фото: без него питомца не покажут хозяевам как донора. Можно выключить донорство и добавить фото позже');
   if(f.editId)return updatePet(f);
   const e=eligibility(p);p.donorOn=p.wantDonor&&e.fit;
   state.pets.push(p);state.pet=p;
   syncDonorList(p);
-  state.dform=emptyDForm();state.view=null;state.tab='profile';state.ptab='pets';render();window.scrollTo(0,0);
+  state.dform=emptyDForm();state.view=null;state.tab='profile';state.ptab='pets';if(p.donorOn){p.onb={};state.view={type:'onb'};state.anim=true}render();window.scrollTo(0,0);
   toast(!p.wantDonor?`${p.name} добавлен(а). Медкарта и напоминания уже работают`:e.fit?`${p.name} теперь в базе доноров`:`${p.name} добавлен(а). Донорство включится, когда всё совпадёт`);
   if(p.donorOn)addXP(50,'новый донор');
   checkProgress();render();
@@ -1576,6 +1895,7 @@ function viewSettings(){
     <div class="card">
       <div class="switch"><span class="grow"><b style="font-weight:600">Telegram-бот</b><span class="meta" style="display:block">${state.tgConnected?'Подключён · основной канал':'Не подключён'}</span></span><button class="btn ${state.tgConnected?'':'primary'}" data-act="${state.tgConnected?'tgOff':'tg'}">${state.tgConnected?'Отключить':'Подключить'}</button></div>
       ${sw('s-push',n.push,'Push в браузере','На iPhone работает, если Павхелп добавлен на экран «Домой»','setN','data-k="push"')}
+      ${isIOS()&&!isStandalone()?'<button class="link" data-act="iosHow" style="align-self:flex-start;margin-top:6px">Как добавить на экран «Домой»</button>':''}
     </div>
     <p class="note">СМС не используем. Хотя бы один канал должен быть включён, чтобы получать SOS.</p></section>
   <section class="section"><div class="section-head"><h2>Другие уведомления</h2></div>
@@ -1594,6 +1914,17 @@ function viewSettings(){
       ${sw('s-name',state.privacy.ownerName,'Показывать моё имя','Иначе хозяин увидит «Владелец донора»','setP','data-k="ownerName"')}
       <div class="switch"><span class="grow"><b style="font-weight:600">Телефон и точное место</b><span class="meta" style="display:block">Телефон видит только выбранный хозяин или донор. Другим виден только район</span></span></div>
     </div></section>
+  <section class="section"><div class="section-head"><h2>Отображение</h2></div>
+    <div class="card">
+      ${sw('s-big',state.a11y.big,'Крупный текст','Всё в приложении станет крупнее','setA','data-k="big"')}
+      ${sw('s-calm',state.a11y.calm,'Меньше анимации','Без движения и мигания','setA','data-k="calm"')}
+    </div></section>
+  <section class="section"><div class="section-head"><h2>Помощь и документы</h2></div>
+    <div class="card stack">
+      <button class="btn wide" data-act="support">Поддержка</button>
+      ${state.tgConnected?'<button class="btn wide" data-act="openTg">Как выглядит Telegram-бот</button>':''}
+      <div class="row wrap" style="gap:8px"><button class="link" data-act="legal" data-k="terms">Соглашение</button><button class="link" data-act="legal" data-k="privacy">Персональные данные</button><button class="link" data-act="legal" data-k="vet">Медицинский отказ</button></div>
+    </div></section>
   <section class="section"><div class="section-head"><h2>Данные</h2></div>
     <div class="card stack">
       <button class="btn wide" data-act="exportData">Запросить мои данные</button>
@@ -1603,31 +1934,35 @@ function viewSettings(){
     <p class="note">Данные хранятся на серверах в России. Удаление стирает профиль, питомцев, медкарту и переписку. Истории спасений останутся без вашего имени.</p></section>`;
 }
 function viewCity(){
-  const L=state.loc;
+  const L=state.loc,C=curCity();const A=areaKeys();
+  const top=['Москва','Санкт-Петербург','Новосибирск','Екатеринбург','Казань','Нижний Новгород','Краснодар','Самара'];
+  const row=c=>`<button class="city-row ${c.name===C.name?'on':''}" data-act="setCity" data-c="${esc(c.name)}" data-s="${esc((c.name+' '+c.region).toLowerCase())}"><span><b>${esc(c.name)}</b><span class="meta">${esc(c.region)}</span></span>${c.name===C.name?'<span class="chip ok">выбран</span>':'<span aria-hidden="true" class="meta">→</span>'}</button>`;
   return `${backBar()}
   <h2 class="page-title"><span class="lt">Где</span> вы?</h2>
-  <p class="note" style="margin-top:8px">От местоположения считаем расстояние до доноров и клиник. Точные координаты никому не показываем, другие пользователи видят только район.</p>
+  <p class="note" style="margin-top:8px">Павхелп работает по всей России. От местоположения считаем расстояние до доноров и клиник. Точные координаты никому не показываем, другие пользователи видят только район.</p>
   <section class="section" style="margin-top:18px">
     <button class="btn primary wide" data-act="locate" ${state.locBusy?'disabled':''} style="display:flex;align-items:center;justify-content:center;gap:10px">${I.pin} ${state.locBusy?'Определяем…':'Определить автоматически'}</button>
     <div class="card stack">
       <div class="row between"><b>Сейчас</b><span class="chip ${L.source==='gps'?'ok':''}">${L.source==='gps'?'по геолокации':L.source==='manual'?'выбрано вручную':'по умолчанию'}</span></div>
-      <div style="font-size:24px;font-weight:600;letter-spacing:-.04em">${esc(L.label)} район</div>
-      <div class="meta">Санкт-Петербург</div>
+      <div style="font-size:24px;font-weight:600;letter-spacing:-.04em">${esc(C.name)}</div>
+      <div class="meta">${esc(areaLabel(L.area))} · ${esc(C.region)}</div>
     </div>
     ${state.locError?`<div class="warnbox" role="alert">${esc(state.locError)}</div>`:''}
   </section>
   <section class="section">
-    <div class="section-head"><h2>Или выберите район</h2></div>
-    <div class="seg">${Object.keys(DIST_C).map(d=>`<button type="button" aria-pressed="${L.label===d}" data-act="setDistrict" data-d="${d}">${d}</button>`).join('')}</div>
+    <div class="section-head"><h2>Район</h2><span class="meta">${esc(C.name)}</span></div>
+    <div class="seg">${A.map(d=>`<button type="button" aria-pressed="${L.area===d}" data-act="setDistrict" data-d="${esc(d)}">${esc(state.city==='Санкт-Петербург'?d:areaLabel(d))}</button>`).join('')}</div>
   </section>
   <section class="section">
-    <div class="section-head"><h2><span class="lt">Другие</span> города</h2></div>
-    <p class="note">Павхелп запускается по городам: сначала нужна база доноров. Голосуйте за свой город, мы откроем его, когда наберётся 300 заявок.</p>
-    <div class="card med">${state.cities.map((c,i)=>`
-    <div class="med-row"><div class="t"><b>${esc(c.name)}</b><span class="meta">${esc(c.region)}</span></div>
-    ${c.live?`<span class="chip ok">Работает</span>`
-      :`<span class="meta num">${c.waiting}/300</span><button class="btn ${c.voted?'done':'ghost'}" data-act="vote" data-i="${i}" ${c.voted?'disabled':''}>${c.voted?'Вы в списке':'Хочу здесь'}</button>`}
-    </div>`).join('')}</div>
+    <div class="section-head"><h2><span class="lt">Другой</span> город</h2><span class="meta num">${CITIES.length} городов</span></div>
+    <div class="field"><label class="sr" for="city-q">Поиск города</label><input id="city-q" type="search" placeholder="Начните вводить город или регион" autocomplete="off"></div>
+    <div class="card city-list" id="city-list">
+      <div class="flabel cl-head" style="padding:4px 0 6px">Крупные города</div>
+      ${top.map(n=>row(CITIES.find(c=>c.name===n))).join('')}
+      <button type="button" class="city-row cl-head cl-more" data-act="cityAll"><b>Показать все ${CITIES.length} городов</b><span class="meta" aria-hidden="true">↓</span></button>
+      ${[...CITIES].filter(c=>!top.includes(c.name)).sort((a,b)=>a.name.localeCompare(b.name,'ru')).map(c=>row(c).replace('class="city-row ','hidden data-more class="city-row ')).join('')}
+      <div class="muted small" id="city-none" hidden>Такого города нет в списке. Выберите ближайший крупный или нажмите «Определить автоматически»: расстояния посчитаем от вас.</div>
+    </div>
   </section>`;
 }
 
@@ -1640,7 +1975,7 @@ function fErr(id,msg){
   el.classList.add('err');el.setAttribute('aria-invalid','true');
   let m=document.getElementById(id+'-err');
   if(!m){m=document.createElement('div');m.className='ferr';m.id=id+'-err';m.setAttribute('role','alert');
-    const row=el.closest('.frow');if(row)row.after(m);else (el.closest('.field')||el.parentElement).appendChild(m);el.setAttribute('aria-describedby',m.id)}
+    const row=el.closest('.frow');if(el.tagName==='LABEL')el.after(m);else if(row)row.after(m);else (el.closest('.field')||el.parentElement).appendChild(m);el.setAttribute('aria-describedby',m.id)}
   m.textContent=msg;el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');el.focus({preventScroll:false});
   return false;
 }
@@ -1671,38 +2006,128 @@ function startTick(){if(tick)return;tick=setInterval(()=>{const els=document.que
   els.forEach(el=>{const left=Math.ceil((+el.dataset.until-Date.now())/1000);if(left<=0){el.removeAttribute('data-until');render()}else el.querySelector('.sec').textContent=left})},1000)}
 
 // ---------- геолокация ----------
+// Города России: [название, «в …», «кого/чего», регион, широта, долгота, код телефона]
+const CITIES=[
+ ['Москва','в Москве','Москвы','Москва',55.7558,37.6173,'495'],['Санкт-Петербург','в Петербурге','Петербурга','Санкт-Петербург',59.9343,30.3351,'812'],
+ ['Новосибирск','в Новосибирске','Новосибирска','Новосибирская обл.',55.0084,82.9357,'383'],['Екатеринбург','в Екатеринбурге','Екатеринбурга','Свердловская обл.',56.8389,60.6057,'343'],
+ ['Казань','в Казани','Казани','Республика Татарстан',55.7961,49.1064,'843'],['Нижний Новгород','в Нижнем Новгороде','Нижнего Новгорода','Нижегородская обл.',56.3269,44.0059,'831'],
+ ['Красноярск','в Красноярске','Красноярска','Красноярский край',56.0153,92.8932,'391'],['Челябинск','в Челябинске','Челябинска','Челябинская обл.',55.1644,61.4368,'351'],
+ ['Самара','в Самаре','Самары','Самарская обл.',53.1959,50.1002,'846'],['Уфа','в Уфе','Уфы','Республика Башкортостан',54.7388,55.9721,'347'],
+ ['Ростов-на-Дону','в Ростове-на-Дону','Ростова-на-Дону','Ростовская обл.',47.2357,39.7015,'863'],['Краснодар','в Краснодаре','Краснодара','Краснодарский край',45.0355,38.9753,'861'],
+ ['Омск','в Омске','Омска','Омская обл.',54.9885,73.3242,'381'],['Воронеж','в Воронеже','Воронежа','Воронежская обл.',51.6608,39.2003,'473'],
+ ['Пермь','в Перми','Перми','Пермский край',58.0105,56.2502,'342'],['Волгоград','в Волгограде','Волгограда','Волгоградская обл.',48.7080,44.5133,'844'],
+ ['Саратов','в Саратове','Саратова','Саратовская обл.',51.5331,46.0342,'845'],['Тюмень','в Тюмени','Тюмени','Тюменская обл.',57.1530,65.5343,'345'],
+ ['Тольятти','в Тольятти','Тольятти','Самарская обл.',53.5303,49.3461,'848'],['Ижевск','в Ижевске','Ижевска','Удмуртская Республика',56.8526,53.2045,'341'],
+ ['Барнаул','в Барнауле','Барнаула','Алтайский край',53.3474,83.7784,'385'],['Ульяновск','в Ульяновске','Ульяновска','Ульяновская обл.',54.3142,48.4031,'842'],
+ ['Иркутск','в Иркутске','Иркутска','Иркутская обл.',52.2870,104.3050,'395'],['Хабаровск','в Хабаровске','Хабаровска','Хабаровский край',48.4802,135.0719,'421'],
+ ['Махачкала','в Махачкале','Махачкалы','Республика Дагестан',42.9849,47.5047,'872'],['Ярославль','в Ярославле','Ярославля','Ярославская обл.',57.6261,39.8845,'485'],
+ ['Владивосток','во Владивостоке','Владивостока','Приморский край',43.1155,131.8855,'423'],['Оренбург','в Оренбурге','Оренбурга','Оренбургская обл.',51.7682,55.0969,'353'],
+ ['Томск','в Томске','Томска','Томская обл.',56.4846,84.9476,'382'],['Кемерово','в Кемерово','Кемерово','Кемеровская обл.',55.3547,86.0873,'384'],
+ ['Новокузнецк','в Новокузнецке','Новокузнецка','Кемеровская обл.',53.7596,87.1216,'384'],['Рязань','в Рязани','Рязани','Рязанская обл.',54.6292,39.7364,'491'],
+ ['Набережные Челны','в Набережных Челнах','Набережных Челнов','Республика Татарстан',55.7436,52.3958,'855'],['Астрахань','в Астрахани','Астрахани','Астраханская обл.',46.3497,48.0408,'851'],
+ ['Пенза','в Пензе','Пензы','Пензенская обл.',53.1959,45.0183,'841'],['Киров','в Кирове','Кирова','Кировская обл.',58.6036,49.6680,'833'],
+ ['Липецк','в Липецке','Липецка','Липецкая обл.',52.6031,39.5708,'474'],['Чебоксары','в Чебоксарах','Чебоксар','Чувашская Республика',56.1322,47.2519,'835'],
+ ['Калининград','в Калининграде','Калининграда','Калининградская обл.',54.7104,20.4522,'401'],['Тула','в Туле','Тулы','Тульская обл.',54.1931,37.6177,'487'],
+ ['Курск','в Курске','Курска','Курская обл.',51.7304,36.1926,'471'],['Сочи','в Сочи','Сочи','Краснодарский край',43.5855,39.7231,'862'],
+ ['Ставрополь','в Ставрополе','Ставрополя','Ставропольский край',45.0428,41.9734,'865'],['Тверь','в Твери','Твери','Тверская обл.',56.8587,35.9176,'482'],
+ ['Белгород','в Белгороде','Белгорода','Белгородская обл.',50.5954,36.5873,'472'],['Брянск','в Брянске','Брянска','Брянская обл.',53.2434,34.3637,'483'],
+ ['Иваново','в Иванове','Иванова','Ивановская обл.',57.0004,40.9739,'493'],['Владимир','во Владимире','Владимира','Владимирская обл.',56.1291,40.4066,'492'],
+ ['Архангельск','в Архангельске','Архангельска','Архангельская обл.',64.5393,40.5187,'818'],['Мурманск','в Мурманске','Мурманска','Мурманская обл.',68.9585,33.0827,'815'],
+ ['Петрозаводск','в Петрозаводске','Петрозаводска','Республика Карелия',61.7849,34.3469,'814'],['Великий Новгород','в Великом Новгороде','Великого Новгорода','Новгородская обл.',58.5228,31.2698,'816'],
+ ['Псков','в Пскове','Пскова','Псковская обл.',57.8136,28.3496,'811'],['Вологда','в Вологде','Вологды','Вологодская обл.',59.2181,39.8886,'817'],
+ ['Смоленск','в Смоленске','Смоленска','Смоленская обл.',54.7826,32.0453,'481'],['Калуга','в Калуге','Калуги','Калужская обл.',54.5293,36.2754,'484'],
+ ['Орёл','в Орле','Орла','Орловская обл.',52.9703,36.0635,'486'],['Тамбов','в Тамбове','Тамбова','Тамбовская обл.',52.7212,41.4523,'475'],
+ ['Кострома','в Костроме','Костромы','Костромская обл.',57.7679,40.9269,'494'],['Саранск','в Саранске','Саранска','Республика Мордовия',54.1838,45.1749,'834'],
+ ['Йошкар-Ола','в Йошкар-Оле','Йошкар-Олы','Республика Марий Эл',56.6344,47.8999,'836'],['Сыктывкар','в Сыктывкаре','Сыктывкара','Республика Коми',61.6688,50.8364,'821'],
+ ['Курган','в Кургане','Кургана','Курганская обл.',55.4410,65.3411,'352'],['Сургут','в Сургуте','Сургута','ХМАО — Югра',61.2540,73.3962,'346'],
+ ['Ханты-Мансийск','в Ханты-Мансийске','Ханты-Мансийска','ХМАО — Югра',61.0042,69.0019,'346'],['Салехард','в Салехарде','Салехарда','ЯНАО',66.5299,66.6136,'349'],
+ ['Абакан','в Абакане','Абакана','Республика Хакасия',53.7212,91.4425,'390'],['Улан-Удэ','в Улан-Удэ','Улан-Удэ','Республика Бурятия',51.8335,107.5841,'301'],
+ ['Чита','в Чите','Читы','Забайкальский край',52.0340,113.4994,'302'],['Якутск','в Якутске','Якутска','Республика Саха (Якутия)',62.0355,129.6755,'411'],
+ ['Благовещенск','в Благовещенске','Благовещенска','Амурская обл.',50.2907,127.5272,'416'],['Южно-Сахалинск','в Южно-Сахалинске','Южно-Сахалинска','Сахалинская обл.',46.9591,142.7380,'424'],
+ ['Петропавловск-Камчатский','в Петропавловске-Камчатском','Петропавловска-Камчатского','Камчатский край',53.0452,158.6511,'415'],['Магадан','в Магадане','Магадана','Магаданская обл.',59.5612,150.8301,'413'],
+ ['Владикавказ','во Владикавказе','Владикавказа','Республика Северная Осетия — Алания',43.0205,44.6819,'867'],['Нальчик','в Нальчике','Нальчика','Кабардино-Балкарская Республика',43.4846,43.6071,'866'],
+ ['Грозный','в Грозном','Грозного','Чеченская Республика',43.3178,45.6949,'871'],['Майкоп','в Майкопе','Майкопа','Республика Адыгея',44.6098,40.1006,'877'],
+ ['Элиста','в Элисте','Элисты','Республика Калмыкия',46.3078,44.2558,'847'],['Черкесск','в Черкесске','Черкесска','Карачаево-Черкесская Республика',44.2269,42.0467,'878'],
+ ['Магас','в Магасе','Магаса','Республика Ингушетия',43.1688,44.8131,'873'],['Новороссийск','в Новороссийске','Новороссийска','Краснодарский край',44.7239,37.7688,'861'],
+ ['Горно-Алтайск','в Горно-Алтайске','Горно-Алтайска','Республика Алтай',51.9581,85.9603,'388'],['Кызыл','в Кызыле','Кызыла','Республика Тыва',51.7191,94.4378,'394'],
+ ['Биробиджан','в Биробиджане','Биробиджана','Еврейская АО',48.7946,132.9218,'426'],['Анадырь','в Анадыре','Анадыря','Чукотский АО',64.7337,177.5089,'427'],
+ ['Нарьян-Мар','в Нарьян-Маре','Нарьян-Мара','Ненецкий АО',67.6380,53.0069,'818'],['Подольск','в Подольске','Подольска','Московская обл.',55.4311,37.5447,'496'],
+ ['Балашиха','в Балашихе','Балашихи','Московская обл.',55.7963,37.9381,'495'],['Химки','в Химках','Химок','Московская обл.',55.8970,37.4297,'495'],
+ ['Мытищи','в Мытищах','Мытищ','Московская обл.',55.9116,37.7308,'495'],['Королёв','в Королёве','Королёва','Московская обл.',55.9142,37.8256,'495'],
+ ['Гатчина','в Гатчине','Гатчины','Ленинградская обл.',59.5650,30.1281,'813'],['Всеволожск','во Всеволожске','Всеволожска','Ленинградская обл.',60.0204,30.6372,'813'],
+].map(([name,inn,gen,region,lat,lng,code])=>({name,in:inn,gen,region,c:[lat,lng],code}));
+const curCity=()=>CITIES.find(c=>c.name===state.city)||CITIES[1];
+const MOS_C={'ЦАО':[55.7522,37.6156],'САО':[55.8380,37.5250],'СВАО':[55.8640,37.6330],'ВАО':[55.7870,37.7750],'ЮВАО':[55.6920,37.7550],
+ 'ЮАО':[55.6220,37.6780],'ЮЗАО':[55.6550,37.5480],'ЗАО':[55.7280,37.4430],'СЗАО':[55.8270,37.4520],'Зеленоград':[55.9870,37.1940]};
 const DIST_C={'Адмиралтейский':[59.9155,30.2980],'Василеостровский':[59.9420,30.2500],'Выборгский':[60.0450,30.3300],'Калининский':[60.0000,30.3900],
  'Кировский':[59.8790,30.2610],'Красногвардейский':[59.9700,30.4700],'Московский':[59.8520,30.3200],'Невский':[59.8950,30.4600],
  'Петроградский':[59.9660,30.3100],'Приморский':[60.0000,30.2500],'Фрунзенский':[59.8700,30.3800],'Центральный':[59.9330,30.3600]};
+// Районы города: у Петербурга и Москвы настоящие, у остальных части города относительно центра
+function cityAreas(city){
+  city=city||curCity();
+  if(city.name==='Санкт-Петербург')return DIST_C;
+  if(city.name==='Москва')return MOS_C;
+  const [a,b]=city.c,dy=.035,dx=.06;
+  return {'Центр':[a,b],'Север':[a+dy,b],'Юг':[a-dy,b],'Запад':[a,b-dx],'Восток':[a,b+dx],'Северо-запад':[a+dy*.7,b-dx*.7],'Северо-восток':[a+dy*.7,b+dx*.7],'Юго-запад':[a-dy*.7,b-dx*.7],'Юго-восток':[a-dy*.7,b+dx*.7]};
+}
+const areaKeys=()=>Object.keys(cityAreas());
+const areaLabel=a=>state.city==='Санкт-Петербург'?`${a} район`:state.city==='Москва'?(a==='Зеленоград'?'Зеленоград':a):a==='Центр'?'Центр города':`${a} города`;
+// Демо-данные заведены на районах Петербурга. В другом городе раскладываем их по районам этого города
+function areaFor(k){
+  const A=areaKeys();if(A.includes(k))return k;
+  let i=DISTRICTS.indexOf(k);if(i<0){i=0;for(const ch of String(k))i=(i*7+ch.charCodeAt(0))%997}
+  return A[i%A.length];
+}
 function hav(a,b){const R=6371,r=Math.PI/180,dl=(b[0]-a[0])*r,dn=(b[1]-a[1])*r;
   const h=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
 function jitter(id){let h=0;for(const ch of String(id))h=(h*31+ch.charCodeAt(0))|0;return [((h%100)/100)*0.018-0.009,(((h>>7)%100)/100)*0.03-0.015]}
-function place(district,id){const c=DIST_C[district]||DIST_C['Центральный'];const j=jitter(id);return [c[0]+j[0],c[1]+j[1]]}
-function nearestDistrict(pt){let best=null,bd=1e9;for(const [n,c] of Object.entries(DIST_C)){const d=hav(pt,c);if(d<bd){bd=d;best=n}}return {name:best,km:bd}}
+function place(district,id){const A=cityAreas();const c=A[areaFor(district)];const j=jitter(id);return [c[0]+j[0],c[1]+j[1]]}
+function nearestArea(pt){let best=null,bd=1e9;for(const [n,c] of Object.entries(cityAreas())){const d=hav(pt,c);if(d<bd){bd=d;best=n}}return {name:best,km:bd}}
+function nearestCity(pt){let best=null,bd=1e9;for(const c of CITIES){const d=hav(pt,c.c);if(d<bd){bd=d;best=c}}return {city:best,km:bd}}
+function setCity(name){
+  state.city=name;
+  state.pets.forEach(p=>{p.district=areaFor(p.district)});
+  DONORS.forEach(d=>{if(d.id.startsWith('dp'))d.district=areaFor(d.district)});
+}
+// В демо Петербург и Москва заполнены, остальные города только запускаются: 0–3 донора, запросов нет
+const LIVE_CITIES=['Санкт-Петербург','Москва'];
+const cityLive=()=>LIVE_CITIES.includes(state.city);
+function seedCount(){let h=0;for(const ch of state.city)h=(h*31+ch.charCodeAt(0))%9973;return h%4}
+function cityDonorCount(){return cityLive()?DONORS.length+240:DONORS.filter(d=>d.km<900).length}
 function setLoc(pt,label,source){
-  state.loc={pt,label,source};
+  state.loc={pt,label,source,area:label};
   const km=q=>Math.max(0.3,Math.round(hav(pt,q)*10)/10);
   DONORS.forEach(d=>d.km=km(place(d.district,d.id)));
-  CLINICS.forEach(c=>c.km=km(place(c.addr.replace(' р-н',''),c.id)));
+  if(!cityLive()){const n=seedCount();DONORS.filter(d=>!d.id.startsWith('dp')).forEach((d,i)=>{if(i%7!==0||i/7>=n)d.km=999})}
+  CLINICS.forEach(c=>c.km=km(place(c.area,c.id)));
   state.requests.forEach(r=>{if(!r.mine){const c=clinic(r.clinic);if(c)r.km=c.km}});
   const near=[...CLINICS].filter(c=>c.night).sort((a,b)=>a.km-b.km)[0];
   if(near&&!state.form.pet&&!state.form.aiText)state.form.clinic=near.id;
 }
+function chooseCity(name,source){
+  setCity(name);
+  const own=state.requests.filter(r=>r.mine||r.helped||r.picked);
+  state.requests=cityLive()?[...DEMO_REQ.filter(r=>!own.includes(r)&&!r.reported),...own]:own;const A=cityAreas();const k=Object.keys(A)[0];
+  const def=name==='Санкт-Петербург'?'Петроградский':k;
+  setLoc(A[def],def,source||'manual');
+}
 function locate(){
   const fail=why=>{state.locBusy=false;state.locError=why;if(!(state.view&&state.view.type==='city'))go({type:'city'});else render()};
   state.locError=null;
-  if(!('geolocation' in navigator)){fail('Геолокация недоступна. Выберите район вручную');return}
+  if(!('geolocation' in navigator)){fail('Геолокация недоступна. Выберите город вручную');return}
   state.locBusy=true;render();
   try{
     navigator.geolocation.getCurrentPosition(pos=>{
-      state.locBusy=false;state.locError=null;const pt=[pos.coords.latitude,pos.coords.longitude];const nd=nearestDistrict(pt);
-      if(nd.km>30){setLoc(DIST_C['Центральный'],'Центральный','default');toast('Похоже, вы не в Петербурге. Показываем расстояния от центра');}
-      else{setLoc(pt,nd.name,'gps');toast(`Вы в районе: ${nd.name}. Расстояния пересчитаны`)}
+      state.locBusy=false;state.locError=null;const pt=[pos.coords.latitude,pos.coords.longitude];
+      const nc=nearestCity(pt);setCity(nc.city.name);
+      const na=nearestArea(pt);setLoc(pt,na.name,'gps');
+      toast(nc.km>40?`Ближайший крупный город: ${nc.city.name}. Расстояния считаем от вас`:`${nc.city.name}, ${areaLabel(na.name).toLowerCase()}. Расстояния пересчитаны`);
       render();
-    },err=>fail(err&&err.code===1?'Доступ к геолокации запрещён. Разрешите его в настройках браузера или выберите район ниже.':err&&err.code===3?'Не успели определить местоположение. Попробуйте ещё раз на улице или выберите район ниже.':'Не удалось определить местоположение. Выберите район ниже.'),{enableHighAccuracy:false,timeout:8000,maximumAge:600000});
-  }catch(e){fail('Браузер не дал доступ к местоположению. Выберите район вручную')}
+    },err=>fail(err&&err.code===1?'Доступ к геолокации запрещён. Разрешите его в настройках браузера или выберите город ниже.':err&&err.code===3?'Не успели определить местоположение. Попробуйте ещё раз на улице или выберите город ниже.':'Не удалось определить местоположение. Выберите город ниже.'),{enableHighAccuracy:false,timeout:8000,maximumAge:600000});
+  }catch(e){fail('Браузер не дал доступ к местоположению. Выберите город вручную')}
 }
 setLoc(DIST_C['Петроградский'],'Петроградский','default');
+const DEMO_REQ=state.requests.slice();
 
 // ---------- ИИ (Claude через capability sample; без него работают правила) ----------
 const AIS={fn:null,img:false};
@@ -1852,7 +2277,7 @@ function parseFill(t){
   const low=t.toLowerCase();
   const species=/кошк|кот\b|кота|котик|котён|котен/.test(low)?'cat':'dog';
   const wm=low.match(/(\d+(?:[.,]\d+)?)\s*(кг|кило)/);
-  const clinicId=/охт|красногвард/.test(low)?'c2':/приморск/.test(low)?'c4':/васильевск|васьк/.test(low)?'c5':/петроград|северн/.test(low)?'c1':/московск|лап[аы] и хвост/.test(low)?'c3':null;
+  const clinicId=/айболит/.test(low)?'c2':/доктор вет/.test(low)?'c4':/зоовет/.test(low)?'c5':/северн/.test(low)?'c1':/лап[аы] и хвост/.test(low)?'c3':null;
   const urgency=/операц|планов|завтра|послезавтра/.test(low)?'plan':/сбил|дтп|кровотеч|срочно|сейчас|отрав|без сознания/.test(low)?'now':'today';
   let group='не знаю';if(species==='cat'){const g=t.match(/групп\S*\s*(AB|АВ|A|B|А|В)(?![А-Яа-яA-Za-z])/i);if(g)group=g[1].toUpperCase().replace(/А/g,'A').replace(/В/g,'B')}
   else if(/1\.1\s*[-−]|отрицат/.test(low))group='DEA 1.1−';else if(/1\.1\s*\+|положит/.test(low))group='DEA 1.1+';
@@ -1871,7 +2296,7 @@ function normFill(j,t){
 }
 function postTemplate(r){
   const c=clinic(r.clinic);
-  return `${r.urgency==='now'?'Срочно нужен':'Нужен'} донор крови${r.pet?' для '+r.pet:''}. ${r.species==='dog'?'Собака':'Кошка'}${r.weight?', '+r.weight+' кг':''}${r.group&&r.group!=='не знаю'?', группа '+r.group:''}. Клиника: ${c.name} (${c.addr}). Подойдёт ${r.species==='dog'?'собака от 25 кг':'кошка от 4 кг'}, 1–8 лет, с действующими прививками.`;
+  return `${r.urgency==='now'?'Срочно нужен':'Нужен'} донор крови${r.pet?' для '+r.pet:''}. ${r.species==='dog'?'Собака':'Кошка'}${r.weight?', '+r.weight+' кг':''}${r.group&&r.group!=='не знаю'?', группа '+r.group:''}. ${r.comp&&r.comp!=='whole'?'Врач назначил: '+COMP[r.comp][0].toLowerCase()+(r.vol?', '+r.vol+' мл':'')+'. ':''}Клиника: ${c.name} (${curCity().name}, ${c.addr.toLowerCase()}). Подойдёт ${r.species==='dog'?'собака от 25 кг':'кошка от 4 кг'}, 1–8 лет, с действующими прививками.${r.photo?' Фото питомца — по ссылке.':''}`;
 }
 async function aiFill(){
   readForm();const el=document.getElementById('f-ai');const t=(el?el.value:'').trim();state.form.aiText=t;
@@ -1950,6 +2375,31 @@ function creditDonation(p,clinicId){
   p.journal=[...(p.journal||[]),jEntry('other','Сдача крови',new Date(today),0,clinic(clinicId)?clinic(clinicId).name:'')];
   addXP(150,'сдача крови');state.lastNew=checkProgress();state.heroUrl=null;
 }
+// Номера скрыты по умолчанию. Каждый сам решает, показать ли свой; чужой виден, только если его открыли
+function phoneBlock(r){
+  const them=r.mine?r.respList.find(x=>x.id===r.trip.donorId):null;
+  const who=r.mine?`хозяину ${them.name}`:`хозяину ${r.owner}`;
+  const otherName=r.mine?them.owner:r.owner;
+  const num=r.mine?them.phone:r.picked.phone;
+  const P=r.ph||(r.ph={me:false,them:false});
+  return `<div class="phbox">
+    <div class="row between" style="gap:10px"><div class="grow"><div class="small muted">Телефон · ${esc(otherName)}</div>
+      ${P.them?`<span class="phone">${num}</span>`:`<span class="meta">${P.me?'Ждём, когда '+esc(otherName)+' откроет свой номер':'Скрыт. Пока общайтесь в чате'}</span>`}</div>
+      ${P.them?`<button class="btn" data-act="copyphone" data-phone="${num}">Копировать</button>`:'<span class="lock" aria-hidden="true">🔒</span>'}</div>
+    ${P.me?`<div class="row between" style="gap:10px"><span class="meta">Ваш номер виден ${esc(otherName)}</span><button class="link" data-act="phoneHide" data-id="${r.id}">Скрыть</button></div>`
+      :`<button class="btn wide" data-act="phoneShow" data-id="${r.id}">Показать мой номер</button>`}
+  </div>`;
+}
+function reportDo(id,why){
+  const r=state.requests.find(x=>x.id===id);if(!r)return;
+  if(why==='photo'){r._ph=photosOf(r);setPhotos(r,[]);r.hidePh=true;render();toast('Фото скрыто у вас. Модератор проверит его в течение часа');return}
+  r.reported=why;
+  const inChat=state.view&&state.view.type==='chat';
+  if(r.mine){toast('Жалоба отправлена. Модератор проверит переписку');render();return}
+  if(why==='money'||why==='sell'){r.blocked=true;if(r.picked||inChat)sysMsg(r,'Чат закрыт: вы пожаловались на просьбу о деньгах')}
+  if(!r.picked&&!inChat){state.view=null;state.tab='requests';render();window.scrollTo(0,0)}else render();
+  toast(why==='money'?'Спасибо. Не переводите деньги: модератор проверит аккаунт, чат закрыт':'Спасибо, жалоба отправлена. Запрос скрыт из вашей ленты');
+}
 function tripCard(r){
   const t=r.trip;const d=r.respList.find(x=>x.id===t.donorId);const c=clinic(r.clinic);
   return `<section class="section"><div class="trip">
@@ -1958,8 +2408,8 @@ function tripCard(r){
     ${stepper(t.st)}
     <div class="btns">
       <button class="btn primary grow" data-act="chat" data-id="${r.id}">Написать${(r.unread||0)?` · ${r.unread}`:''}</button>
-      <button class="btn" data-act="copyphone" data-phone="${d.phone}">Телефон</button>
     </div>
+    ${phoneBlock(r)}
     ${t.st===3?`<button class="btn wide confirm" data-act="confirmDon" data-id="${r.id}">Кровь взяли, подтвердить сдачу</button>`:''}
     ${t.st<3?`<button class="link" data-act="noShow" data-id="${r.id}" style="align-self:flex-start;color:var(--muted)">Донор не приедет</button>`:''}
     <p class="note" style="padding:0">Адрес: ${esc(c.name)}, ${esc(c.addr)}. Сдачу засчитывает только ваше подтверждение, так награды донора честные.</p>
@@ -1971,13 +2421,14 @@ function pickedCard(r){
   return `<section class="section"><div class="trip">
     <div class="row between"><span class="eyebrow">${k.st>=4?'Сдача подтверждена':k.st===3?'Ждём подтверждения от хозяина':'Вас выбрали'}</span>${k.st===3?'<span class="pulse"></span>':''}</div>
     <div><b style="font-size:20px;letter-spacing:-.03em">${esc(c.name)}</b><div class="meta">${esc(c.addr)} · ${c.km} км${c.night?' · круглосуточно':''}</div></div>
-    <div class="meta">Едет ${esc(k.pet)} · хозяин запроса ${esc(r.owner)}, <span class="phone">${k.phone}</span></div>
+    <div class="meta">Едет ${esc(k.pet)} · хозяин запроса ${esc(r.owner)}</div>
     ${stepper(k.st)}
     ${next?`<button class="btn primary wide" data-act="${next[1]}" data-id="${r.id}">${next[0]}</button>`:''}
     <div class="btns">
       <button class="btn grow" data-act="chat" data-id="${r.id}">Написать${(r.unread||0)?` · ${r.unread}`:''}</button>
       <button class="btn grow" data-act="route">Маршрут</button>
     </div>
+    ${phoneBlock(r)}
     ${k.st<3?`<button class="link" data-act="cantCome" data-id="${r.id}" style="align-self:flex-start;color:var(--accent)">Не смогу приехать</button>`:''}
   </div></section>`;
 }
@@ -1997,19 +2448,229 @@ function viewChat(id){
   const name=r.mine?`${other.owner} · ${other.name}`:`${r.owner} · ${r.pet}`;
   const side=r.mine?'owner':'donor';
   return `<div class="top"><button class="back" data-act="open" data-id="${r.id}">← К запросу</button><span class="demo">демо</span></div>
-  <div class="chat-head"><div class="ava">${esc(name[0])}</div><div><b>${esc(name)}</b><div class="meta">Телефон виден только вам двоим</div></div></div>
-  <div class="chat-log" id="chatlog">${(r.msgs||[]).map(m=>m.sys?`<div class="msys">${esc(m.t)} · ${m.time}</div>`:`<div class="msg ${m.me?'me':''}">${esc(m.t)}<span class="tm">${m.time}</span></div>`).join('')||'<div class="msys">Начните переписку. Сообщения видны только вам двоим.</div>'}</div>
+  <div class="chat-head"><div class="ava">${esc(name[0])}</div><div><b>${esc(name)}</b><div class="meta">Номера скрыты, пока вы их не откроете</div></div><button class="link" data-act="report" data-id="${r.id}" style="margin-left:auto;color:var(--accent)">Пожаловаться</button></div>
+  ${state.tgConnected?`<div class="meta" style="margin-top:8px">Чат дублируется в Telegram-бот, отвечать можно оттуда · <button class="link" data-act="openTg">открыть бота</button></div>`:''}
+  <div class="safe">Донорство в Павхелпе бесплатное. Не переводите деньги, не называйте коды из СМС и не отправляйте фото документов. Если об этом просят, нажмите «Пожаловаться».</div>
+  <div class="chat-log" id="chatlog">${(r.msgs||[]).map(m=>m.sys?`<div class="msys">${esc(m.t)} · ${m.time}</div>`:`<div class="msg ${m.me?'me':''}">${esc(m.t)}<span class="tm">${m.via?'из Telegram · ':''}${m.time}</span></div>${!m.me&&isRisky(m.t)?`<div class="risk" role="alert"><b>Похоже на просьбу о деньгах</b><span>Павхелп не берёт плату ни за кровь, ни за дорогу. Не переводите деньги.</span><button class="btn" data-act="report" data-id="${r.id}" data-sp="money">Пожаловаться</button></div>`:''}`).join('')||'<div class="msys">Начните переписку. Сообщения видны только вам двоим.</div>'}</div>
   <div class="chips" style="margin-top:10px">${QUICK[side].map(q=>`<button class="chip-btn" data-act="quick" data-id="${r.id}" data-v="${esc(q)}">${esc(q)}</button>`).join('')}</div>
   <form class="msg-form" id="chatform" data-id="${r.id}" novalidate><label class="sr" for="m-text">Сообщение</label><input id="m-text" type="text" maxlength="500" placeholder="Сообщение" autocomplete="off"><button class="btn primary" type="submit" aria-label="Отправить">↑</button></form>`;
 }
 function sendMsg(r,t){
   t=t.trim();if(!t)return false;if(t.length>500){toast('Слишком длинное сообщение, до 500 символов');return false}
+  if(/(\d[ -]?){16}/.test(t)){fErr('m-text','Номера карт в чате отправлять нельзя. Донорство бесплатное, деньги не нужны');return false}
+  if(r.blocked){toast('Чат закрыт после жалобы');return false}
   if(isOffline()){toast('Нет связи. Сообщение отправится, когда появится интернет');}
   (r.msgs=r.msgs||[]).push({me:true,t,time:hhmm()});render();
   const side=r.mine?'owner':'donor';const pool=AUTO[side];
-  setTimeout(()=>{r.msgs.push({me:false,t:pool[(r.msgs.length)%pool.length],time:hhmm()});if(state.view&&state.view.type==='chat'&&state.view.id===r.id)render();else{r.unread=(r.unread||0)+1;toast('Новое сообщение по SOS')}},2200);
+  setTimeout(()=>{const scam=state.sim.scam;if(scam)state.sim.scam=false;r.msgs.push({me:false,t:scam?'Скиньте, пожалуйста, 1500 ₽ на карту за такси, номер 2202 2000 1234 5678, верну в клинике':pool[(r.msgs.length)%pool.length],time:hhmm()});if(state.view&&state.view.type==='chat'&&state.view.id===r.id)render();else{r.unread=(r.unread||0)+1;toast('Новое сообщение по SOS')}},2200);
   return true;
 }
+
+// ===================== кабинет клиники (демо) =====================
+state.clinicId='c2';state.ctab='req';
+const DEMO_PENDING=[{id:'dp-a',pet:'Арчи',breed:'Немецкая овчарка',owner:'Игорь',when:'сегодня, 10:40',ml:450,done:false},{id:'dp-b',pet:'Софа',breed:'Мейн-кун',owner:'Мария',when:'вчера, 18:15',ml:50,done:false}];
+function viewClinic(){
+  const c=clinic(state.clinicId),t=state.ctab;
+  const reqs=state.requests.filter(r=>r.clinic===c.id&&!r.rejected);
+  const pend=[...state.pets.filter(p=>p.pending&&p.pending.clinic===c.id).map(p=>({id:p.id,pet:p.name,breed:p.breed,owner:state.user?state.user.name:'вы',when:fmt(p.pending.date),ml:p.species==='dog'?450:50,real:true})),...DEMO_PENDING.filter(x=>!x.done)];
+  const tabs=[['req','Запросы',reqs.filter(r=>!r.verified).length],['don','Сдачи',pend.length],['bank','Банк крови',0]];
+  const body=t==='req'?`<div class="card">${reqs.length?reqs.map(r=>`<div class="crow"><div class="t"><b>${esc(r.pet)}</b> <span class="meta">${sp(r.species)}, ${r.weight} кг · ${esc(r.group)}</span>
+      <div class="meta">${esc(r.owner)} · ${esc(r.ago)} · ${esc(COMP[r.comp||'whole'][0].toLowerCase())}${r.vol?', '+r.vol+' мл':''}</div>${r.reason?`<div class="small">${esc(r.reason)}</div>`:''}</div>
+      ${r.verified?'<span class="chip ok">Подтверждён</span>':`<div class="stack" style="gap:6px"><button class="btn primary" data-act="cOk" data-id="${r.id}">Питомец у нас</button><button class="btn" data-act="cNo" data-id="${r.id}">Не у нас</button></div>`}</div>`).join('')
+      :'<div class="muted small">Сейчас нет запросов с вашей клиникой.</div>'}</div>
+    <p class="note">Подтверждение ставит в запросе отметку «Клиника подтвердила». Доноры доверяют таким запросам больше. «Не у нас» отправляет запрос на проверку модератору и скрывает его из ленты.</p>`
+  :t==='don'?`<div class="card">${pend.length?pend.map(x=>`<div class="crow"><div class="t"><b>${esc(x.pet)}</b> <span class="meta">${esc(x.breed)}</span><div class="meta">Хозяин ${esc(x.owner)} · ${esc(x.when)} · ${x.ml} мл</div></div>
+      <div class="stack" style="gap:6px"><button class="btn primary" data-act="cDon" data-id="${x.id}">Подтвердить</button><button class="btn" data-act="cDonNo" data-id="${x.id}">Не было</button></div></div>`).join('')
+      :'<div class="muted small">Все сдачи подтверждены.</div>'}</div>
+    <p class="note">Только подтверждённая сдача даёт донору капли, награды и бонусы партнёров. Так их нельзя накрутить.</p>`
+  :`<div class="card">${c.stock.length?c.stock.map((s,i)=>`<div class="crow"><div class="t"><b>${s[0]==='dog'?'Собаки':'Кошки'} · ${esc(s[1])}</b><div class="meta">${esc(COMP[s[2]][0])} · доза ${s[4]} мл</div></div>
+      <div class="stepn"><button class="rbtn" data-act="cStock" data-i="${i}" data-d="-1" aria-label="Минус доза">−</button><b class="num">${s[3]}</b><button class="rbtn" data-act="cStock" data-i="${i}" data-d="1" aria-label="Плюс доза">+</button></div></div>`).join('')
+      :'<div class="muted small">Банк пуст. Добавьте первую позицию.</div>'}</div>
+    <div class="card stack" style="margin-top:10px"><b>Добавить позицию</b>
+      <div class="row frow" style="gap:8px;flex-wrap:wrap">
+        <div class="field grow"><label for="cs-sp">Вид</label><select id="cs-sp"><option value="dog">Собака</option><option value="cat">Кошка</option></select></div>
+        <div class="field grow"><label for="cs-g">Группа</label><select id="cs-g">${['DEA 1.1+','DEA 1.1−','A','B','AB'].map(g=>`<option>${g}</option>`).join('')}</select></div></div>
+      <div class="row frow" style="gap:8px;flex-wrap:wrap">
+        <div class="field grow"><label for="cs-c">Компонент</label><select id="cs-c">${Object.entries(COMP).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('')}</select></div>
+        <div class="field" style="width:30%"><label for="cs-ml">Доза, мл</label><input id="cs-ml" type="text" inputmode="numeric" value="450"></div></div>
+      <button class="btn primary" data-act="cAdd">Добавить</button></div>
+    <p class="note">Обновлено ${updAgo(c.upd||0)}. Хозяева видят наличие в форме SOS и во вкладке «Экстренно». Если банк не обновлять 3 дня, показываем пометку «данные могут устареть».</p>`;
+  return `${backBar()}
+  <p class="eyebrow" style="margin-top:6px">Кабинет клиники · демо</p>
+  <h2 class="page-title" style="font-size:30px">${esc(c.name)}</h2>
+  <p class="note">Так клиника видит Павхелп. Доступ выдаём сотрудникам по приглашению, вход по email.</p>
+  <div class="seg" role="group" aria-label="Клиника" style="margin-top:12px">${CLINICS.map(k=>`<button type="button" aria-pressed="${k.id===c.id}" data-act="cSel" data-id="${k.id}">${esc(k.name.replace(/^.*«|»$/g,''))}</button>`).join('')}</div>
+  <section class="section"><div class="tabs" role="group">${tabs.map(([k,l,n])=>`<button type="button" aria-pressed="${t===k}" data-act="cTab" data-k="${k}">${l}${n?` · ${n}`:''}</button>`).join('')}</div></section>
+  <section class="section">${body}</section>`;
+}
+
+// ===================== публичная страница запроса =====================
+function viewPublic(id){
+  const r=state.requests.find(x=>x.id===id);if(!r)return viewRequest(id);
+  const c=clinic(r.clinic),[ul,uc]=URG[r.urgency],ph=photosOf(r);
+  return `<div class="top"><button class="back" data-act="open" data-id="${r.id}">← Выйти из превью</button><span class="demo">превью</span></div>
+  <div class="pubnote">Так выглядит ссылка <b>pavhelp.ru/r/${esc(r.id)}</b> для человека без аккаунта: из районного чата, ВКонтакте или Telegram. Нижнего меню и данных хозяина здесь нет.</div>
+  <div class="pub">
+    <div class="pub-brand"><span class="brand"><span class="wm" aria-hidden="true"><span class="wl">пав</span><svg class="wd" viewBox="0 0 20 28"><path d="M10 0 C 13 6, 20 12, 20 18 A 10 10 0 0 1 0 18 C 0 12, 7 6, 10 0 Z" fill="currentColor"/></svg><span class="wb">хелп</span></span></span><span class="meta">${esc(curCity().name)}</span></div>
+    ${ph.length?`<div class="req-cover">${gallery(ph,r.pet)}</div>`:''}
+    <div class="chips"><span class="chip ${uc}">${ul}</span><span class="chip">${esc(r.group==='не знаю'?'группа неизвестна':'группа '+r.group)}</span>${r.verified?'<span class="chip ok">✓ Клиника подтвердила</span>':''}</div>
+    <h1 class="pub-h">${esc(r.pet)}: ${r.urgency==='now'?'срочно нужен':'нужен'} донор крови</h1>
+    <p>${r.species==='dog'?'Собака':'Кошка'}${r.breed&&r.breed!==sp(r.species)?', '+esc(r.breed.toLowerCase()):''}, ${r.weight} кг. ${esc(r.reason||'')}</p>
+    <div class="card stack"><div class="small muted">Клиника</div><b>${esc(c.name)}</b><div class="meta">${esc(curCity().name)}, ${esc(c.addr.toLowerCase())}</div></div>
+    <div class="card stack"><b>Ваш питомец может помочь, если</b>
+      <ul class="checks">${(r.species==='dog'?['собака весит от 25 кг','ей от 1 до 8 лет','привита, включая бешенство','здорова и не на лечении']:['кошка весит от 4 кг','ей от 1 до 8 лет','живёт дома и привита',`группа крови ${r.group==='не знаю'?'определят в клинике':r.group}`]).map(x=>`<li><span class="mark y">✓</span><div>${x}</div></li>`).join('')}</ul>
+      <span class="small muted">Окончательно решает врач на месте. Сдача бесплатная и занимает около получаса.</span></div>
+    <button class="btn primary wide" data-act="pubHelp" data-id="${r.id}">Мой питомец может помочь</button>
+    <button class="btn wide" data-act="share" data-id="${r.id}">Переслать знакомым с ${r.species==='dog'?'собакой':'кошкой'}</button>
+    <p class="note">Вход через Telegram займёт одно нажатие. Хозяин увидит только кличку вашего питомца и ваше имя, номер телефона скрыт.</p>
+    <div class="pub-foot">Павхелп — бесплатное донорство крови для собак и кошек по всей России · <button class="inlink" data-act="legal" data-k="terms">Условия</button> · <button class="inlink" data-act="legal" data-k="privacy">Конфиденциальность</button></div>
+  </div>`;
+}
+
+// ===================== Telegram-бот (превью) =====================
+state.tgLog=[];
+function tgMsgs(){
+  const out=[];
+  out.push({bot:true,t:'Привет! Я бот Павхелпа. Пришлю SOS, если вашему питомцу по силам помочь, и напомню о прививках.'});
+  state.requests.filter(r=>!r.mine&&!r.reported).slice(0,2).forEach(r=>out.push({bot:true,sos:r}));
+  state.requests.filter(r=>(r.picked||r.trip)&&r.msgs&&r.msgs.length).forEach(r=>{const last=r.msgs.filter(m=>!m.sys&&!m.me).slice(-1)[0];if(last)out.push({bot:true,relay:r,t:last.t})});
+  return out.concat(state.tgLog);
+}
+function viewTg(){
+  const relayR=state.requests.find(r=>(r.picked||(r.mine&&r.trip))&&!r.blocked);
+  return `<div class="top"><button class="back" data-act="back">← Назад</button><span class="demo">превью Telegram</span></div>
+  <div class="tgw">
+    <div class="tg-head"><span class="tg-ava">${I.tg}</span><div><b>Павхелп</b><div class="tg-sub">бот</div></div></div>
+    <div class="tg-log" id="tglog">${tgMsgs().map(m=>m.me?`<div class="tgm me">${esc(m.t)}</div>`
+      :m.sos?`<div class="tgm">${photosOf(m.sos)[0]?`<img src="${photosOf(m.sos)[0]}" alt="">`:''}<b>🩸 ${m.sos.urgency==='now'?'СРОЧНО · ':''}${esc(m.sos.pet)}: нужен донор</b><br>${sp(m.sos.species)}, ${m.sos.weight} кг, группа ${esc(m.sos.group)}<br>${esc(clinic(m.sos.clinic).name)} · ${m.sos.km} км${m.sos.verified?'<br>✓ клиника подтвердила':''}
+          <div class="tg-kb"><button data-act="tgHelp" data-id="${m.sos.id}">Могу помочь</button><button data-act="tgSkip" data-id="${m.sos.id}">Не сейчас</button><button class="w" data-act="open" data-id="${m.sos.id}">Открыть в Павхелпе ↗</button></div></div>`
+      :m.relay?`<div class="tgm"><span class="tg-from">💬 ${esc(m.relay.mine?m.relay.respList.find(x=>x.id===m.relay.trip.donorId).owner:m.relay.owner)} · SOS ${esc(m.relay.pet)}</span>${esc(m.t)}<div class="tg-kb"><button class="w" data-act="chat" data-id="${m.relay.id}">Открыть чат</button></div></div>`
+      :`<div class="tgm">${esc(m.t)}</div>`).join('')}</div>
+    ${relayR?`<form class="msg-form" id="tgform" data-id="${relayR.id}"><label class="sr" for="tg-text">Ответ</label><input id="tg-text" type="text" maxlength="500" placeholder="Ответить ${esc(relayR.mine?'донору':'хозяину')} из Telegram" autocomplete="off"><button class="btn primary" type="submit" aria-label="Отправить">↑</button></form>`:''}
+  </div>
+  <p class="note">Ответ из Telegram попадает в чат Павхелпа, номера не раскрываются. Бот: @pavhelp_bot. В рабочей версии это Bot API с вебхуком, кнопки — inline-клавиатура.</p>`;
+}
+
+// ===================== автозакрытие =====================
+const staleReq=r=>r.mine&&r.created&&Date.now()-r.created>DAY;
+function staleBox(r){
+  if(!staleReq(r))return '';
+  return `<div class="stale" role="alert"><b>Запрос открыт больше суток. Ещё ищете донора?</b>
+    <span class="small">Если не ответить в течение 12 часов, закроем запрос сами, чтобы не тревожить доноров зря.</span>
+    <div class="btns"><button class="btn primary grow" data-act="renew" data-id="${r.id}">Да, ещё ищем</button><button class="btn grow" data-act="closeAsk" data-id="${r.id}">Нет, закрыть</button></div></div>`;
+}
+
+// ===================== пауза и память =====================
+const isPaused=p=>p&&p.pauseUntil&&p.pauseUntil>Date.now();
+function pauseRow(p){
+  if(p.memorial||p.wantDonor===false)return '';
+  if(isPaused(p))return `<div class="switch"><span class="grow"><b style="font-weight:600">На паузе до ${fmt(new Date(p.pauseUntil))}</b><span class="meta" style="display:block">SOS не приходят. Медкарта и напоминания работают</span></span><button class="btn" data-act="unpause">Снять паузу</button></div>`;
+  return `<div class="qh"><span class="grow"><b style="font-weight:600">Пауза</b><span class="meta" style="display:block">Уехали, болеет или течка: SOS не будут приходить</span></span><div class="seg" role="group" aria-label="Пауза">${[[7,'Неделя'],[14,'2 недели'],[30,'Месяц']].map(([d,l])=>`<button type="button" data-act="pause" data-d="${d}">${l}</button>`).join('')}</div></div>`;
+}
+function memorialSection(p){
+  return `<section class="section"><div class="card stack memo">
+    <b style="font-size:19px">Светлая память</b>
+    <p class="small" style="margin:0">${esc(p.name)} ${p.donations?`сдал(а) кровь ${p.donations} ${plural(p.donations,'раз','раза','раз')} и помог(ла) спасти ${p.saved} ${plural(p.saved,'питомца','питомцев','питомцев')}. Это навсегда останется в Павхелпе.`:'останется в вашем профиле.'}</p>
+    <p class="small muted" style="margin:0">Напоминания и SOS выключены. Карточку можно удалить в любой момент.</p>
+    <button class="link" data-act="delPetOk" data-id="${p.id}" style="align-self:flex-start;color:var(--muted)">Удалить карточку</button></div></section>`;
+}
+
+// ===================== подсказка для iPhone =====================
+const isIOS=()=>state.sim.ios||/iP(hone|ad|od)/.test(navigator.userAgent);
+const isStandalone=()=>!state.sim.ios&&(navigator.standalone||matchMedia('(display-mode: standalone)').matches);
+function iosCard(){
+  if(!state.user||!isIOS()||isStandalone()||state.iosHide)return '';
+  return `<section class="section"><div class="ios"><button class="wx" data-act="iosHide" aria-label="Скрыть подсказку">×</button>
+    <b>Чтобы SOS приходили на iPhone</b><span class="small">Push-уведомления на iPhone работают, только если Павхелп добавлен на экран «Домой». Это займёт 10 секунд.</span>
+    <button class="btn primary" data-act="iosHow">Как добавить</button></div></section>`;
+}
+const IOS_STEPS='1. Откройте Павхелп в Safari.\n2. Нажмите «Поделиться» — квадрат со стрелкой внизу экрана.\n3. Выберите «На экран „Домой“» и нажмите «Добавить».\n4. Откройте Павхелп с новой иконки и разрешите уведомления.\n\nНужен iOS 16.4 или новее. Telegram-бот работает и без этого.';
+
+// ===================== первый запуск донора =====================
+const DON_MEMO=['Сдача бесплатная и занимает 20–40 минут вместе с осмотром.','Врач осмотрит питомца и возьмёт анализ крови. Если что-то не так, сдачу перенесут, это нормально.','Перед сдачей не кормите 6–8 часов, воду можно.','Возьмите ветпаспорт с отметками о прививках.','Кровь у собак обычно берут из вены на шее. Кошкам иногда нужен лёгкий наркоз, врач объяснит.','После сдачи покормите, дайте отдохнуть, без активных игр до завтра.'];
+function onbSteps(p){
+  const o=p.onb||(p.onb={});
+  return [
+    {k:'notif',done:state.tgConnected||o.notif,t:'Получать SOS',d:state.tgConnected?'Telegram подключён':'Telegram надёжнее всего: сообщение придёт, даже если приложение закрыто',btn:state.tgConnected?'':'<button class="btn primary" data-act="tg">Подключить Telegram</button><button class="btn" data-act="onbPush">Только push</button>'},
+    {k:'memo',done:o.memo,t:'Как проходит сдача',d:'Шесть коротких пунктов, чтобы не волноваться в клинике',btn:`<details class="acc" data-onb="memo"><summary>Прочитать памятку</summary><div class="body"><ol>${DON_MEMO.map(x=>`<li>${x}</li>`).join('')}</ol></div></details>`},
+    {k:'group',done:p.group!=='не знаю'||o.group,t:'Группа крови',d:p.group!=='не знаю'?`Указана: ${p.group}`:'Доноры с известной группой получают больше запросов. Экспресс-тест делают в клинике, у партнёров Павхелпа — бесплатно для доноров',btn:p.group!=='не знаю'?'':'<button class="btn" data-act="editPet">Указать группу</button><button class="btn" data-act="onbGroup">Узнаю при первой сдаче</button>'},
+  ];
+}
+function viewDonorOnb(){
+  const p=state.pet;if(!p)return viewProfile();
+  const S=onbSteps(p),n=S.filter(s=>s.done).length;
+  return `${backBar('Позже')}
+  <p class="eyebrow" style="margin-top:6px">${esc(p.name)} в базе доноров</p>
+  <h2 class="page-title"><span class="lt">Ещё</span> три шага</h2>
+  <div class="bar" style="margin-top:14px" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="${n}"><i style="width:${n/3*100}%"></i></div>
+  <p class="note">${n}/3 · после этого ${esc(p.name)} будет готов(а) к первому SOS</p>
+  <section class="section">${S.map((s,i)=>`<div class="card stack onb ${s.done?'done':''}"><div class="row" style="gap:12px"><span class="mark ${s.done?'y':''}">${s.done?'✓':i+1}</span><div class="grow"><b>${s.t}</b><div class="meta">${s.d}</div></div></div>${s.done?'':`<div class="btns">${s.btn}</div>`}</div>`).join('')}</section>
+  <section class="section"><button class="btn primary wide" data-act="onbDone">${n===3?'Готово':'Продолжить позже'}</button></section>`;
+}
+function onbCard(){
+  const p=state.pets.find(x=>x.donorOn&&x.onb&&onbSteps(x).some(s=>!s.done));if(!p)return '';
+  const n=onbSteps(p).filter(s=>s.done).length;
+  return `<section class="section"><button class="card row between" data-act="onb" data-id="${p.id}" style="width:100%;text-align:left"><div><div class="eyebrow" style="margin-bottom:6px">${esc(p.name)} · подготовка донора</div><b style="font-weight:500">Осталось ${3-n} ${plural(3-n,'шаг','шага','шагов')}</b></div><span class="chip num">${n}/3</span></button></section>`;
+}
+
+// ===================== поддержка =====================
+state.tickets=[];
+const FAQ=[
+  ['Это правда бесплатно?','Да. Павхелп ничего не берёт ни с хозяев, ни с доноров. За кровь не платят и не просят денег. Если просят, это мошенники: нажмите «Пожаловаться».'],
+  ['Не приходят SOS','Проверьте в настройках, что включены SOS и хотя бы один канал: Telegram или push. На iPhone push работает, только если Павхелп добавлен на экран «Домой». Ещё SOS не приходят, если питомец на паузе или не подходит по требованиям.'],
+  ['Почему питомец «не подходит»?','В профиле питомца, в блоке «Может ли сдать кровь», видно, какое условие не выполнено: возраст, вес, прививки или интервал после прошлой сдачи.'],
+  ['Сдача не засчиталась','Сдачу подтверждает клиника или хозяин, которому вы помогли. Обычно это занимает до суток. Если прошло больше, напишите нам.'],
+  ['Как удалить аккаунт?','Настройки → Данные → Удалить аккаунт. Профиль, питомцы и переписка удалятся.'],
+];
+function viewSupport(){
+  return `${backBar()}
+  <h2 class="page-title"><span class="lt">Поддержка</span></h2>
+  <p class="note" style="margin-top:6px">Обычно отвечаем в течение 15 минут с 8:00 до 23:00. По срочным SOS — круглосуточно.</p>
+  <section class="section"><div class="section-head"><h2>Частые вопросы</h2></div>
+    ${FAQ.map(([q,a])=>`<details class="acc"><summary>${q}</summary><div class="body"><p style="margin:0">${a}</p></div></details>`).join('')}</section>
+  <section class="section"><div class="section-head"><h2>Написать нам</h2></div>
+    <form class="card stack" id="supform" novalidate>
+      <div class="field"><span class="flabel">Тема</span><div class="seg" role="group">${[['q','Вопрос'],['bug','Ошибка'],['report','Жалоба'],['limit','Снять лимит SOS']].map(([k,l])=>`<button type="button" aria-pressed="${(state.supTopic||'q')===k}" data-act="supTopic" data-k="${k}">${l}</button>`).join('')}</div></div>
+      <div class="field"><label for="sup-text">Сообщение</label><textarea id="sup-text" rows="4" placeholder="Опишите, что случилось. Если это про конкретный запрос, укажите кличку питомца"></textarea></div>
+      <button class="btn primary" type="submit">Отправить</button>
+      <span class="small muted">Ответ придёт в Telegram и сюда. Можно написать и напрямую: @pavhelp_support, help@pavhelp.ru</span>
+    </form></section>
+  ${state.tickets.length?`<section class="section"><div class="section-head"><h2>Мои обращения</h2></div><div class="card">${state.tickets.map(t=>`<div class="med-row"><div class="t"><b>${esc(t.topic)}</b><span class="meta">${esc(t.text.slice(0,60))}${t.text.length>60?'…':''}</span>${t.answer?`<span class="small" style="margin-top:4px">${esc(t.answer)}</span>`:''}</div><span class="chip ${t.answer?'ok':'warn'}">${t.answer?'Ответили':'Отвечаем'}</span></div>`).join('')}</div></section>`:''}`;
+}
+
+// ===================== документы =====================
+const LEGAL={
+  terms:['Пользовательское соглашение',[
+    ['Что такое Павхелп','Сервис помогает владельцам собак и кошек найти донора крови и связаться с ним. Павхелп не оказывает ветеринарных услуг, не берёт, не хранит и не продаёт кровь.'],
+    ['Бесплатность','Пользоваться сервисом бесплатно. Запрещено просить или предлагать деньги за кровь, дорогу или «помощь в поиске». Такие аккаунты блокируются.'],
+    ['Кто может пользоваться','Совершеннолетние граждане, которые являются владельцами питомцев или действуют с их согласия.'],
+    ['Ответственность','Решение о переливании и допуске донора принимает ветеринарный врач клиники. Павхелп не гарантирует, что донор будет найден, и не отвечает за результат лечения.'],
+    ['Правила поведения','Указывайте правдивые данные о питомце и ситуации. Запрещены фейковые запросы, оскорбления, реклама и публикация чужих персональных данных.'],
+    ['Блокировка','Мы можем ограничить доступ при нарушении правил, в том числе по жалобам других пользователей после проверки модератором.']]],
+  privacy:['Политика обработки персональных данных',[
+    ['Какие данные собираем','Имя, email или идентификатор сервиса входа, телефон для связи (если вы его укажете), город и район, данные о питомцах, фото, переписку по SOS.'],
+    ['Зачем','Чтобы подобрать подходящих доноров, отправлять уведомления, связывать хозяина и донора и защищать пользователей от мошенников.'],
+    ['Где хранятся','На серверах в России, в соответствии с 152-ФЗ «О персональных данных».'],
+    ['Кому видны','Другим пользователям — только имя и район. Телефон — только собеседнику, если вы сами его откроете. Точное местоположение не видит никто.'],
+    ['Ваши права','Вы можете запросить свои данные, исправить или удалить их в настройках. Удаление аккаунта стирает профиль, питомцев и переписку.'],
+    ['Контакты','Оператор: [название юрлица, ИНН, адрес]. Вопросы по данным: privacy@pavhelp.ru']]],
+  vet:['Медицинский отказ от ответственности',[
+    ['Не замена врачу','Инструкции первой помощи и ИИ-помощник дают общие сведения и не заменяют осмотр. При тревожных признаках сразу звоните в клинику.'],
+    ['Допуск донора','Требования в приложении предварительные. Окончательно решает врач после осмотра и анализов.'],
+    ['Риски','Сдача крови для здорового животного безопасна, но, как любая медицинская процедура, может сопровождаться редкими осложнениями. Врач расскажет о них на месте.']]],
+};
+function viewLegal(){
+  const [title,secs]=LEGAL[state.view.k]||LEGAL.terms;
+  return `${backBar()}
+  <h2 class="page-title" style="font-size:30px">${title}</h2>
+  <div class="warnbox" style="margin-top:12px">Шаблон для прототипа. Перед запуском текст должен проверить юрист.</div>
+  <div class="seg" role="group" style="margin-top:12px">${[['terms','Соглашение'],['privacy','Данные'],['vet','Медицина']].map(([k,l])=>`<button type="button" aria-pressed="${state.view.k===k}" data-act="legal" data-k="${k}">${l}</button>`).join('')}</div>
+  <section class="section legal">${secs.map(([h,t],i)=>`<h3>${i+1}. ${h}</h3><p>${t}</p>`).join('')}<p class="meta">Редакция от 6 октября 2026 г.</p></section>`;
+}
+
+// ===================== отображение =====================
+state.a11y={big:false,calm:false};
+function applyA11y(){const h=document.documentElement;h.classList.toggle('big',state.a11y.big);h.classList.toggle('calm',state.a11y.calm)}
 
 // ---------- навигация и рендер ----------
 function renderNav(){
@@ -2021,14 +2682,17 @@ function renderNav(){
     :`<button data-act="tab" data-tab="${k}" ${cur===k?'aria-current="page"':''} aria-label="${l}"><span class="ni${cur===k&&changed?' pop':''}">${cur===k?icf:ic}</span></button>`).join('');
   requestAnimationFrame(moveLens);
 }
-function render(){
+function screenHtml(){
   const v=state.view&&state.view.type;
-  const map={req:()=>viewRequest(state.view.id),city:viewCity,addDonor:viewAddDonor,login:viewLogin,notif:viewNotif,stories:viewStories,donate:viewDonate,celebrate:viewCelebrate,hero:viewHero,check:viewCheck,sosError:viewSosError,storyNew:viewStoryNew,jEntry:viewJournalEntry,chat:()=>viewChat(state.view.id),settings:viewSettings};
-  let html;
-  if(v&&map[v])html=map[v]();
-  else if(state.tab==='sos')html=viewSos();
-  else if(state.tab==='profile')html=state.user?viewProfile():viewLogin();
-  else html={home:viewHome,requests:viewRequests,aid:viewAid}[state.tab]();
+  const map={req:()=>viewRequest(state.view.id),city:viewCity,addDonor:viewAddDonor,login:viewLogin,notif:viewNotif,stories:viewStories,donate:viewDonate,celebrate:viewCelebrate,hero:viewHero,check:viewCheck,sosError:viewSosError,storyNew:viewStoryNew,jEntry:viewJournalEntry,chat:()=>viewChat(state.view.id),settings:viewSettings,clinic:viewClinic,pub:()=>viewPublic(state.view.id),tgv:viewTg,onb:viewDonorOnb,support:viewSupport,legal:viewLegal};
+  if(v&&map[v])return map[v]();
+  if(state.tab==='sos')return viewSos();
+  if(state.tab==='profile')return state.user?viewProfile():viewLogin();
+  return {home:viewHome,requests:viewRequests,aid:viewAid}[state.tab]();
+}
+function render(){
+  const html=screenHtml();
+  document.body.classList.toggle('nonav',!!(state.view&&state.view.type==='pub'));
   const app=document.getElementById('app');
   app.innerHTML=(isOffline()?offlineBanner():'')+html;renderNav();
   if(state.anim){state.anim=false;app.classList.remove('enter');void app.offsetWidth;app.classList.add('enter');countUp(app)}
@@ -2040,6 +2704,67 @@ function render(){
   if(document.querySelector('[data-until]'))startTick();
 }
 let lastSheet=null;
+
+// ---------- свайп назад от левого края, как в iOS ----------
+// Куда ведёт кнопка «Назад» на текущем экране: нужен, чтобы показать под экраном предыдущий
+function backTarget(btn){
+  const a=btn.dataset.act;
+  if(a==='back')return {tab:state.tab,view:null};
+  if(a==='home')return {tab:'home',view:null};
+  if(a==='open')return {tab:state.tab,view:{type:'req',id:btn.dataset.id}};
+  return null;
+}
+function peekHtml(t){
+  const keep={view:state.view,tab:state.tab,sheet:state.sheet};
+  try{state.view=t.view;state.tab=t.tab;return (isOffline()?offlineBanner():'')+screenHtml()}catch(e){return ''}
+  finally{state.view=keep.view;state.tab=keep.tab;state.sheet=keep.sheet}
+}
+const SW={on:false};
+function swipeStart(e){
+  if(e.touches.length!==1||state.sheet)return;
+  const t=e.touches[0];if(t.clientX>28)return;
+  const btn=document.querySelector('#app .top .back');if(!btn)return;
+  Object.assign(SW,{on:false,armed:true,x0:t.clientX,y0:t.clientY,t0:performance.now(),dx:0,v:0,lx:t.clientX,lt:performance.now(),btn});
+}
+function swipeMove(e){
+  if(!SW.armed)return;
+  const t=e.touches[0],dx=t.clientX-SW.x0,dy=t.clientY-SW.y0;
+  if(!SW.on){
+    if(Math.abs(dy)>10&&Math.abs(dy)>Math.abs(dx)){SW.armed=false;return}
+    if(dx<8)return;
+    SW.on=true;const app=document.getElementById('app');
+    const tg=backTarget(SW.btn);
+    const u=document.createElement('div');u.className='swipe-under';u.setAttribute('aria-hidden','true');
+    u.innerHTML=`<div class="app">${tg?peekHtml(tg):''}</div><i class="swipe-dim"></i>`;
+    document.body.insertBefore(u,app);SW.under=u;
+    app.classList.remove('enter');app.classList.add('swiping');SW.w=window.innerWidth;
+  }
+  e.preventDefault();
+  const now=performance.now();SW.v=(t.clientX-SW.lx)/Math.max(1,now-SW.lt);SW.lx=t.clientX;SW.lt=now;
+  SW.dx=Math.max(0,dx);swipePaint(SW.dx);
+}
+function swipePaint(dx){
+  const app=document.getElementById('app'),k=Math.min(1,dx/SW.w);
+  app.style.transform=`translate3d(${dx}px,0,0)`;
+  SW.under.firstChild.style.transform=`translate3d(${-30*(1-k)}%,0,0)`;
+  SW.under.lastChild.style.opacity=String(.28*(1-k));
+}
+function swipeEnd(){
+  if(!SW.armed)return;SW.armed=false;
+  if(!SW.on)return;SW.on=false;
+  const app=document.getElementById('app'),u=SW.under,btn=SW.btn;
+  const go_=SW.dx>SW.w*.35||(SW.v>.45&&SW.dx>30);
+  app.classList.add('swipe-anim');u.classList.add('swipe-anim');
+  swipePaint(go_?SW.w:0);
+  setTimeout(()=>{
+    app.classList.remove('swiping','swipe-anim');app.style.transform='';u.remove();
+    if(go_){const y=0;btn.click();state.anim=false;app.classList.remove('enter');window.scrollTo(0,y)}
+  },260);
+}
+document.addEventListener('touchstart',swipeStart,{passive:true});
+document.addEventListener('touchmove',swipeMove,{passive:false});
+document.addEventListener('touchend',swipeEnd);
+document.addEventListener('touchcancel',swipeEnd);
 function go(view){state.view=view;state.anim=true;render();window.scrollTo(0,0)}
 function goTab(t){state.tab=t;state.view=null;state.anim=true;render();window.scrollTo(0,0)}
 function countUp(root){
@@ -2108,13 +2833,40 @@ function bindForms(){
   const cf=document.getElementById('checkform');
   if(cf)cf.addEventListener('submit',ev=>{ev.preventDefault();runCheck()});
   const dp=document.getElementById('d-photo');if(dp)dp.addEventListener('change',()=>{const file=dp.files[0];dp.value='';readDForm();
-    loadPhoto(file,640).then(u=>{state.dform.photo=u;render()},m=>{if(m!=='none')toast(m)})});
-  const pp=document.getElementById('p-photo');if(pp)pp.addEventListener('change',()=>{const file=pp.files[0];pp.value='';
-    loadPhoto(file,640).then(u=>{state.pet.photo=u;render();toast('Фото обновлено')},m=>{if(m!=='none')toast(m)})});
+    loadPhoto(file,640).then(u=>{state.dform.photo=u;if(state.dform.photos)state.dform.photos=[u,...state.dform.photos.slice(1)];render()},m=>{if(m!=='none')toast(m)})});
+  const pp=document.getElementById('p-photo');if(pp)pp.addEventListener('change',async()=>{const files=[...pp.files];pp.value='';
+    const n=await addPhotos(files,MAXPH,state.pet,900);render();if(n)toast(n>1?`Добавили ${n} фото в галерею`:'Фото добавлено в галерею')});
   const ds=document.getElementById('d-scan');if(ds)ds.addEventListener('change',()=>{scanPassport(ds.files[0],'dform');ds.value=''});
   const ms=document.getElementById('m-scan');if(ms)ms.addEventListener('change',()=>{scanPassport(ms.files[0],'med');ms.value=''});
+  const fp=document.getElementById('f-photo');if(fp)fp.addEventListener('change',async()=>{const files=[...fp.files];fp.value='';readForm();
+    const n=await addPhotos(files,MAXPH,state.form,900);render();if(n)toast(n>1?`Добавили ${n} фото`:'Фото добавлено к запросу')});
+  if(false)fp.addEventListener('change',()=>{const file=fp.files[0];fp.value='';readForm();
+    loadPhoto(file,900).then(u=>{state.form.photo=u;render();toast('Фото добавлено к запросу')},m=>{if(m!=='none')toast(m)})});
+  const rp=document.getElementById('r-photo');if(rp)rp.addEventListener('change',async()=>{const files=[...rp.files];rp.value='';const r=state.requests.find(x=>x.id===rp.dataset.id);if(!r)return;
+    if(isOffline()){toast('Нет соединения. Добавить фото можно, когда появится интернет');return}
+    const n=await addPhotos(files,MAXPH,r,900);render();if(n)toast(n>1?`Добавили ${n} фото. Доноры увидят их в запросе`:'Фото добавлено. Доноры увидят его в запросе')});
+  if(false)rp.addEventListener('change',()=>{const file=rp.files[0];rp.value='';const r=state.requests.find(x=>x.id===rp.dataset.id);if(!r)return;
+    if(isOffline()){toast('Нет соединения. Добавить фото можно, когда появится интернет');return}
+    loadPhoto(file,900).then(u=>{r.photo=u;render();toast('Фото обновлено. Доноры увидят его в запросе')},m=>{if(m!=='none')toast(m)})});
   const sos=document.getElementById('sosform');
   if(sos)sos.addEventListener('submit',ev=>{ev.preventDefault();readForm();if(!validSos())return;requireAuth('Чтобы донор мог с вами связаться, войдите.',submitSos)});
+  const tf=document.getElementById('tgform');
+  if(tf)tf.addEventListener('submit',ev=>{ev.preventDefault();const inp=document.getElementById('tg-text');const t=inp.value.trim();if(!t)return;const r=state.requests.find(x=>x.id===tf.dataset.id);
+    if(/(\d[ -]?){16}/.test(t)){fErr('tg-text','Номера карт отправлять нельзя');return}
+    state.tgLog.push({me:true,t});(r.msgs=r.msgs||[]).push({me:true,t,time:hhmm(),via:'tg'});state.tgLog.push({bot:true,t:'Переслал в чат Павхелпа ✓'});render();
+    const l=document.getElementById('tglog');if(l)l.scrollTop=l.scrollHeight});
+  const supf=document.getElementById('supform');
+  if(supf)supf.addEventListener('submit',ev=>{ev.preventDefault();const t=document.getElementById('sup-text').value.trim();
+    if(t.length<5)return fErr('sup-text','Опишите вопрос хотя бы парой слов');
+    const topic={q:'Вопрос',bug:'Ошибка',report:'Жалоба',limit:'Снять лимит SOS'}[state.supTopic||'q'];const tk={topic,text:t,answer:null};state.tickets.unshift(tk);render();toast('Отправили. Ответим в Telegram и здесь');
+    setTimeout(()=>{if(topic==='Снять лимит SOS')state.sosLog=[];tk.answer=topic==='Снять лимит SOS'?'Сняли лимит на сегодня. Надеемся, донор найдётся быстро':'Спасибо, разбираемся. Если понадобится, уточним детали в Telegram';if(state.view&&state.view.type==='support')render();toast('Поддержка ответила')},4000)});
+  document.querySelectorAll('details[data-onb]').forEach(el=>el.addEventListener('toggle',()=>{if(el.open&&state.pet&&state.pet.onb&&!state.pet.onb.memo){state.pet.onb.memo=true;setTimeout(()=>{if(state.view&&state.view.type==='onb')render()},2500)}}));
+  const cq=document.getElementById('city-q');
+  if(cq)cq.addEventListener('input',()=>{const q=cq.value.trim().toLowerCase().replace(/ё/g,'е');let n=0;
+    document.querySelectorAll('#city-list .city-row[data-c]').forEach(el=>{const ok=!q||el.dataset.s.replace(/ё/g,'е').includes(q);el.hidden=q?!ok:el.hasAttribute('data-more');if(ok)n++});
+    document.querySelectorAll('#city-list .cl-head').forEach(h=>h.hidden=!!q);
+    const seen=new Set();document.querySelectorAll('#city-list .city-row[data-c]:not([hidden])').forEach(el=>{if(seen.has(el.dataset.c))el.hidden=true;seen.add(el.dataset.c)});
+    document.getElementById('city-none').hidden=n>0});
   const df=document.getElementById('donorform');
   if(df){
     df.addEventListener('input',()=>{readDForm();document.getElementById('elig').innerHTML=eligHtml(state.dform)});
@@ -2138,8 +2890,8 @@ function bindForms(){
   if(dn)dn.addEventListener('submit',ev=>{ev.preventDefault();const p=state.pet;const dv=document.getElementById('dn-date').value;const cl=document.getElementById('dn-clinic').value;
     if(!dv)return fErr('dn-date','Укажите дату сдачи');const d=new Date(dv);if(d>today)return fErr('dn-date','Дата не может быть в будущем');
     p.pending={date:d,clinic:cl};p.lastDonation=d;if(p.wantDonor!==false)p.donorOn=eligibility(p).fit;syncDonorList(p);
-    state.view=null;render();window.scrollTo(0,0);toast('Отправили клинике на подтверждение. В демо оно придёт через 5 секунд');
-    setTimeout(()=>{if(!p.pending)return;const ld=p.pending.date;creditDonation(p,cl);p.lastDonation=ld;toast(`${clinic(cl).name} подтвердила сдачу`);go({type:'celebrate'})},5000)});
+    state.view=null;render();window.scrollTo(0,0);toast('Отправили клинике на подтверждение. В демо: откройте «Кабинет клиники» в профиле или подождите 30 секунд');
+    setTimeout(()=>{if(!p.pending)return;const ld=p.pending.date;creditDonation(p,cl);p.lastDonation=ld;toast(`${clinic(cl).name} подтвердила сдачу`);go({type:'celebrate'})},30000)});
   document.querySelectorAll('details[data-guide]').forEach(el=>el.addEventListener('toggle',()=>{
     if(!el.open)return;const id=el.dataset.guide;if(state.guidesRead.has(id))return;
     state.guidesRead.add(id);if(state.user){bump('wkGuide');addXP(5,'инструкция');checkProgress()}
@@ -2148,11 +2900,12 @@ function bindForms(){
 }
 function readForm(){
   const f=state.form;const g=id=>document.getElementById(id);
-  if(g('f-pet'))f.pet=g('f-pet').value;if(g('f-w'))f.weight=g('f-w').value;
+  if(g('f-pet'))f.pet=g('f-pet').value;if(g('f-vol'))f.vol=g('f-vol').value;if(g('f-w'))f.weight=g('f-w').value;
   if(g('f-clinic'))f.clinic=g('f-clinic').value;if(g('f-reason'))f.reason=g('f-reason').value;if(g('f-ai'))f.aiText=g('f-ai').value;
 }
 function validSos(){
   const f=state.form,w=parseFloat(String(f.weight).replace(',','.'));
+  if(SELL.test(f.reason||''))return fErr('f-reason','Покупка и продажа крови в Павхелпе запрещены: донорство только бесплатное. Уберите это из описания');
   if(!f.pet.trim())return fErr('f-pet','Укажите кличку, чтобы донор понимал, к кому едет');
   if(!w)return fErr('f-w','Укажите примерный вес, от него зависит подбор донора');
   if(f.species==='dog'&&(w<1||w>100))return fErr('f-w','Проверьте вес: для собаки обычно от 1 до 100 кг');
@@ -2169,13 +2922,17 @@ function submitSos(){
   const f=state.form;
   if(!validSos()){state.tab='sos';state.view=null;render();validSos();return}
   const w=parseFloat(String(f.weight).replace(',','.'));
+  const blk=sosBlocked(f);if(blk){state.sheet=blk;render();return}
   if(state.sim.serverFail){state.sim.serverFail=false;go({type:'sosError'});return}
-  const m=matchDonors(f).sort((a,b)=>a.km-b.km);
+  state.sosLog.push(Date.now());
+  const prio=prioPet(f);const m=matchDonors({...f,radius:prio?20:10}).sort((a,b)=>a.km-b.km);
   const off=isOffline();
   const r={id:'r'+Date.now(),pet:f.pet.trim(),species:f.species,breed:f.species==='dog'?'собака':'кошка',weight:w,group:f.group,reason:f.reason.trim(),clinic:f.clinic,urgency:f.urgency,ago:'только что',km:0,owner:'вы',responders:0,mine:true,notified:m.length,respList:[],waiting:!off&&m.length>0,queued:off,_m:m};
+  r.petId=f.petId||null;r.created=Date.now();r.verified=false;r.since='с вами';setTimeout(()=>{if(!state.requests.includes(r))return;r.verified=true;sysMsg(r,'Клиника подтвердила запрос');if(state.view&&state.view.id===r.id)render();toast(`${clinic(r.clinic).name} подтвердила запрос. Доноры видят отметку «проверено»`)},20000);
+  setPhotos(r,photosOf(f));r.comp=f.comp||'whole';r.vol=parseInt(f.vol)||null;r.prio=!!prio;r.radius=prio?20:10;
   r.post=f.post||postTemplate(r);
   state.requests.unshift(r);
-  state.form={species:'dog',weight:'',group:'не знаю',clinic:'c1',urgency:'now',pet:'',reason:'',aiText:'',post:''};
+  state.form={species:'dog',weight:'',group:'не знаю',comp:'whole',vol:'',clinic:'c1',urgency:'now',pet:'',reason:'',aiText:'',post:'',photo:null,photos:[],petId:null};
   state.tab='requests';go({type:'req',id:r.id});
   if(off){toast('Нет связи. Запрос сохранён и отправится автоматически');return}
   toast('Запрос отправлен');
@@ -2192,14 +2949,15 @@ function dispatch(r,m){
 function doHelp(id){
   const r=state.requests.find(x=>x.id===id);
   const who=r.species==='dog'?'собаки':'кошки';
-  const cands=state.pets.filter(p=>p.species===r.species);
+  const cands=state.pets.filter(p=>p.species===r.species&&!p.memorial);
   if(!cands.length){
     state.sheet={title:`Нужна ${r.species==='dog'?'собака':'кошка'}-донор`,
       text:`В вашем профиле пока нет ${who}. Добавьте питомца: проверка займёт минуту, и в следующий раз вы сможете откликнуться. А сейчас помочь ${r.pet} можно репостом.`,
       actions:[{label:'Добавить питомца-донора',act:'addDonor',primary:true,sp:r.species},{label:'Поделиться запросом',act:'share',id:r.id}]};
     render();return;
   }
-  const ok=cands.find(p=>p.donorOn&&eligibility(p).ready);
+  const ok=cands.find(p=>p.donorOn&&!isPaused(p)&&eligibility(p).ready);
+  if(!ok&&cands.some(isPaused)){const p=cands.find(isPaused);state.sheet={title:`${p.name} на паузе`,text:`Вы поставили паузу до ${fmt(new Date(p.pauseUntil))}. Если ${p.name} может помочь сейчас, снимите паузу и откликнитесь.`,actions:[{label:'Снять паузу и откликнуться',act:'unpauseHelp',id:r.id,primary:true},{label:'Поделиться запросом',act:'share',id:r.id}]};render();return}
   if(!ok){
     const p=cands[0],e=eligibility(p),bad=e.checks.find(c=>!c.ok);
     state.sheet=e.fit
@@ -2228,9 +2986,13 @@ document.addEventListener('click',ev=>{
   if(a==='simOffline'){state.sim.offline=b.checked;if(!b.checked&&navigator.onLine)flushQueue();else render();return}
   if(a==='simEmpty'){state.sim.empty=b.checked;render();return}
   if(a==='simFail'){state.sim.serverFail=b.checked;return}
+  if(a==='simScam'){state.sim.scam=b.checked;if(b.checked)toast('Откройте чат по активному SOS и отправьте сообщение');return}
+  if(a==='simIos'){state.sim.ios=b.checked;state.iosHide=false;return}
+  if(a==='setA'){state.a11y[b.dataset.k]=b.checked;applyA11y();return}
+  if(a==='simLimit'){state.sosLog=b.checked?[Date.now()-3e6,Date.now()-2e6,Date.now()-1e6]:[];return}
   if(a==='consent'){state.login.consent=b.checked;return}
   switch(a){
-    case 'tab':goTab(b.dataset.tab);break;
+    case 'tab':goTab(b.dataset.tab||b.dataset.sp);break;
     case 'check':state.check=newCheck();go({type:'check'});break;
     case 'cset':{const t=document.getElementById('c-text');if(t)state.check.text=t.value;state.check.species=b.dataset.v;render();break}
     case 'csym':{const t=document.getElementById('c-text');if(t){t.value=(t.value.trim()?t.value.trim().replace(/[,.]$/,'')+', ':'')+b.dataset.s.toLowerCase();state.check.text=t.value;t.focus()}break}
@@ -2241,6 +3003,13 @@ document.addEventListener('click',ev=>{
     case 'sosFromCheck':{const c=state.check;state.form={...state.form,species:c.species,group:'не знаю',urgency:c.result.level==='urgent'?'now':'today',reason:c.text.slice(0,200)};
       if(state.pet&&state.pet.species===c.species){state.form.pet=state.pet.name;state.form.weight=String(state.pet.weight)}goTab('sos');break}
     case 'aifill':aiFill();break;
+    case 'sosPhotoDel':{ev.preventDefault();readForm();const a=photosOf(state.form).slice();a.splice(+b.dataset.i||0,1);setPhotos(state.form,a);render();break}
+    case 'sosPhotoMain':{ev.preventDefault();readForm();const a=photosOf(state.form).slice();const [x]=a.splice(+b.dataset.i,1);setPhotos(state.form,[x,...a]);render();break}
+    case 'rPhotoDel':{const r=state.requests.find(x=>x.id===b.dataset.id);const i=galIndex(b.closest('.req-cover').querySelector('.gal'));const a=photosOf(r).slice();a.splice(i,1);setPhotos(r,a);render();toast(a.length?'Фото удалено':'Фото удалено. Можно добавить новое');break}
+    case 'petPhotoDel':{const p=state.pet;const i=galIndex(b.closest('.pc-media').querySelector('.gal'));const a=photosOf(p).slice();a.splice(i,1);setPhotos(p,a);render();toast('Фото удалено');break}
+    case 'sosPet':{readForm();const x=state.pets[+b.dataset.i];const f=state.form;
+      if(f.petId===x.id){f.petId=null;render();break}
+      Object.assign(f,{petId:x.id,pet:x.name,species:x.species,weight:String(x.weight),group:x.group,photo:f.photo});if(!photosOf(f).length&&photosOf(x).length)setPhotos(f,photosOf(x));render();toast(`Подставили данные ${x.name}`);break}
     case 'jNew':state.jform={id:null,kind:'tick',product:'',date:new Date(today),every:MK.tick.every,note:''};go({type:'jEntry'});break;
     case 'jEdit':{const x=state.pet.journal.find(q=>q.id===b.dataset.id);if(x){state.jform={id:x.id,kind:x.kind,product:x.product,date:x.date,every:x.every,note:x.note};go({type:'jEntry'})}break}
     case 'jKind':readJForm();state.jform.kind=b.dataset.k;state.jform.product='';state.jform.every=MK[b.dataset.k].every;render();break;
@@ -2256,7 +3025,10 @@ document.addEventListener('click',ev=>{
     case 'editPet':if(state.pet){state.dform=petToForm(state.pet);go({type:'addDonor'})}break;
     case 'delPet':{const x=state.pets.find(q=>q.id===b.dataset.id);if(!x)break;readDForm();
       state.sheet={title:`Удалить ${x.name}?`,text:`Медкарта, история сдач и фото ${x.name} удалятся без возможности восстановления. Истории спасений в ленте останутся.`,
-        actions:[{label:'Удалить',act:'delPetOk',danger:true,id:x.id},{label:'Отмена',act:'sheetClose'}]};render();break}
+        actions:[{label:'Удалить',act:'delPetOk',danger:true,id:x.id},{label:'Питомца не стало',act:'petGone',id:x.id},{label:'Отмена',act:'sheetClose'}]};render();break}
+    case 'petGone':{const x=state.pets.find(q=>q.id===b.dataset.id);state.sheet={title:'Нам очень жаль',text:`Мы уберём ${x.name} из доноров и выключим все напоминания. Карточку можно оставить в профиле как память${x.donations?` — с историей сдач: ${x.donations}`:''}. Удалить её можно в любой момент.`,
+        actions:[{label:'Оставить как память',act:'petGoneOk',id:x.id,primary:true},{label:'Удалить совсем',act:'delPetOk',id:x.id},{label:'Отмена',act:'sheetClose'}]};render();break}
+    case 'petGoneOk':{const x=state.pets.find(q=>q.id===b.dataset.id);Object.assign(x,{memorial:true,donorOn:false,wantDonor:false});syncDonorList(x);state.pet=x;state.dform=emptyDForm();state.view=null;state.tab='profile';state.ptab='pets';render();window.scrollTo(0,0);break}
     case 'delPetOk':{const i=state.pets.findIndex(q=>q.id===b.dataset.id);if(i<0)break;const [x]=state.pets.splice(i,1);
       const j=DONORS.findIndex(d=>d.id==='d'+x.id);if(j>=0)DONORS.splice(j,1);
       state.pet=state.pets[0]||null;state.dform=emptyDForm();goTab('profile');toast(`${x.name} удалён(а) из профиля`);break}
@@ -2271,7 +3043,7 @@ document.addEventListener('click',ev=>{
     case 'stories':go({type:'stories'});break;
     case 'city':go({type:'city'});break;
     case 'locate':locate();break;
-    case 'setDistrict':state.locError=null;setLoc(DIST_C[b.dataset.d],b.dataset.d,'manual');render();toast(`Район: ${b.dataset.d}. Расстояния пересчитаны`);break;
+    case 'setDistrict':state.locError=null;setLoc(cityAreas()[b.dataset.d],b.dataset.d,'manual');render();toast(`${areaLabel(b.dataset.d)}. Расстояния пересчитаны`);break;
     case 'notif':go({type:'notif'});break;
     case 'login':requireAuth(null,null);break;
     case 'goRewards':state.ptab='rewards';goTab('profile');break;
@@ -2329,7 +3101,58 @@ document.addEventListener('click',ev=>{
       const ev=m.product?everyFor(m.k,m.product,p.species):MK[m.k].every;addJournal(p,jEntry(m.k,m.product,new Date(today),ev));render();
       toast(`Записали в журнал: ${m.product||MK[m.k].t}, сегодня`);bump('medMarks');bump('wkMed');addXP(5,'медкарта');checkProgress();render();break}
     case 'tg':requireAuth('Чтобы подключить Telegram, войдите.',()=>{if(!state.tgConnected){state.tgConnected=true;toast('Telegram подключён');addXP(15,'Telegram');checkProgress()}render()});break;
-    case 'vote':{const c=state.cities[+b.dataset.i];c.voted=true;c.waiting++;render();toast(`Сообщим, когда Павхелп заработает: ${c.name}`);break}
+    case 'perk':copy(b.dataset.code+'-'+String(state.user&&state.user.name||'').length+'7','Промокод скопирован. Покажите его партнёру');break;
+    case 'cityAll':document.querySelectorAll('#city-list [data-more]').forEach(el=>el.hidden=false);b.remove();break;
+    case 'phoneShow':{const r=state.requests.find(x=>x.id===b.dataset.id);const P=r.ph||(r.ph={me:false,them:false});P.me=true;sysMsg(r,'Вы открыли свой номер');render();
+      const other=r.mine?r.respList.find(x=>x.id===r.trip.donorId).owner:r.owner;toast(`Ваш номер виден: ${other}`);
+      if(!P.them)setTimeout(()=>{P.them=true;sysMsg(r,`${other} открыл(а) свой номер`);if(state.view&&state.view.id===r.id)render();toast(`${other} тоже открыл(а) номер`)},3000);break}
+    case 'phoneHide':{const r=state.requests.find(x=>x.id===b.dataset.id);r.ph.me=false;render();toast('Номер скрыт. Если его уже записали, это не отменить');break}
+    case 'report':{const id=b.dataset.id;const R=[['money','Просят деньги или данные карты'],['photo','Неподходящее фото'],['fake','Похоже на фейковый запрос'],['sell','Продажа или покупка крови'],['rude','Грубость или угрозы'],['other','Другое']];
+      if(b.dataset.sp){reportDo(id,b.dataset.sp);break}
+      state.sheet={title:'Что случилось?',text:'Жалобу проверит модератор в течение часа. Тот, на кого вы жалуетесь, не узнает, кто её отправил.',actions:[...R.map(([k,l])=>({label:l,act:'reportDo',id,sp:k})),{label:'Отмена',act:'sheetClose'}]};render();break}
+    case 'reportDo':reportDo(b.dataset.id,b.dataset.sp);break;
+    case 'support':go({type:'support'});break;
+    case 'supTopic':{const t=document.getElementById('sup-text');const v=t?t.value:'';state.supTopic=b.dataset.k;render();const t2=document.getElementById('sup-text');if(t2)t2.value=v;break}
+    case 'legal':ev.preventDefault();if(state.view&&state.view.type==='legal'){state.view.k=b.dataset.k;render();window.scrollTo(0,0)}else go({type:'legal',k:b.dataset.k});break;
+    case 'openClinic':go({type:'clinic'});break;
+    case 'openTg':go({type:'tgv'});setTimeout(()=>{const l=document.getElementById('tglog');if(l)l.scrollTop=l.scrollHeight},30);break;
+    case 'openPub':{const r=state.requests.find(x=>!x.reported)||state.requests[0];if(r)go({type:'pub',id:r.id});break}
+    case 'pub':go({type:'pub',id:b.dataset.id});break;
+    case 'pubHelp':{const id=b.dataset.id;requireAuth('Войдите, чтобы откликнуться. Через Telegram — одно нажатие.',()=>{go({type:'req',id});doHelp(id)});break}
+    case 'timeSkip':{const mine=state.requests.filter(r=>r.mine);if(!mine.length){toast('Сначала создайте SOS-запрос');break}mine.forEach(r=>r.created=(r.created||Date.now())-25*3600e3);render();toast('Прошли сутки. Павхелп спросит, актуален ли запрос');break}
+    case 'renew':{const r=state.requests.find(x=>x.id===b.dataset.id);r.created=Date.now();r.renewed=(r.renewed||0)+1;render();toast('Продлили на сутки и напомнили донорам рядом');break}
+    case 'cSel':state.clinicId=b.dataset.id;render();break;
+    case 'cTab':state.ctab=b.dataset.k;render();break;
+    case 'cOk':{const r=state.requests.find(x=>x.id===b.dataset.id);r.verified=true;sysMsg(r,'Клиника подтвердила запрос');render();toast('Запрос подтверждён. Доноры видят отметку');break}
+    case 'cNo':{const r=state.requests.find(x=>x.id===b.dataset.id);r.rejected=true;r.reported='fake';render();toast('Отправили модератору. Запрос скрыт из ленты');break}
+    case 'cDon':case 'cDonNo':{const id=b.dataset.id,ok=a==='cDon';const p=state.pets.find(x=>x.id===id);
+      if(p){if(ok){const cl=p.pending.clinic,ld=p.pending.date;creditDonation(p,cl);p.lastDonation=ld;toast(`Сдача ${p.name} подтверждена. Донору начислены капли`)}else{p.pending=null;p.lastDonation=null;if(p.wantDonor!==false)p.donorOn=eligibility(p).fit;syncDonorList(p);toast('Отметили, что сдачи не было. Хозяин получит уведомление')}}
+      else{const x=DEMO_PENDING.find(q=>q.id===id);if(x){x.done=true;toast(ok?`Сдача ${x.pet} подтверждена`:'Отметили, что сдачи не было')}}render();break}
+    case 'cStock':{const c=clinic(state.clinicId),i=+b.dataset.i;c.stock[i][3]=Math.max(0,c.stock[i][3]+ +b.dataset.d);if(!c.stock[i][3])c.stock.splice(i,1);c.upd=0;c.bank=c.stock.length>0;render();break}
+    case 'cAdd':{const c=clinic(state.clinicId),g=id=>document.getElementById(id).value;const spv=g('cs-sp'),grp=g('cs-g');
+      if((spv==='dog'&&!grp.startsWith('DEA'))||(spv==='cat'&&grp.startsWith('DEA'))){fErr('cs-g',spv==='dog'?'У собак группы DEA 1.1+ и DEA 1.1−':'У кошек группы A, B и AB');break}
+      const ml=parseInt(g('cs-ml'))||0;if(!ml){fErr('cs-ml','Укажите объём дозы');break}
+      const ex=c.stock.find(s=>s[0]===spv&&s[1]===grp&&s[2]===g('cs-c')&&s[4]===ml);if(ex)ex[3]++;else c.stock.push([spv,grp,g('cs-c'),1,ml]);c.upd=0;c.bank=true;render();toast('Добавили в банк крови');break}
+    case 'tgHelp':{const r=state.requests.find(x=>x.id===b.dataset.id);state.tgLog.push({me:true,t:'Могу помочь'});
+      const can=state.user&&state.pets.some(p=>p.species===r.species&&p.donorOn&&!isPaused(p)&&eligibility(p).ready);
+      if(can&&!r.helped){doHelp(r.id);state.view={type:'tgv'};state.sheet=null}
+      state.tgLog.push({bot:true,t:can?`Отклик отправлен. ${r.owner} выберет донора и пришлёт адрес. Я напишу сюда.`:`Похоже, сейчас никто из ваших питомцев не может помочь ${r.pet}. Можно переслать запрос знакомым: pavhelp.ru/r/${r.id}`});render();break}
+    case 'tgSkip':{const r=state.requests.find(x=>x.id===b.dataset.id);state.tgLog.push({me:true,t:'Не сейчас'},{bot:true,t:`Хорошо, больше не напомню про ${r.pet}. Спасибо, что откликаетесь на SOS.`});render();break}
+    case 'pause':{const p=state.pet;p.pauseUntil=Date.now()+(+b.dataset.d)*DAY;syncDonorList(p);render();toast(`Пауза до ${fmt(new Date(p.pauseUntil))}. SOS не будут приходить`);break}
+    case 'unpause':{const p=state.pet;p.pauseUntil=null;syncDonorList(p);render();toast(`${p.name} снова получает SOS`);break}
+    case 'unpauseHelp':{state.pets.forEach(p=>{if(isPaused(p))p.pauseUntil=null;syncDonorList(p)});doHelp(b.dataset.id);break}
+    case 'iosHide':state.iosHide=true;render();break;
+    case 'iosHow':state.sheet={title:'Павхелп на экране «Домой»',text:IOS_STEPS,actions:[{label:'Понятно',act:'sheetClose',primary:true}]};render();break;
+    case 'onb':{state.pet=state.pets.find(x=>x.id===b.dataset.id)||state.pet;go({type:'onb'});break}
+    case 'onbPush':{state.pet.onb.notif=true;state.notif.push=true;render();toast('Push включены. Telegram можно подключить позже');break}
+    case 'onbGroup':state.pet.onb.group=true;render();break;
+    case 'onbDone':state.view=null;state.tab='profile';state.ptab='pets';state.anim=true;render();window.scrollTo(0,0);break;
+
+    case 'widen':{const r=state.requests.find(x=>x.id===b.dataset.id);if(r.radius>=50)break;r.radius=50;
+      const more=matchDonors({species:r.species,group:r.group,radius:50}).filter(d=>!r._m.some(x=>x.id===d.id));
+      r.notified+=more.length;render();toast(more.length?`Уведомили ещё ${more.length} ${plural(more.length,'донора','доноров','доноров')} в 50 км`:'В 50 км подходящих доноров тоже пока нет. Позвоните в клинику и разошлите текст в чаты');
+      if(more.length){r.waiting=true;dispatch(r,more)}break}
+    case 'setCity':{const n=b.dataset.c;state.locError=null;chooseCity(n,'manual');render();window.scrollTo(0,0);toast(`${n}: показываем доноров, клиники и запросы рядом`);break}
     case 'petSel':state.pet=state.pets[+b.dataset.i];render();break;
     case 'ptab':state.ptab=b.dataset.k;render();break;
     case 'lbtab':state.lbtab=b.dataset.k;render();break;

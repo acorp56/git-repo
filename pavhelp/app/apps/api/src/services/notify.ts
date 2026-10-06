@@ -30,10 +30,20 @@ export class MemoryNotifier implements Notifier {
   }
 }
 
+type InlineButton = { text: string; url: string } | { text: string; callback_data: string };
+
+/** Вызов метода Telegram Bot API. */
+export async function telegramApi(token: string, method: string, body: object): Promise<Response> {
+  return fetch(`https://api.telegram.org/bot${token}/${method}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+}
+
 /**
- * Отправка через Telegram Bot API.
- * Кнопки «Могу приехать» и «Не сейчас» требуют обработчика callback_query в сервисе бота —
- * пока в сообщении ссылка на запрос, отклик делается в приложении.
+ * Отправка через Telegram Bot API. В SOS — inline-кнопки «Могу помочь» и «Не сейчас»:
+ * нажатия приходят в webhook (routes/telegram.ts) как callback_query.
  * TODO: Web Push (VAPID) как второй канал.
  */
 export class TelegramNotifier implements Notifier {
@@ -42,27 +52,25 @@ export class TelegramNotifier implements Notifier {
     private log: FastifyBaseLogger,
   ) {}
 
-  private async send(chatId: number, text: string, url: string, button: string) {
-    const res = await fetch(`https://api.telegram.org/bot${this.token}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-        reply_markup: { inline_keyboard: [[{ text: button, url }]] },
-      }),
-    });
+  private async send(chatId: number, text: string, keyboard: InlineButton[][]) {
+    const res = await telegramApi(this.token, 'sendMessage', { chat_id: chatId, text, reply_markup: { inline_keyboard: keyboard } });
     if (!res.ok) this.log.warn({ status: res.status, chatId }, 'Telegram sendMessage failed');
   }
 
   async sos(m: SosMessage) {
     if (!m.telegramChatId) return this.log.info({ userId: m.userId }, 'SOS: у донора не подключён Telegram');
-    await this.send(m.telegramChatId, m.text, m.url, 'Могу приехать');
+    await this.send(m.telegramChatId, m.text, [
+      [
+        { text: 'Могу помочь', callback_data: `help:${m.requestId}` },
+        { text: 'Не сейчас', callback_data: `skip:${m.requestId}` },
+      ],
+      [{ text: 'Открыть в Павхелпе', url: m.url }],
+    ]);
   }
 
   async event(userId: string, chatId: number | null, text: string, url: string) {
     if (!chatId) return this.log.info({ userId }, text);
-    await this.send(chatId, text, url, 'Открыть');
+    await this.send(chatId, text, [[{ text: 'Открыть', url }]]);
   }
 }
 

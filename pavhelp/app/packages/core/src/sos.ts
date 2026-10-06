@@ -1,5 +1,6 @@
 // SOS-запрос: валидация формы, текст для районных чатов, настройки уведомлений.
-import { BLOOD_GROUP_LABEL, isBloodGroupFor, URGENCY, type BloodGroup, type Species, type Urgency } from './domain';
+import { BLOOD_GROUP_LABEL, COMPONENT_LABEL, COMPONENTS, isBloodGroupFor, URGENCY, type BloodGroup, type Component, type Species, type Urgency } from './domain';
+import { mentionsSale } from './fraud';
 import { MIN_WEIGHT_KG } from './donor';
 
 export interface SosInput {
@@ -10,7 +11,16 @@ export interface SosInput {
   clinicId: string;
   urgency: Urgency;
   reason: string;
+  /** Что назначил врач. */
+  component: Component;
+  /** Объём, мл. Необязательно. */
+  volumeMl: number | null;
+  /** Свой питомец, которому нужна кровь: если он сам сдавал кровь, запрос приоритетный. */
+  patientPetId: string | null;
 }
+
+/** Лимиты SOS: один активный запрос на питомца, не больше 2 активных и 3 за сутки на аккаунт. */
+export const SOS_LIMIT = { active: 2, perDay: 3 } as const;
 
 export type FieldErrors = Partial<Record<keyof SosInput, string>>;
 
@@ -50,11 +60,30 @@ export function validateSos(raw: Record<string, unknown>): { ok: true; value: So
   if (!urgency) errors.urgency = 'Укажите срочность';
 
   const reason = typeof raw.reason === 'string' ? raw.reason.trim().slice(0, 300) : '';
+  if (mentionsSale(reason)) errors.reason = 'Донорство бесплатное: уберите слова о покупке, продаже или оплате крови';
+
+  const component = raw.component === undefined ? 'whole' : COMPONENTS.includes(raw.component as Component) ? (raw.component as Component) : null;
+  if (!component) errors.component = 'Выберите компонент крови';
+  const volRaw = raw.volumeMl === undefined || raw.volumeMl === null || raw.volumeMl === '' ? null : parseKg(raw.volumeMl);
+  const volumeMl = volRaw === null ? null : Math.round(volRaw);
+  if (volRaw !== null && (!volumeMl || volumeMl < 5 || volumeMl > 2000)) errors.volumeMl = 'Проверьте объём: обычно от 5 до 2000 мл';
+  const patientPetId = typeof raw.patientPetId === 'string' && raw.patientPetId ? raw.patientPetId : null;
 
   if (Object.keys(errors).length) return { ok: false, errors };
   return {
     ok: true,
-    value: { species: species!, petName, weightKg: w!, bloodGroup: bloodGroup as BloodGroup, clinicId, urgency: urgency!, reason },
+    value: {
+      species: species!,
+      petName,
+      weightKg: w!,
+      bloodGroup: bloodGroup as BloodGroup,
+      clinicId,
+      urgency: urgency!,
+      reason,
+      component: component!,
+      volumeMl,
+      patientPetId,
+    },
   };
 }
 
@@ -67,6 +96,7 @@ export function postTemplate(r: {
   bloodGroup: BloodGroup;
   clinicName: string;
   clinicAddress: string;
+  component?: Component;
 }): string {
   const dog = r.species === 'dog';
   return [
@@ -74,6 +104,7 @@ export function postTemplate(r: {
     `${dog ? 'Собака' : 'Кошка'}${r.weightKg ? ', ' + String(r.weightKg).replace('.', ',') + ' кг' : ''}${
       r.bloodGroup !== 'unknown' ? ', группа ' + BLOOD_GROUP_LABEL[r.bloodGroup] : ''
     }.`,
+    ...(r.component && r.component !== 'whole' ? [`Нужна ${COMPONENT_LABEL[r.component].toLowerCase()}, донор сдаёт цельную кровь.`] : []),
     `Клиника: ${r.clinicName} (${r.clinicAddress}).`,
     `Подойдёт ${dog ? 'собака' : 'кошка'} от ${MIN_WEIGHT_KG[r.species]} кг, 1–8 лет, с действующими прививками.`,
   ].join(' ');
