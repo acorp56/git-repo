@@ -1,13 +1,13 @@
 'use client';
-import { SPECIES_LABEL, TRIP_STEPS, URGENCY_LABEL, type Eligibility } from '@pavhelp/core';
+import { COMPONENT_LABEL, SPECIES_LABEL, TRIP_STEPS, URGENCY_LABEL, type Eligibility } from '@pavhelp/core';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import type { RequestSummary } from '@/lib/api';
 import { ago, group, kg } from '@/lib/format';
 import { useSession } from '@/lib/session';
 
-export function Top({ back }: { back?: string }) {
+export function Top({ back, right }: { back?: string; right?: ReactNode }) {
   return (
     <header className="top">
       {back ? (
@@ -17,6 +17,7 @@ export function Top({ back }: { back?: string }) {
       ) : (
         <Brand />
       )}
+      {right}
     </header>
   );
 }
@@ -55,6 +56,9 @@ export function RequestCard({ r }: { r: RequestSummary }) {
         <span className={`chip ${r.urgency === 'now' ? 'red' : r.urgency === 'today' ? 'warn' : ''}`}>{URGENCY_LABEL[r.urgency]}</span>
         <span className="chip">{kg(r.weightKg)}</span>
         <span className="chip">{group(r.bloodGroup)}</span>
+        {r.component !== 'whole' && <span className="chip">{COMPONENT_LABEL[r.component].toLowerCase()}</span>}
+        {r.priority && <span className="chip gold">Донор Павхелпа</span>}
+        {r.clinicStatus === 'confirmed' && <span className="chip ok">✓ Клиника подтвердила</span>}
         {r.status === 'donor_chosen' && <span className="chip ok">Донор едет</span>}
         {r.status === 'closed' && <span className="chip">Закрыт</span>}
       </div>
@@ -144,4 +148,22 @@ export function useRequireLogin(): boolean {
     if (!loading && !me) router.replace(`/login?returnTo=${encodeURIComponent(location.pathname + location.search)}`);
   }, [loading, me, router]);
   return !loading && !!me;
+}
+
+export const isIOS = () => typeof navigator !== 'undefined' && /iPhone|iPad|iPod/.test(navigator.userAgent);
+export const isStandalone = () =>
+  typeof window !== 'undefined' &&
+  (window.matchMedia?.('(display-mode: standalone)').matches || (navigator as Navigator & { standalone?: boolean }).standalone === true);
+
+/** «Чтобы SOS приходили на iPhone»: Web Push на iOS работает только из приложения на экране «Домой». */
+export function IosHint() {
+  const [show, setShow] = useState(false);
+  useEffect(() => setShow(isIOS() && !isStandalone()), []);
+  if (!show) return null;
+  return (
+    <Link href="/ios" className="card stack" style={{ textDecoration: 'none', marginTop: 12 }}>
+      <b>Чтобы SOS приходили на iPhone</b>
+      <span className="small muted">Добавьте Павхелп на экран «Домой»: без этого iPhone не показывает уведомления. Займёт 20 секунд →</span>
+    </Link>
+  );
 }

@@ -105,7 +105,13 @@ export async function requestRoutes(app: FastifyInstance) {
         [isCity(req.query.city) ? req.query.city : null, req.user?.id ?? null],
       );
     }
-    return Promise.all(rows.map(async (r) => publicView(r, await clinicOf(r.clinic_id), await respondersCount(r.id))));
+    return Promise.all(
+      rows.map(async (r) => ({
+        ...publicView(r, await clinicOf(r.clinic_id), await respondersCount(r.id)),
+        // Своим запросам — вопрос «Ещё ищете донора?» для баннера на главной.
+        ...(scope === 'mine' ? { staleAsk: r.status === 'open' && r.stale_asked_at !== null } : {}),
+      })),
+    );
   });
 
   // Публичная страница запроса pavhelp.ru/r/<slug>: доступна без входа, без данных хозяина.

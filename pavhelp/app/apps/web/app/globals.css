@@ -100,7 +100,8 @@ p { margin: 0; }
   border: 0; background: var(--surface); border-radius: 18px; padding: 15px 16px; font-size: 16px; width: 100%;
 }
 textarea.input { min-height: 96px; resize: vertical; }
-.card .input, .state .input { background: var(--chip); }
+.card .input, .state .input, .card .seg button, .state .seg button { background: var(--chip); }
+.card .seg button[aria-pressed="true"], .state .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
 .input[aria-invalid="true"] { outline: 2px solid var(--accent); }
 .ferr { color: var(--accent); font-size: 13.5px; padding-inline: 4px; }
 .seg { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -168,3 +169,42 @@ textarea.input { min-height: 96px; resize: vertical; }
   .req, .card, .state { animation: rise .3s ease-out both; }
   @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
 }
+
+/* ---------- город ---------- */
+.city-opt { background: none; border: 0; padding: 10px 4px; text-align: left; width: 100%; border-radius: 12px; }
+.city-opt[aria-selected="true"] { font-weight: 600; }
+
+/* ---------- кровь в наличии ---------- */
+.bank { background: var(--ok-soft); border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.bank.none { background: var(--chip); }
+.bank-row { display: flex; gap: 10px; align-items: center; background: var(--surface); border-radius: 16px; padding: 12px; }
+
+/* ---------- план Б, автозакрытие, память ---------- */
+.planb { background: var(--warn-soft); border-radius: 22px; padding: 16px; }
+.planb ol { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.memo { filter: grayscale(1); }
+.memo-title { color: var(--muted); }
+.card.done { opacity: .6; }
+
+/* ---------- чат: предупреждение о деньгах ---------- */
+.bubble.risky { outline: 2px solid var(--warn); }
+.risk-note { display: block; margin-top: 6px; font-size: 12.5px; color: var(--warn); }
+
+/* ---------- нижний лист ---------- */
+.sheet-bg { position: fixed; inset: 0; background: rgba(10, 10, 10, .45); z-index: 30; }
+.sheet {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: min(468px, calc(100% - 24px)); background: var(--surface); border-radius: 30px; padding: 24px 20px 20px;
+  z-index: 31; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); max-height: 85vh; overflow: auto;
+}
+
+/* ---------- документы ---------- */
+.legal h3 { font-size: 17px; margin-top: 8px; }
+.legal p { color: var(--ink); }
+.seg .btn[aria-current="page"] { background: var(--ink); color: var(--bg); }
+
+/* ---------- отображение ---------- */
+html.a-big { font-size: 18px; }
+html.a-big body { font-size: 18px; }
+html.a-big .small { font-size: 16px; }
+html.a-calm *, html.a-calm *::before, html.a-calm *::after { animation: none !important; transition: none !important; }

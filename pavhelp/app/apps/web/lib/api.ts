@@ -1,11 +1,12 @@
 // Клиент API. Все запросы идут на /api/* того же домена, Next.js проксирует их в бэкенд.
-import type { BloodGroup, CheckResult, Eligibility, Level, NotifySettings, Species, Urgency } from '@pavhelp/core';
+import type { BloodGroup, CheckResult, Component, Eligibility, Level, NotifySettings, Species, Urgency } from '@pavhelp/core';
 
 export class ApiError extends Error {
   constructor(
     public status: number,
     message: string,
     public fields: Record<string, string> = {},
+    public data: Record<string, unknown> = {},
   ) {
     super(message);
   }
@@ -25,7 +26,7 @@ export async function api<T = unknown>(path: string, opts: { method?: string; bo
     throw new ApiError(0, 'Нет соединения. Проверьте интернет и попробуйте ещё раз');
   }
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new ApiError(res.status, data.error ?? 'Что-то пошло не так', data.fields);
+  if (!res.ok) throw new ApiError(res.status, data.error ?? 'Что-то пошло не так', data.fields, data.data);
   return data as T;
 }
 
@@ -33,10 +34,25 @@ export interface Clinic {
   id: string;
   name: string;
   address: string;
+  city: string;
   district: string;
   phone: string;
   night: boolean;
   bloodBank: boolean;
+}
+
+export interface BankOffer {
+  clinicId: string;
+  clinicName: string;
+  clinicPhone: string;
+  address: string;
+  bloodGroup: BloodGroup;
+  component: Component;
+  doses: number;
+  doseMl: number;
+  check: boolean;
+  km: number | null;
+  updatedAt: string;
 }
 
 export interface Me {
@@ -45,12 +61,14 @@ export interface Me {
   email: string | null;
   /** Телефон для связи, необязательный. */
   phone: string | null;
+  city: string | null;
   district: string | null;
   notify: NotifySettings;
   telegramConnected: boolean;
   needsConsent: boolean;
   providers: string[];
   noChannels: boolean;
+  clinics: { id: string; name: string; role: string }[];
 }
 
 export interface Progress {
@@ -67,10 +85,18 @@ export interface Pet {
   birthDate: string | null;
   weightKg: number | null;
   bloodGroup: BloodGroup;
+  city: string;
   district: string;
   outdoor: boolean;
   chronic: boolean;
   donorEnabled: boolean;
+  sex: 'm' | 'f' | null;
+  chip: string | null;
+  housing: 'flat' | 'house' | 'aviary' | null;
+  underTreatment: boolean;
+  transfused: boolean;
+  pausedUntil: string | null;
+  deceased: boolean;
   lastDonation: string | null;
   med: { id: string; kind: string; date: string; note: string }[];
   eligibility: Eligibility;
@@ -83,12 +109,17 @@ export interface RequestSummary {
   species: Species;
   weightKg: number;
   bloodGroup: BloodGroup;
+  component: Component;
+  volumeMl: number | null;
   urgency: Urgency;
   reason: string;
   status: 'open' | 'donor_chosen' | 'closed';
+  priority: boolean;
+  clinicStatus: 'pending' | 'confirmed' | 'rejected';
   createdAt: string;
   clinic: Clinic;
   responders: number;
+  staleAsk?: boolean;
 }
 
 export interface Message {
@@ -96,6 +127,8 @@ export interface Message {
   system: boolean;
   mine: boolean;
   text: string;
+  /** Похоже на просьбу о деньгах. */
+  flagged: boolean;
   at: string;
 }
 
@@ -103,12 +136,22 @@ export interface RequestDetail extends RequestSummary {
   postText: string;
   publicUrl: string;
   role: 'guest' | 'viewer' | 'author' | 'donor';
+  authorSince: string;
+  authorNew: boolean;
+  reportedByMe?: boolean;
   trip?: { step: number; steps: string[] } | null;
   messages?: Message[];
+  chat?: { blocked: boolean };
+  myPhoneShown?: boolean;
+  myPhone?: string | null;
   // автор
   notified?: number;
   wave?: number;
   radiusKm?: number;
+  canExpand?: boolean;
+  staleAsk?: boolean;
+  hidden?: boolean;
+  banks?: BankOffer[];
   responses?: {
     id: string;
     status: string;
@@ -120,11 +163,12 @@ export interface RequestDetail extends RequestSummary {
     km: number | null;
     ownerName: string;
     phone: string | null;
+    phoneShown: boolean;
   }[];
   // донор и зритель
   myResponse?: { id: string; status: string; petName: string } | null;
-  author?: { name: string; phone: string | null };
-  myPets?: { id: string; name: string; ready: boolean; compatible: boolean; daysLeft: number; firstProblem: string | null }[];
+  author?: { name: string; phone: string | null; phoneShown: boolean };
+  myPets?: { id: string; name: string; ready: boolean; paused: boolean; compatible: boolean; daysLeft: number; firstProblem: string | null }[];
 }
 
 export type { CheckResult };

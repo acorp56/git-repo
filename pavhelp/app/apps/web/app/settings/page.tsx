@@ -1,5 +1,6 @@
 'use client';
-import { DISTRICTS, type NotifySettings } from '@pavhelp/core';
+import { areaLabel, cityAreas, DEFAULT_CITY, type NotifySettings } from '@pavhelp/core';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Field, Seg, Top, useRequireLogin } from '@/components/ui';
@@ -57,13 +58,25 @@ export default function Settings() {
           <input id="s-name" className="input" defaultValue={me.name} onBlur={(e) => e.target.value !== me.name && save({ name: e.target.value })} />
         </Field>
         <ContactPhone current={me.phone} onSave={(phone) => save({ phone }, phone ? 'Телефон сохранён' : 'Телефон удалён')} />
+        <div className="card row between">
+          <span>
+            <span className="small muted">Город</span>
+            <br />
+            {me.city ?? DEFAULT_CITY}
+          </span>
+          <Link className="btn" href="/city">
+            Сменить
+          </Link>
+        </div>
         <Field id="s-district" label="Район">
           <select id="s-district" className="input" value={me.district ?? ''} onChange={(e) => save({ district: e.target.value })}>
             <option value="" disabled>
               Выберите район
             </option>
-            {DISTRICTS.map((d) => (
-              <option key={d}>{d}</option>
+            {Object.keys(cityAreas(me.city ?? DEFAULT_CITY)).map((d) => (
+              <option key={d} value={d}>
+                {areaLabel(me.city ?? DEFAULT_CITY, d)}
+              </option>
             ))}
           </select>
         </Field>
@@ -112,12 +125,30 @@ export default function Settings() {
           <input type="checkbox" checked={n.telegram} onChange={(e) => setNotify({ telegram: e.target.checked })} />
           <span>Telegram {me.telegramConnected ? '' : '(не подключён)'}</span>
         </label>
+        {!me.telegramConnected && (
+          <button
+            className="btn tg"
+            onClick={async () => {
+              try {
+                const { url } = await api<{ url: string }>('/telegram/link', { body: {} });
+                window.open(url, '_blank', 'noopener');
+                setNote('Откройте бота и нажмите «Старт». Потом вернитесь сюда');
+              } catch (e) {
+                setNote((e as ApiError).message);
+              }
+            }}
+          >
+            Подключить Telegram
+          </button>
+        )}
         <label className="check">
           <input type="checkbox" checked={n.push} onChange={(e) => setNotify({ push: e.target.checked })} />
           <span>
             Push-уведомления
             <br />
-            <span className="small muted">На iPhone работают, только если добавить Павхелп на экран «Домой».</span>
+            <span className="small muted">
+              На iPhone работают, только если добавить Павхелп на экран «Домой». <Link href="/ios">Как это сделать</Link>
+            </span>
           </span>
         </label>
         {me.noChannels && <p className="alarm">Оба канала выключены: SOS-запросы до вас не дойдут.</p>}
@@ -148,6 +179,27 @@ export default function Settings() {
             </a>
           )}
         </div>
+      </section>
+
+      <Display />
+
+      {me.clinics.length > 0 && (
+        <section className="section">
+          <h2>Кабинет клиники</h2>
+          {me.clinics.map((c) => (
+            <Link key={c.id} className="btn" href={`/clinic/${c.id}`}>
+              {c.name}
+            </Link>
+          ))}
+        </section>
+      )}
+
+      <section className="section">
+        <h2>Документы и поддержка</h2>
+        <Link className="btn" href="/legal/terms">Пользовательское соглашение</Link>
+        <Link className="btn" href="/legal/privacy">Политика обработки персональных данных</Link>
+        <Link className="btn" href="/legal/medical">Медицинский отказ</Link>
+        <Link className="btn" href="/support">Поддержка</Link>
       </section>
 
       <section className="section">
@@ -200,5 +252,34 @@ function ContactPhone({ current, onSave }: { current: string | null; onSave: (ph
         Увидит только выбранный донор или хозяин, которому вы помогаете. Без телефона связь — через чат запроса.
       </span>
     </form>
+  );
+}
+
+/** «Отображение»: крупный текст и меньше анимации. Хранится в браузере, применяется классами на <html>. */
+function Display() {
+  const [big, setBig] = useState(false);
+  const [calm, setCalm] = useState(false);
+  useEffect(() => {
+    setBig(document.documentElement.classList.contains('a-big'));
+    setCalm(document.documentElement.classList.contains('a-calm'));
+  }, []);
+  const toggle = (cls: string, on: boolean) => {
+    document.documentElement.classList.toggle(cls, on);
+    try {
+      localStorage.setItem('pavhelp.' + cls, on ? '1' : '');
+    } catch {}
+  };
+  return (
+    <section className="section">
+      <h2>Отображение</h2>
+      <label className="check">
+        <input type="checkbox" checked={big} onChange={(e) => (setBig(e.target.checked), toggle('a-big', e.target.checked))} />
+        <span>Крупный текст</span>
+      </label>
+      <label className="check">
+        <input type="checkbox" checked={calm} onChange={(e) => (setCalm(e.target.checked), toggle('a-calm', e.target.checked))} />
+        <span>Меньше анимации</span>
+      </label>
+    </section>
   );
 }

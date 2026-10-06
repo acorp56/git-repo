@@ -1,7 +1,7 @@
 import { COMPONENTS, DEFAULT_CITY, GUIDES, isBloodGroupFor, isCity, redFlagResult, ruleResult, FALLBACK_QUESTIONS, type Component } from '@pavhelp/core';
 import type { FastifyInstance } from 'fastify';
 import { HttpError } from '../app';
-import { many } from '../db';
+import { many, one } from '../db';
 import { bankOffers } from '../services/banks';
 
 export interface ClinicRow {
@@ -60,6 +60,19 @@ export async function referenceRoutes(app: FastifyInstance) {
   );
 
   app.get('/guides', async () => GUIDES);
+
+  // Счётчик доноров города: для карточки «Павхелп в N только начинается».
+  app.get<{ Querystring: { city?: string } }>('/stats/city', async (req) => {
+    const city = isCity(req.query.city) ? req.query.city : DEFAULT_CITY;
+    const r = await one<{ donors: number; clinics: number }>(
+      app.deps.pool,
+      `SELECT (SELECT count(*)::int FROM pets p JOIN users u ON u.id = p.owner_id
+                WHERE p.city = $1 AND p.donor_enabled AND p.deceased_at IS NULL AND u.deleted_at IS NULL) AS donors,
+              (SELECT count(*)::int FROM clinics WHERE city = $1) AS clinics`,
+      [city],
+    );
+    return { city, ...r!, goal: 50 };
+  });
 
   /**
    * Симптом-чекер без ИИ: тревожные признаки → «срочно», иначе уточняющие вопросы и вердикт по правилам.

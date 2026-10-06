@@ -30,7 +30,15 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={`${onest.variable} ${unbounded.variable} ${plexMono.variable}`}>
+    <html lang="ru" suppressHydrationWarning className={`${onest.variable} ${unbounded.variable} ${plexMono.variable}`}>
+      <head>
+        {/* Настройки отображения из браузера применяем до отрисовки, чтобы не мигало. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{['a-big','a-calm'].forEach(function(c){if(localStorage.getItem('pavhelp.'+c))document.documentElement.classList.add(c)})}catch(e){}",
+          }}
+        />
+      </head>
       <body>
         <SessionProvider>
           <main className="app">{children}</main>

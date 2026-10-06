@@ -1,9 +1,12 @@
 'use client';
-import { GUIDES, type CheckResult } from '@pavhelp/core';
+import { BLOOD_GROUP_LABEL, BLOOD_GROUPS, COMPONENT_LABEL, COMPONENTS, GUIDES, type BloodGroup, type CheckResult, type Component, type Species } from '@pavhelp/core';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Top } from '@/components/ui';
+
+import { BankBlock, useBanks } from '@/components/banks';
+import { Seg, Top } from '@/components/ui';
 import { api, ApiError, type Clinic } from '@/lib/api';
+import { useCity } from '@/lib/city';
 
 type Q = { q: string; options: string[] };
 
@@ -11,6 +14,7 @@ const LEVEL_CLASS = { urgent: 'alarm', today: 'notice', watch: 'card' } as const
 
 export default function Aid() {
   const [clinics, setClinics] = useState<Clinic[]>([]);
+  const [city] = useCity();
   const [text, setText] = useState('');
   const [questions, setQuestions] = useState<Q[] | null>(null);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -18,8 +22,8 @@ export default function Aid() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    api<Clinic[]>('/clinics').then((cs) => setClinics(cs.filter((c) => c.night))).catch(() => {});
-  }, []);
+    api<Clinic[]>(`/clinics?city=${encodeURIComponent(city)}`).then((cs) => setClinics(cs.filter((c) => c.night))).catch(() => {});
+  }, [city]);
 
   async function check(ans?: string[]) {
     setError('');
@@ -49,7 +53,8 @@ export default function Aid() {
       <h1 className="page-title">Экстренно</h1>
 
       <section className="section">
-        <h2>Круглосуточные клиники</h2>
+        <h2>Круглосуточные клиники · {city}</h2>
+        {clinics.length === 0 && <p className="small muted">В справочнике пока нет круглосуточных клиник этого города.</p>}
         {clinics.map((c) => (
           <div className="card row between" key={c.id}>
             <span>
@@ -63,6 +68,8 @@ export default function Aid() {
           </div>
         ))}
       </section>
+
+      <Banks city={city} />
 
       <section className="section">
         <h2>Насколько это срочно?</h2>
@@ -165,5 +172,29 @@ export default function Aid() {
         ))}
       </section>
     </>
+  );
+}
+
+/** «Банки крови»: что есть в наличии в клиниках города. */
+function Banks({ city }: { city: string }) {
+  const [need, setNeed] = useState<{ species: Species; bloodGroup: BloodGroup; component: Component }>({
+    species: 'dog',
+    bloodGroup: 'unknown',
+    component: 'whole',
+  });
+  const offers = useBanks({ city, ...need });
+  return (
+    <section className="section" id="banks">
+      <h2>Банки крови</h2>
+      <Seg label="Вид" value={need.species} onChange={(v) => setNeed({ ...need, species: v, bloodGroup: 'unknown' })} options={[['dog', 'Собака'], ['cat', 'Кошка']]} />
+      <Seg
+        label="Группа"
+        value={need.bloodGroup}
+        onChange={(v) => setNeed({ ...need, bloodGroup: v })}
+        options={BLOOD_GROUPS[need.species].map((g) => [g, BLOOD_GROUP_LABEL[g]] as [BloodGroup, string])}
+      />
+      <Seg label="Компонент" value={need.component} onChange={(v) => setNeed({ ...need, component: v })} options={COMPONENTS.map((c) => [c, COMPONENT_LABEL[c]] as [Component, string])} />
+      <BankBlock offers={offers} need={need} />
+    </section>
   );
 }

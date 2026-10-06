@@ -35,6 +35,16 @@ export default function Profile() {
           </button>
         </div>
       )}
+      {me.clinics.map((c) => (
+        <Link key={c.id} href={`/clinic/${c.id}`} className="banner" style={{ marginTop: 12 }}>
+          <span>
+            <b>Кабинет клиники</b>
+            <br />
+            <span className="small">{c.name}</span>
+          </span>
+          <span aria-hidden="true">→</span>
+        </Link>
+      ))}
       {!me.telegramConnected && (
         <p className="notice" style={{ marginTop: 12 }}>
           Подключите Telegram в настройках: это основной канал SOS. Без него вы можете не узнать о запросе вовремя.
@@ -78,12 +88,16 @@ export default function Profile() {
         {pets?.map((p) => {
           const e = p.eligibility;
           return (
-            <div className="card stack" key={p.id}>
+            <div className={`card stack ${p.deceased ? 'memo' : ''}`} key={p.id}>
               <div className="row between">
                 <b>
                   {p.name} <span className="lt">· {p.breed || SPECIES_LABEL[p.species]}</span>
                 </b>
-                {!p.donorEnabled ? (
+                {p.deceased ? (
+                  <span className="chip">Светлая память</span>
+                ) : p.pausedUntil ? (
+                  <span className="chip warn">На паузе</span>
+                ) : !p.donorEnabled ? (
                   <span className="chip">SOS выключены</span>
                 ) : e.ready ? (
                   <span className="chip ok">Готов(а) помочь</span>
@@ -100,7 +114,7 @@ export default function Profile() {
                 <span className="chip">{BLOOD_GROUP_LABEL[p.bloodGroup]}</span>
                 <span className="chip">{p.district}</span>
               </div>
-              {!e.fit && <span className="small muted">Не подходит: {e.checks.filter((c) => !c.ok && c.key !== 'gap').map((c) => c.title.toLowerCase()).join(', ')}</span>}
+              {!e.fit && !p.deceased && <span className="small muted">Не подходит: {e.checks.filter((c) => !c.ok && c.key !== 'gap').map((c) => c.title.toLowerCase()).join(', ')}</span>}
               <Link className="btn" href={`/pets/${p.id}`}>
                 Медкарта и настройки
               </Link>

@@ -1,5 +1,5 @@
 'use client';
-import { BLOOD_GROUP_LABEL, BLOOD_GROUPS, DISTRICTS, eligibility, parseKg, type BloodGroup, type Species } from '@pavhelp/core';
+import { areaLabel, BLOOD_GROUP_LABEL, BLOOD_GROUPS, cityAreas, CITIES, eligibility, parseKg, type BloodGroup, type Species } from '@pavhelp/core';
 import { useState } from 'react';
 import { EligibilityList, Field, Seg } from './ui';
 import { today } from '@/lib/format';
@@ -11,26 +11,38 @@ export interface PetFormValue {
   birthDate: string;
   weightKg: string;
   bloodGroup: BloodGroup;
+  city: string;
   district: string;
   outdoor: boolean;
   chronic: boolean;
   donorEnabled: boolean;
+  sex: '' | 'm' | 'f';
+  chip: string;
+  housing: '' | 'flat' | 'house' | 'aviary';
+  underTreatment: boolean;
+  transfused: boolean;
   vacDate: string;
   rabDate: string;
   lastDonation: string;
 }
 
-export const emptyPet = (district = 'Петроградский'): PetFormValue => ({
+export const emptyPet = (city: string, district?: string | null): PetFormValue => ({
   species: 'dog',
   name: '',
   breed: '',
   birthDate: '',
   weightKg: '',
   bloodGroup: 'unknown',
-  district,
+  city,
+  district: district && district in cityAreas(city) ? district : (Object.keys(cityAreas(city))[0] ?? ''),
   outdoor: false,
   chronic: false,
   donorEnabled: true,
+  sex: '',
+  chip: '',
+  housing: '',
+  underTreatment: false,
+  transfused: false,
   vacDate: '',
   rabDate: '',
   lastDonation: '',
@@ -59,7 +71,13 @@ export function PetForm({
 }) {
   const [f, setF] = useState(initial);
   const set = <K extends keyof PetFormValue>(k: K, v: PetFormValue[K]) =>
-    setF((f) => ({ ...f, [k]: v, ...(k === 'species' ? { bloodGroup: 'unknown' as BloodGroup } : {}) }));
+    setF((f) => ({
+      ...f,
+      [k]: v,
+      ...(k === 'species' ? { bloodGroup: 'unknown' as BloodGroup } : {}),
+      // Районы у городов разные: при смене города берём первый район нового.
+      ...(k === 'city' ? { district: Object.keys(cityAreas(v as string))[0] ?? '' } : {}),
+    }));
 
   const e = eligibility({
     species: f.species,
@@ -67,6 +85,8 @@ export function PetForm({
     weightKg: parseKg(f.weightKg),
     chronic: f.chronic,
     outdoor: f.outdoor,
+    underTreatment: f.underTreatment,
+    transfused: f.transfused,
     lastDonation: asDate(f.lastDonation),
     vaccinations: withMed
       ? [
@@ -107,13 +127,44 @@ export function PetForm({
           options={BLOOD_GROUPS[f.species].map((g) => [g, BLOOD_GROUP_LABEL[g]] as [BloodGroup, string])}
         />
       </div>
-      <Field id="p-district" label="Район (точный адрес не нужен и никому не показывается)" error={errors.district}>
-        <select id="p-district" className="input" value={f.district} onChange={(e) => set('district', e.target.value)}>
-          {DISTRICTS.map((d) => (
-            <option key={d}>{d}</option>
+      <Field id="p-city" label="Город" error={errors.city}>
+        <select id="p-city" className="input" value={f.city} onChange={(e) => set('city', e.target.value)}>
+          {CITIES.map((c) => (
+            <option key={c.name} value={c.name}>
+              {c.name}
+            </option>
           ))}
         </select>
       </Field>
+      <Field id="p-district" label="Район (точный адрес не нужен и никому не показывается)" error={errors.district}>
+        <select id="p-district" className="input" value={f.district} onChange={(e) => set('district', e.target.value)}>
+          {Object.keys(cityAreas(f.city)).map((d) => (
+            <option key={d} value={d}>
+              {areaLabel(f.city, d)}
+            </option>
+          ))}
+        </select>
+      </Field>
+      <div className="field">
+        <span className="flabel">Пол</span>
+        <Seg label="Пол" value={f.sex} onChange={(v) => set('sex', v)} options={[['m', f.species === 'dog' ? 'Кобель' : 'Кот'], ['f', f.species === 'dog' ? 'Сука' : 'Кошка']]} />
+      </div>
+      <Field id="p-chip" label="Номер чипа (15 цифр, необязательно)" error={errors.chip}>
+        <input id="p-chip" className="input" inputMode="numeric" maxLength={15} value={f.chip} onChange={(e) => set('chip', e.target.value.replace(/\D/g, ''))} />
+      </Field>
+      <div className="field">
+        <span className="flabel">Где живёт</span>
+        <Seg
+          label="Условия содержания"
+          value={f.housing}
+          onChange={(v) => set('housing', v)}
+          options={[
+            ['flat', 'Квартира'],
+            ['house', 'Дом'],
+            ['aviary', 'Вольер'],
+          ]}
+        />
+      </div>
       {withMed && (
         <>
           <Field id="p-vac" label="Последняя комплексная прививка">
@@ -130,6 +181,14 @@ export function PetForm({
       <label className="check">
         <input type="checkbox" checked={!f.chronic} onChange={(e) => set('chronic', !e.target.checked)} />
         <span>Нет хронических болезней</span>
+      </label>
+      <label className="check">
+        <input type="checkbox" checked={!f.underTreatment} onChange={(e) => set('underTreatment', !e.target.checked)} />
+        <span>Сейчас не лечится, лекарства не принимает</span>
+      </label>
+      <label className="check">
+        <input type="checkbox" checked={!f.transfused} onChange={(e) => set('transfused', !e.target.checked)} />
+        <span>Никогда не получал(а) переливание крови</span>
       </label>
       {f.species === 'cat' && (
         <label className="check">

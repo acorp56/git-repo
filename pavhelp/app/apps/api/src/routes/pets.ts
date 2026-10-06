@@ -256,16 +256,14 @@ export async function petRoutes(app: FastifyInstance) {
     const p = await ownPet(user.id, req.params.id);
     const date = validDate(req.body?.date, now());
     if (!date) throw new HttpError(400, 'Проверьте дату', { date: 'Дата не может быть в будущем' });
-    // Подтверждает клиника в своём кабинете, поэтому клиника обязательна.
-    const clinicId = req.body?.clinicId ?? null;
-    if (!clinicId || !(await one(pool, 'SELECT 1 FROM clinics WHERE id = $1', [clinicId]))) {
-      throw new HttpError(400, 'Выберите клинику, где сдавали кровь', { clinicId: 'Клиника подтвердит сдачу' });
-    }
+    // Подтверждает клиника в своём кабинете. Без клиники дата всё равно учитывается, но капли не начислятся.
+    const clinicId = req.body?.clinicId || null;
+    if (clinicId && !(await one(pool, 'SELECT 1 FROM clinics WHERE id = $1', [clinicId]))) throw new HttpError(400, 'Неизвестная клиника');
     await tx(pool, async (c) => {
       await c.query('INSERT INTO donations (pet_id, clinic_id, date) VALUES ($1, $2, $3)', [p.id, clinicId, date]);
       await c.query('UPDATE pets SET last_donation = greatest(coalesce(last_donation, $2::date), $2::date) WHERE id = $1', [p.id, date]);
     });
     const fresh = await ownPet(user.id, p.id);
-    return { pet: await view(fresh), pendingConfirmation: true };
+    return { pet: await view(fresh), pendingConfirmation: !!clinicId };
   });
 }

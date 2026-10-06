@@ -118,7 +118,8 @@ function Login() {
       <label className="check" style={{ marginBottom: 16 }}>
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span className="small">
-          Согласен(на) на обработку персональных данных и с <a href="/privacy">политикой конфиденциальности</a>. Телефон, если укажете, увидит только тот, с кем вы
+          Принимаю <a href="/legal/terms">пользовательское соглашение</a> и согласен(на) на обработку персональных данных по{' '}
+          <a href="/legal/privacy">политике</a>. Телефон, если укажете, увидит только тот, с кем вы
           договоритесь о сдаче крови.
         </span>
       </label>

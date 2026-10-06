@@ -39,8 +39,11 @@ export default function PetPage() {
   useEffect(() => {
     if (!ready) return;
     load().catch((e: ApiError) => setError(e.message));
-    api<Clinic[]>('/clinics').then(setClinics).catch(() => {});
   }, [ready, load]);
+
+  useEffect(() => {
+    if (pet) api<Clinic[]>(`/clinics?city=${encodeURIComponent(pet.city)}`).then(setClinics).catch(() => {});
+  }, [pet?.city]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function run(fn: () => Promise<unknown>, done: string) {
     setBusy(true);
@@ -70,21 +73,94 @@ export default function PetPage() {
     birthDate: pet.birthDate ?? '',
     weightKg: pet.weightKg === null ? '' : String(pet.weightKg).replace('.', ','),
     bloodGroup: pet.bloodGroup,
+    city: pet.city,
     district: pet.district,
     outdoor: pet.outdoor,
     chronic: pet.chronic,
     donorEnabled: pet.donorEnabled,
+    sex: pet.sex ?? '',
+    chip: pet.chip ?? '',
+    housing: pet.housing ?? '',
+    underTreatment: pet.underTreatment,
+    transfused: pet.transfused,
     vacDate: '',
     rabDate: '',
     lastDonation: pet.lastDonation ?? '',
   };
   const vaccinations = pet.med.filter((m) => m.kind === 'vac' || m.kind === 'rab') as { kind: 'vac' | 'rab'; date: string }[];
 
+  // «Питомца не стало»: карточка в памяти, всё остальное выключено.
+  if (pet.deceased) {
+    return (
+      <>
+        <Top back="/profile" />
+        <h1 className="page-title memo-title">{pet.name}</h1>
+        <section className="section">
+          <div className="card stack memo">
+            <b style={{ fontSize: 19 }}>Светлая память</b>
+            <p className="small">
+              {pet.lastDonation
+                ? `${pet.name} был(а) донором крови и помогал(а) спасать других питомцев. Это навсегда останется в Павхелпе.`
+                : `${pet.name} останется в вашем профиле.`}
+            </p>
+            <p className="small muted">Напоминания и SOS выключены. Карточку можно удалить в любой момент.</p>
+            <button
+              className="link-btn"
+              style={{ alignSelf: 'flex-start' }}
+              onClick={async () => {
+                if (!confirm('Удалить карточку?')) return;
+                await api(`/pets/${pet.id}`, { method: 'DELETE' });
+                await reload();
+                router.push('/profile');
+              }}
+            >
+              Удалить карточку
+            </button>
+          </div>
+        </section>
+      </>
+    );
+  }
+
   return (
     <>
       <Top back="/profile" />
       <h1 className="page-title">{pet.name}</h1>
       {note && <p className="notice" role="status" style={{ marginBottom: 12 }}>{note}</p>}
+
+      {pet.donorEnabled && (
+        <section className="section">
+          <div className="card stack">
+            {pet.pausedUntil ? (
+              <>
+                <b>На паузе до {new Date(pet.pausedUntil).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })}</b>
+                <span className="small muted">SOS не приходят. Медкарта и напоминания работают.</span>
+                <button className="btn" disabled={busy} onClick={() => run(() => api(`/pets/${pet.id}/pause`, { body: { days: 0 } }), 'Пауза снята')}>
+                  Снять паузу
+                </button>
+              </>
+            ) : (
+              <>
+                <b>Пауза</b>
+                <span className="small muted">Уехали, болеет или течка: на это время SOS не будут приходить.</span>
+                <div className="seg" role="group" aria-label="Пауза">
+                  {(
+                    [
+                      [7, 'Неделя'],
+                      [14, '2 недели'],
+                      [30, 'Месяц'],
+                    ] as const
+                  ).map(([d, l]) => (
+                    <button key={d} type="button" disabled={busy} onClick={() => run(() => api(`/pets/${pet.id}/pause`, { body: { days: d } }), `Пауза: ${l.toLowerCase()}`)}>
+                      {l}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <h2>Медкарта</h2>
@@ -170,7 +246,12 @@ export default function PetPage() {
           submitLabel="Сохранить изменения"
           busy={busy}
           errors={errors}
-          onSubmit={(f) => run(() => api(`/pets/${pet.id}`, { method: 'PATCH', body: f }), 'Сохранено')}
+          onSubmit={(f) =>
+            run(
+              () => api(`/pets/${pet.id}`, { method: 'PATCH', body: { ...f, sex: f.sex || null, chip: f.chip || null, housing: f.housing || null } }),
+              'Сохранено',
+            )
+          }
         />
         <button
           className="link-btn"
@@ -187,6 +268,16 @@ export default function PetPage() {
           }}
         >
           Удалить питомца
+        </button>
+        <button
+          className="link-btn"
+          disabled={busy}
+          onClick={() =>
+            confirm(`Нам очень жаль. Карточка ${pet.name} останется в профиле в память, а SOS и напоминания выключатся.`) &&
+            run(() => api(`/pets/${pet.id}/memorial`, { body: {} }), 'Карточка сохранена в памяти')
+          }
+        >
+          Питомца не стало
         </button>
       </section>
     </>

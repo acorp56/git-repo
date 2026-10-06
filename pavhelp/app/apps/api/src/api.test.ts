@@ -470,7 +470,8 @@ describe('кабинет клиники', () => {
     expect((await owner.call('GET', `/requests/${json.id}`)).json.clinicStatus).toBe('confirmed');
 
     const pet = (await donor.call('POST', '/pets', dogDonor())).json;
-    expect((await donor.call('POST', `/pets/${pet.id}/donations`, { date: '2026-09-20' })).status).toBe(400);
+    // Без клиники дата учитывается, но подтверждать некому.
+    expect((await donor.call('POST', `/pets/${pet.id}/donations`, { date: '2026-09-01' })).json.pendingConfirmation).toBe(false);
     await donor.call('POST', `/pets/${pet.id}/donations`, { date: '2026-09-20', clinicId: 'c1' });
     const cab = (await vet.call('GET', '/clinic/c1')).json;
     expect(cab.donations).toHaveLength(1);
